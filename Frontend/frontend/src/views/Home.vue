@@ -12,5 +12,25 @@
         >
         <b-card-text>BandMixer helps connect music enthusiasts of varying competencies, skill levels, and genres.</b-card-text>
         <b-card-text>BandMixer helps connect music enthusiasts.</b-card-text>
+        <p>{{ testData }}</p>
     </b-card>
 </template>
+
+<script>
+import axios from 'axios'
+
+export default {
+    data() {
+        return {
+            testData: ''
+        }
+    },
+    mounted() {
+        axios.get('https://jsonplaceholder.typicode.com/todos/1').then(response => {
+            this.testData = response.data.title
+        }).catch(error => {
+            console.log(error)
+        })
+    }
+}
+</script>
