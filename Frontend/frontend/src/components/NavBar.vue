@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-navbar toggleable="lg">
-            <b-navbar-brand href="#">MusicMate</b-navbar-brand>
+            <b-navbar-brand href="#">BandMixer</b-navbar-brand>
             <b-navbar-nav class="ml-auto">
                 <b-button class="mr-2" v-b-modal.sign-in-modal>Sign In</b-button>
                 <b-button v-b-modal.register-modal>Register</b-button>
