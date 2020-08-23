@@ -1,7 +1,15 @@
 <template>
     <b-modal id="sign-in-modal" size="lg" title="Sign In">
+        <b-form>
+            <label>Username</label>
+            <b-input v-model="username"></b-input>
+
+            <label for="text-password">Password</label>
+            <b-input type="password" v-model="password"></b-input>
+        </b-form>
+
         <template v-slot:modal-footer="{ cancel }">
-            <p class="mr-auto redirect" @click="console.log('hi')">Not registered yet? Register here.</p>
+            <p class="mr-auto redirect" @click="redirect()">Not registered yet? Register here.</p>
             <b-button size="sm" variant="success" @click="signIn()">Sign In</b-button>
             <b-button size="sm" variant="danger" @click="cancel()">Cancel</b-button>
         </template>
@@ -10,12 +18,24 @@
 
 <script>
 export default {
+    data() {
+        return {
+            username: '',
+            password: ''
+        }
+    },
     methods: {
         signIn() {
-            console.log("Attempted sign in")
+            this.$bvModal.hide('sign-in-modal')
+            this.$bvToast.toast('Welcome back to BandMixer, ' + this.username + '!', {
+                toaster: 'b-toaster-top-center',
+                title: 'Sign In Successful',
+                variant: 'success'
+            })
         },
-        cancel() {
-            console.log("Cancel")
+        redirect() {
+            this.$bvModal.hide('sign-in-modal')
+            this.$bvModal.show('register-modal')
         }
     }
 }

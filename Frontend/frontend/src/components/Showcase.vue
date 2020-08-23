@@ -20,7 +20,7 @@ export default {
                 instrument: null,
                 location: ''
             },
-            instruments: [ { text: 'What are you looking for?', value: null }, 'Guitar', 'Bass', 'Drums', 'Piano', 'Keyboard' ]
+            instruments: [ { text: 'What are you looking for?', value: null }, 'All instruments', 'Guitar', 'Bass', 'Drums', 'Piano', 'Keyboard' ]
         }
     },
     methods: {

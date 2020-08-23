@@ -11,8 +11,8 @@
         style="max-width: 65rem;"
         >
         <b-card-text>BandMixer helps connect music enthusiasts of varying competencies, skill levels, and genres.</b-card-text>
-        <b-card-text>BandMixer helps connect music enthusiasts.</b-card-text>
-        <p>{{ testData }}</p>
+        <b-card-text>Register today and start your search!</b-card-text>
+      <b-button v-b-modal.register-modal variant="primary">Get Started</b-button>
     </b-card>
 </template>
 
