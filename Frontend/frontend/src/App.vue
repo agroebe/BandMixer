@@ -3,17 +3,20 @@
     <NavBar/>
     <Showcase/>
     <router-view/> <!-- Automatically injects templates from current route -->
+    <Footer/>
   </div>
 </template>
 
 <script>
 import NavBar from './components/NavBar.vue'
 import Showcase from './components/Showcase.vue'
+import Footer from './components/Footer.vue'
 
 export default {
   components: {
     NavBar,
-    Showcase
+    Showcase,
+    Footer
   },
   mounted() {
     console.log('mounted!')
