@@ -20,11 +20,6 @@
 import axios from 'axios'
 
 export default {
-    data() {
-        return {
-            testData: ''
-        }
-    },
     mounted() {
         axios.get('https://jsonplaceholder.typicode.com/todos/1').then(response => {
             this.testData = response.data.title
