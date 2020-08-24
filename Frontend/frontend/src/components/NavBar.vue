@@ -3,8 +3,8 @@
         <b-navbar type="dark" variant="dark">
             <b-navbar-brand href="#">BandMixer</b-navbar-brand>
             <b-navbar-nav class="ml-auto">
-                <b-button class="mr-2" v-b-modal.sign-in-modal variant="primary">Sign In</b-button>
-                <b-button v-b-modal.register-modal>Register</b-button>
+                <b-button class="mr-2" v-b-modal.sign-in-modal squared variant="primary">Sign In</b-button>
+                <b-button v-b-modal.register-modal squared variant="secondary">Register</b-button>
             </b-navbar-nav>
         </b-navbar>
         <SignInModal/>
