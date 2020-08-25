@@ -32,9 +32,6 @@ export default {
         register() {
             console.log("Attempted register")
         },
-        cancel() {
-            console.log("Cancel")
-        },
         redirect() {
             this.$bvModal.hide('register-modal')
             this.$bvModal.show('sign-in-modal')
