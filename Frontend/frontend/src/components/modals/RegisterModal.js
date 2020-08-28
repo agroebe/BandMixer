@@ -17,13 +17,18 @@ export default class RegisterModal extends React.Component {
     open() {
         this.setState({ show: true })
     }
+
     close() {
         this.setState({ show: false })
     }
 
+    register() {
+        console.log('Attempted register')
+    }
+
     render() {
         return(
-            <Modal size="lg" show={ this.state.show } onHide={ this.close }>
+            <Modal size="lg" show={ this.state.show }>
                 <Modal.Header>
                     <Modal.Title>Register</Modal.Title>
                 </Modal.Header>
@@ -38,8 +43,8 @@ export default class RegisterModal extends React.Component {
                     <Form.Control type="password" value={ this.state.value } onChange={ e => this.setState({passwordConfirmation: e.target.value}) }/>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="success">Register</Button>
-                    <Button variant="danger" onClick={ this.props.onHide }>Cancel</Button>
+                    <Button variant="success" onClick={ this.register }>Register</Button>
+                    <Button variant="danger" onClick={ this.close }>Cancel</Button>
                 </Modal.Footer>
             </Modal>
         )
