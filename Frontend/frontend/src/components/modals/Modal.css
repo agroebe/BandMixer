@@ -1,0 +1,9 @@
+/* Styles shared between the SignInModal and RegisterModal used for redirect text. */
+.redirect {
+    color: blue;
+}
+
+.redirect:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
