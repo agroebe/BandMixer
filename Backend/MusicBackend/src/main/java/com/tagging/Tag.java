@@ -11,8 +11,10 @@ import com.posts.Post;
 public class Tag 
 {
 	private Long id;
-	private Long tag_id;
-	private Long skill_id;
+	private String name;
+	private Boolean allowskill;
 	
-	private Set<Post> posts = new HashSet<>();
+	@OneToMany(mappedBy="tag")
+	private Set<AppliedSkillLevel> applications;
+	
 }
