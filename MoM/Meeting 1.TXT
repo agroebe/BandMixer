@@ -1,0 +1,10 @@
+Talked generally about possible features:
+	Ex- Distance based search (so if don't want to drive too far to meet your band mates)
+
+Discussed issues we had with getting project approval. TA said he would contact Mitra about
+meeting with us for approval.
+
+Made sure we were all on the same page about meeting times.
+
+Made a backup plan if we were not able to get approved to use React.js
+	- We will switch to Android studio if we can't get approval
