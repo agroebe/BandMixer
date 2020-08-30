@@ -18,8 +18,7 @@ export default class Showcase extends React.Component {
         return(
             <Jumbotron className="text-center">
                 <h1 className="display-2">BandMixer</h1>
-                <p className="lead">Let's help you find your jam!</p>
-                <p>Start your search below</p>
+                <p className="lead">Let's help you find your jam - start your search below!</p>
                 <Form inline className="justify-content-center" onSubmit={ this.search }>
                     <Form.Control as="select" className="mr-2" onChange={ e => this.setState({ instrument: e.target.value }) } >
                         <option value={0} selected>Select what you're looking for</option>
