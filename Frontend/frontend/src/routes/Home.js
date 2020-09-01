@@ -6,7 +6,7 @@ export default class Home extends React.Component {
         return(
             <CardDeck className="mx-auto w-75">
             <Card>
-                <Card.Img variant="top" src="https://www.superprof.co.uk/blog/wp-content/uploads/2017/07/guitar-guitar-player-musician-instrument-guitarist-1060x707.jpg" />
+                <Card.Img variant="top" src="https://www.superprof.co.uk/blog/wp-content/uploads/2017/07/guitar-guitar-player-musician-instrument-guitarist-1060x707.jpg" height="275px"/>
                 <Card.Body>
                     <Card.Title>Create your musician profile</Card.Title>
                     <Card.Text>
@@ -22,7 +22,7 @@ export default class Home extends React.Component {
                 </Card.Footer>
             </Card>
             <Card>
-                <Card.Img variant="top" src="https://www.bmi.com/cache/images/news/2019/iStock-1125877063_770_514_70_s.jpg" />
+                <Card.Img variant="top" src="https://www.bmi.com/cache/images/news/2019/iStock-1125877063_770_514_70_s.jpg" height="275px"/>
                 <Card.Body>
                     <Card.Title>Start your search for bandmates</Card.Title>
                     <Card.Text>
@@ -38,7 +38,7 @@ export default class Home extends React.Component {
                 </Card.Footer>
             </Card>
             <Card>
-                <Card.Img variant="top" src="https://mentalitch.com/wp-content/uploads/2019/07/Top-British-Bands-of-the-80s.jpeg" />
+                <Card.Img variant="top" src="https://mentalitch.com/wp-content/uploads/2019/07/Top-British-Bands-of-the-80s.jpeg" height="275px"/>
                 <Card.Body>
                     <Card.Title>Start your band</Card.Title>
                     <Card.Text>
