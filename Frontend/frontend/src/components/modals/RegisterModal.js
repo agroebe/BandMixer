@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { Modal, Button, Form } from 'react-bootstrap';
 import './Modal.css'
 
@@ -24,7 +25,7 @@ export default class RegisterModal extends React.Component {
     }
 
     register() {
-        console.log('Attempted register')
+        this.close();
     }
 
     render() {
@@ -35,14 +36,16 @@ export default class RegisterModal extends React.Component {
                 </Modal.Header>
 
                 <Modal.Body>
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control type="text" onChange={ e => this.setState({ username: e.target.value }) }/>
+                    <Form>
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control type="text" onChange={ e => this.setState({ username: e.target.value }) }/>
 
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" onChange={ e => this.setState({ password: e.target.value }) }/>
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" onChange={ e => this.setState({ password: e.target.value }) }/>
 
-                    <Form.Label>Confirm Password</Form.Label>
-                    <Form.Control type="password" onChange={ e => this.setState({ passwordConfirmation: e.target.value }) }/>
+                        <Form.Label>Confirm Password</Form.Label>
+                        <Form.Control type="password" onChange={ e => this.setState({ passwordConfirmation: e.target.value }) }/>
+                    </Form>
                 </Modal.Body>
 
                 <Modal.Footer>

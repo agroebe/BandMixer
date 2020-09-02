@@ -1,5 +1,6 @@
 import React from 'react';
-import { Jumbotron, Form, Button } from 'react-bootstrap';
+import { Jumbotron, Form, Button, Badge } from 'react-bootstrap';
+import './Showcase.css'
 
 export default class Showcase extends React.Component {
     state = {
@@ -16,10 +17,10 @@ export default class Showcase extends React.Component {
 
     render() {
         return(
-            <Jumbotron className="text-center">
+            <Jumbotron className="text-center jumbo">
                 <h1 className="display-2">BandMixer</h1>
                 <p className="lead">Let's help you find your jam - start your search below!</p>
-                <Form inline className="justify-content-center" onSubmit={ this.search }>
+                <Form inline className="justify-content-center mb-3" onSubmit={ this.search }>
                     <Form.Control as="select" className="mr-2" onChange={ e => this.setState({ instrument: e.target.value }) } >
                         <option value={0} selected>Select what you're looking for</option>
                         { this.state.instrumentOptions.map((value, index) => {
@@ -29,6 +30,7 @@ export default class Showcase extends React.Component {
                     <Form.Control type="text" placeholder="ZIP code or location" className="mr-2" onChange={ e => this.setState({ location: e.target.value }) }></Form.Control>
                     <Button type="submit">Search</Button>
                 </Form>
+                <h5 className="d-inline">Confused? Try out <a href="#">our beginner tutorial</a>!</h5>
             </Jumbotron>
         )
     }
