@@ -1,0 +1,11 @@
+Meeting started with reviewing what the project is over with the TA
+Roles for frontend are Groebe and Sandor
+Roles for backend are Aidan and Tim
+Role for tech lead is Groebe
+Meeting went into Demos
+Demos:
+Tim showed the current work on the backend which included a springboot generator
+Aidan ran a hello world program and a sql server that took http requests and added them to a data base
+Groebe showed the front end inculding the current state of the website and its domains
+Sandor ran a hellow world react program and created simple sql tables
+Meeting ended shortly after demos
