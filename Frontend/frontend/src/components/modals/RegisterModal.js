@@ -14,6 +14,7 @@ export default class RegisterModal extends React.Component {
         };
 
         this.close = this.close.bind(this);
+        this.register = this.register.bind(this);
     }
 
     open() {
@@ -26,6 +27,14 @@ export default class RegisterModal extends React.Component {
 
     register() {
         this.close();
+        const user = {
+            name: this.state.username,
+            email: this.state.password
+        }
+
+        axios.post('http://localhost:8080/experiment/add?name=' + this.state.username + '&email=' + this.state.password).then(response => {
+            console.log(response)
+        })
     }
 
     render() {
