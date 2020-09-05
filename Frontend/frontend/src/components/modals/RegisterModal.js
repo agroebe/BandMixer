@@ -37,14 +37,21 @@ export default class RegisterModal extends React.Component {
 
                 <Modal.Body>
                     <Form>
-                        <Form.Label>Username</Form.Label>
-                        <Form.Control type="text" onChange={ e => this.setState({ username: e.target.value }) }/>
+                        <Form.Group>
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control type="text" onChange={ e => this.setState({ username: e.target.value }) }/>
+                            <Form.Text className="text-muted">A valid username must be at least 6 characters in length</Form.Text>
+                        </Form.Group>
 
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" onChange={ e => this.setState({ password: e.target.value }) }/>
+                        <Form.Group>
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" onChange={ e => this.setState({ password: e.target.value }) }/>
+                        </Form.Group>
 
-                        <Form.Label>Confirm Password</Form.Label>
-                        <Form.Control type="password" onChange={ e => this.setState({ passwordConfirmation: e.target.value }) }/>
+                        <Form.Group>
+                            <Form.Label>Confirm Password</Form.Label>
+                            <Form.Control type="password" onChange={ e => this.setState({ passwordConfirmation: e.target.value }) }/>
+                        </Form.Group>
                     </Form>
                 </Modal.Body>
 
