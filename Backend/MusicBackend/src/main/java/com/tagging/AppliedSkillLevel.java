@@ -1,5 +1,5 @@
 package com.tagging;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 import com.posts.Post;
 
@@ -19,10 +19,29 @@ public class AppliedSkillLevel
 	@JoinColumn(name = "tag_id")
 	Tag tag;
 	
-	@Column(name = "skill_id")
-	private Long skillId;
 	
 	@ManyToOne
 	@JoinColumn(name = "skill_id")
 	SkillLevel level;
+	
+	public AppliedSkillLevel(Long postId, Long tagID, SkillLevel level)
+	{
+		id = new TagSkillLevelKey(postId, tagID);
+		this.level = level;
+	}
+	
+	public AppliedSkillLevel(Long postId, Long tagId)
+	{
+		this(postId, tagId, null);
+	}
+	
+	public SkillLevel getSkillLevel()
+	{
+		
+	}
+	
+	public void setSkillLevel(SkillLevel level)
+	{
+		
+	}
 }

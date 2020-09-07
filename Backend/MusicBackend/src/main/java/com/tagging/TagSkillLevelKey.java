@@ -2,6 +2,7 @@ package com.tagging;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.*;
 
 @Embeddable
 public class TagSkillLevelKey implements Serializable
