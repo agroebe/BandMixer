@@ -13,7 +13,7 @@ public class TagSkillLevelKey implements Serializable
 	@Column(name = "tag_id")
 	private Long tagId;
 	
-	public TagSkillLevelKey() {}
+	TagSkillLevelKey() {}
 	
 	public TagSkillLevelKey(Long postId, Long tagId)
 	{

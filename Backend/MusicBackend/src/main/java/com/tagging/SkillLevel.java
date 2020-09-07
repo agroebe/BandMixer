@@ -21,4 +21,60 @@ public class SkillLevel
 	
 	@OneToMany(mappedBy="level")
 	private Set<AppliedSkillLevel> applications;
+	
+	SkillLevel() {}
+	
+	public SkillLevel(String levelName, int levelValue)
+	{
+		if(levelName == null)
+		{
+			throw new NullPointerException("Skill level initialized with a null name.");
+		}
+		else if(levelValue < 0)
+		{
+			throw new IllegalArgumentException("Skill level initialized with a negative value");
+		}
+		name = levelName;
+		value = levelValue;
+	}
+	
+	public Long getId()
+	{
+		return id;
+	}
+	
+	public String getName()
+	{
+		return name;
+	}
+	
+	public Integer getValue()
+	{
+		return value;
+	}
+	
+	public boolean setName(String name)
+	{
+		if(name != null && ! name.equals(""))
+		{
+			this.name = name;
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean setValue(Integer value)
+	{
+		if(value != null && value >= 0)
+		{
+			this.value = value;
+			return true;
+		}
+		return false;
+	}
+	
+	public Set<AppliedSkillLevel> getApplications()
+	{
+		return applications;
+	}
 }
