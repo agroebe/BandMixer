@@ -43,6 +43,15 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		<dependency>
+
+            <groupId>org.hibernate.validator</groupId>
+
+            <artifactId>hibernate-validator</artifactId>
+
+            <version>${org.hibernate.validator.version}</version>
+
+        </dependency>
 	</dependencies>
 
 	<build>
