@@ -1,9 +1,6 @@
 package com.posts;
-import javax.persistence.Entity;
+import javax.persistence.*;
 
-import com.tagging.Column;
-import com.tagging.GeneratedValue;
-import com.tagging.Id;
 
 @Entity
 @Table(name="POST_CONTENT")

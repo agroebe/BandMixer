@@ -1,4 +1,6 @@
 package com.tagging;
+import org.hibernate.annotations.Check;
+
 import java.util.Set;
 
 import javax.persistence.*;
