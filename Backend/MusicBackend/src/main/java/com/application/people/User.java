@@ -1,4 +1,4 @@
-package com.people;
+package com.application.people;
 
 import javax.persistence.*;
 
@@ -13,6 +13,8 @@ public class User
 
     private String email;
     private String username;
+    
+    public User() {}
 
     public Long getId(){
         return id;

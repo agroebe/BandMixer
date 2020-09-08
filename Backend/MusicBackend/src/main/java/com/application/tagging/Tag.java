@@ -1,11 +1,12 @@
-package com.tagging;
+package com.application.tagging;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.*;
 
-import com.posts.Post;
+import com.application.posts.Post;
 
 @Entity
 @Table(name="TAGS")
@@ -23,7 +24,8 @@ public class Tag
 	private Boolean allowskill;
 	
 	@OneToMany(mappedBy="tag")
-	private Set<AppliedSkillLevel> applications;
+	@MapKey(name="id")
+	private Map<TagSkillLevelKey, AppliedSkillLevel> applications;
 	
 	Tag(){}
 	
@@ -57,7 +59,7 @@ public class Tag
 		return allowskill;
 	}
 	
-	public Set<AppliedSkillLevel> getApplications()
+	public Map<TagSkillLevelKey, AppliedSkillLevel> getApplications()
 	{
 		return applications;
 	}

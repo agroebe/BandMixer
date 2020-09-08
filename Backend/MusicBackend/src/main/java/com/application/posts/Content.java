@@ -1,4 +1,4 @@
-package com.posts;
+package com.application.posts;
 import javax.persistence.*;
 
 

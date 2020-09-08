@@ -1,4 +1,4 @@
-package com.tagging;
+package com.application.tagging;
 import org.hibernate.annotations.Check;
 
 import java.util.Set;

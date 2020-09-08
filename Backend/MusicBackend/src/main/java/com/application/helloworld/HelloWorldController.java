@@ -1,4 +1,4 @@
-package com.helloworld;
+package com.application.helloworld;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.RequestMapping;

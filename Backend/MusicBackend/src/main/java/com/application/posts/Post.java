@@ -1,8 +1,9 @@
-package com.posts;
+package com.application.posts;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.*;
-import com.tagging.*;
+import com.application.tagging.*;
 
 @Entity
 @Table(name="POSTS")
@@ -30,7 +31,8 @@ public class Post
 	private Content content;
 	
 	@OneToMany(mappedBy="post")
-	private Set<AppliedSkillLevel> tags;
+	@MapKey(name="id")
+	private Map<TagSkillLevelKey, AppliedSkillLevel> tags;
 	
 	Post(){}
 	
@@ -73,7 +75,7 @@ public class Post
 		return textContent;
 	}
 	
-	public Set<AppliedSkillLevel> getAppliedTags()
+	public Map<TagSkillLevelKey, AppliedSkillLevel> getAppliedTags()
 	{
 		return tags;
 	}
@@ -81,5 +83,32 @@ public class Post
 	public void setTextContent(String text)
 	{
 		textContent = text;
+	}
+	
+	public boolean addTag(Tag tag, SkillLevel level)
+	{
+		if(tags.containsKey(tag.getId()))
+		{
+			return false;
+		}
+		//AppliedSkillLevel
+		return true;
+	}
+	
+	public boolean addTag(Tag tag)
+	{
+		return false;
+	}
+	
+	public boolean removeTag(Tag tag)
+	{
+		return false;
+		
+	}
+	
+	public boolean setTagSkill(Tag tag, SkillLevel level)
+	{
+		return false;
+		
 	}
 }
