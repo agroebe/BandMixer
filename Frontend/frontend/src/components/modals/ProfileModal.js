@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Modal, Button, Accordion, Card } from 'react-bootstrap';
 import './Modal.css'
 
 export default class ProfileModal extends Component {
@@ -28,6 +28,47 @@ export default class ProfileModal extends Component {
         this.close();
     }
 
+    
+    
+      
+      Instruments() {
+        return (
+          <Accordion defaultActiveKey="0">
+            <Card>
+              <Card.Header>
+              <button
+                    type="button"
+                    eventKey="0"
+                    style={{ backgroundColor: 'pink' }}
+                   // onClick={decoratedOnClick}
+                    >
+                    Click me!
+                    </button>
+              </Card.Header>
+              <Accordion.Collapse eventKey="0">
+                <Card.Body onClick>Hello! I'm the body</Card.Body>
+              </Accordion.Collapse>
+            </Card>
+            <Card>
+              <Card.Header>
+                      
+                    <button
+                    eventKey="1"
+                    type="button"
+                    style={{ backgroundColor: 'pink' }}
+                   // onClick={decoratedOnClick}
+                    >
+                    Click me!
+                    </button>
+                
+              </Card.Header>
+              <Accordion.Collapse eventKey="1">
+                <Card.Body>Hello! I'm another body</Card.Body>
+              </Accordion.Collapse>
+            </Card>
+          </Accordion>
+        );
+      }
     render() {
         return(
             <>
@@ -37,11 +78,9 @@ export default class ProfileModal extends Component {
                     </Modal.Header>
 
                     <Modal.Body>
-                        <Form.Label>Username</Form.Label>
-                        <Form.Control type="text" onChange={ e => this.setState({ username: e.target.value }) }/>
-
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" onChange={ e => this.setState({ password: e.target.value }) }/>
+                       
+                    <this.Instruments />
+                       
                     </Modal.Body>
 
                     <Modal.Footer>
