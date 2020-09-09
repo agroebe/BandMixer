@@ -78,7 +78,7 @@ public class TagController
     }
     
     @GetMapping(path="/fetch")
-    public Tag getByName(@RequestParam String name)
+    public @ResponseBody Tag getByName(@RequestParam String name)
     {
     	Optional<Tag> tag = tagRepository.findByName(name);
     	if(!tag.isPresent())

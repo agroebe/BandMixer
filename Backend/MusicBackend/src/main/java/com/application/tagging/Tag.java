@@ -23,8 +23,7 @@ public class Tag
 	private String name;
 	
 	@Column(name = "has_skill", nullable=false)
-	@Type(type = "org.hibernate.type.NumericBooleanType")
-	private Boolean allowskill;
+	private Integer allowskill;
 	
 	@OneToMany(mappedBy="tag")
 	@MapKey(name="id")
@@ -39,7 +38,7 @@ public class Tag
 			throw new NullPointerException("Tag initialized with a null name.");
 		}
 		this.name = name;
-		this.allowskill = allowsSkill;
+		this.allowskill = (allowsSkill ? 1 : 0);
 	}
 	
 	public Tag(String name)
@@ -59,7 +58,7 @@ public class Tag
 	
 	public Boolean allowsSkill()
 	{
-		return allowskill;
+		return (allowskill==0 ? false : true);
 	}
 	
 	public Map<TagSkillLevelKey, AppliedSkillLevel> getApplications()
@@ -69,7 +68,7 @@ public class Tag
 	
 	public boolean setAllowsSkill(boolean allow)
 	{
-		allowskill = allow;
+		allowskill = (allow ? 1 : 0);
 		return true;
 	}
 	
