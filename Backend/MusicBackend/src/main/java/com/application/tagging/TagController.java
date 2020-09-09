@@ -77,8 +77,8 @@ public class TagController
     	return "Updated";
     }
     
-    @GetMapping(path="/fetch/{name}")
-    public Tag getByName(@PathVariable String name)
+    @GetMapping(path="/fetch")
+    public Tag getByName(@RequestParam String name)
     {
     	Optional<Tag> tag = tagRepository.findByName(name);
     	if(!tag.isPresent())

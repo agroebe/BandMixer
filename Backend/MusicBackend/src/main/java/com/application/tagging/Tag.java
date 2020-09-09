@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.Type;
+
 import com.application.posts.Post;
 
 @Entity
@@ -21,6 +23,7 @@ public class Tag
 	private String name;
 	
 	@Column(name = "has_skill", nullable=false)
+	@Type(type = "org.hibernate.type.NumericBooleanType")
 	private Boolean allowskill;
 	
 	@OneToMany(mappedBy="tag")
