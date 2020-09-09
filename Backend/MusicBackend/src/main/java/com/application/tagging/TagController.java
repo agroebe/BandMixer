@@ -45,6 +45,7 @@ public class TagController
     	Tag toUpdate = member.get();
     	toUpdate.setName(newName);
     	toUpdate.setAllowsSkill(allowSkill);
+    	tagRepository.save(toUpdate);
     	return "Updated";
     }
     
@@ -58,6 +59,7 @@ public class TagController
     	Optional<Tag> member = tagRepository.findByName(oldName);
     	Tag toUpdate = member.get();
     	toUpdate.setName(newName);
+    	tagRepository.save(toUpdate);
     	return "Updated";
     }
     
@@ -71,10 +73,11 @@ public class TagController
     	Optional<Tag> member = tagRepository.findByName(oldName);
     	Tag toUpdate = member.get();
     	toUpdate.setAllowsSkill(allowSkill);
+    	tagRepository.save(toUpdate);
     	return "Updated";
     }
     
-    @GetMapping(path="fetch/{name}")
+    @GetMapping(path="/fetch/{name}")
     public Tag getByName(@PathVariable String name)
     {
     	Optional<Tag> tag = tagRepository.findByName(name);
