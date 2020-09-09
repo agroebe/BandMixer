@@ -1,0 +1,1 @@
+{"version":3,"sources":["Modal.css"],"names":[],"mappings":"AACA,UACI,UACJ,CAEA,gBACI,yBAA0B,CAC1B,cACJ","file":"main.b4aa7b17.chunk.css","sourcesContent":["/* Styles shared between the SignInModal and RegisterModal used for redirect text. */\r\n.redirect {\r\n    color: blue;\r\n}\r\n\r\n.redirect:hover {\r\n    text-decoration: underline;\r\n    cursor: pointer;\r\n}"]}
