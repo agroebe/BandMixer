@@ -87,7 +87,7 @@ public class Post
 	
 	public boolean addTag(Tag tag, SkillLevel level)
 	{
-		if(tags.containsKey(tag.getId()))
+		if(tags.containsKey(new TagSkillLevelKey(this.id,tag.getId())))
 		{
 			return false;
 		}
