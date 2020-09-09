@@ -56,7 +56,7 @@ public class Tag
 		return name;
 	}
 	
-	public Boolean allowsSkill()
+	public Boolean getAllowskill()
 	{
 		return (allowskill==0 ? false : true);
 	}
