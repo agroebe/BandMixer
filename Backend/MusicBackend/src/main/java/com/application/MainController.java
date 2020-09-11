@@ -2,6 +2,7 @@ package com.application;
 import com.application.people.UserRepository;
 import com.application.people.User;
 import com.application.tagging.Tag;
+import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,11 +19,14 @@ public class MainController {
     @PostMapping(path="/add") //Map only POST requests
     @CrossOrigin
     public @ResponseBody String addNewUser(@RequestParam String name, @RequestParam String email, @RequestParam String password){
+        BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
         User n = new User();
         n.setEmail(email);
         n.setName(name);
+        //Encrypt Password
+        password = passwordEncryptor.encryptPassword(password);
         n.setPassword(password);
         userRepository.save(n);
         return "Saved";
