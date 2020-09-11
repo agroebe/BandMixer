@@ -13,6 +13,7 @@ public class User
 
     private String email;
     private String username;
+    private String password;
     
     public User() {}
 
@@ -23,6 +24,10 @@ public class User
     public void setId(Long id){
         this.id = id;
     }
+
+    public void setPassword(String password){this.password = password;}
+
+    public String getPassword(){return password;}
 
     public String getName(){
         return username;
