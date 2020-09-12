@@ -25,7 +25,7 @@ public class PostController
     }
 	
 	@GetMapping(path="/fetch")
-    public @ResponseBody Post getById(@RequestParam Integer id)
+    public @ResponseBody Post getById(@RequestParam Long id)
     {
     	Optional<Post> post = postRepository.findById(id);
     	if(!post.isPresent())
@@ -45,7 +45,7 @@ public class PostController
 	}
 	
 	@PostMapping(path="/update")
-    public @ResponseBody String updatePost(@RequestParam Integer id, @RequestParam(required=false) String newTitle, @RequestParam(required=false) String newText)
+    public @ResponseBody String updatePost(@RequestParam Long id, @RequestParam(required=false) String newTitle, @RequestParam(required=false) String newText)
     {
 		if(newTitle == null && newText == null)
 		{

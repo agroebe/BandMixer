@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface TagRepository extends CrudRepository<Tag,Integer> 
+public interface TagRepository extends CrudRepository<Tag,Long> 
 {
 	public Optional<Tag> findByName(String name);
 }
