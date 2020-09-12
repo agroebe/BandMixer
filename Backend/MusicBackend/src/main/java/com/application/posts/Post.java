@@ -85,6 +85,11 @@ public class Post
 		textContent = text;
 	}
 	
+	public void setTitle(String newTitle)
+	{
+		title = newTitle;
+	}
+	
 	public boolean addTag(Tag tag, SkillLevel level)
 	{
 		if(tags.containsKey(new TagSkillLevelKey(this.id,tag.getId())))
