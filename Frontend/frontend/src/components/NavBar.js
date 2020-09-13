@@ -37,13 +37,13 @@ export default class NavBar extends React.Component {
                 <Navbar.Collapse className="justify-content-end">
                     <Button variant="primary" className="mr-2" onClick={ this.openSignInModal }>Sign In</Button>
                     <Button variant="secondary" onClick={ this.openRegisterModal }>Register</Button>
-                    <Button variant="primary" onClick={ this.openProfileModal }>Profile</Button>
+                    {/* <Button variant="primary" onClick={ this.openProfileModal }>Profile</Button> */}
                 </Navbar.Collapse>
 
                 { /* Modals for registering and signing in. */ }
                 <RegisterModal ref={ (modal) => { this.registerModal = modal } } openSignInModal={ this.openSignInModal }/>
                 <SignInModal ref={ (modal) => { this.signInModal = modal } } openRegisterModal={ this.openRegisterModal }/>
-                <ProfileModal ref={ (modal) => { this.profileModal = modal } } openProfileModal={ this.openProfileModal }/>
+                {/* <ProfileModal ref={ (modal) => { this.profileModal = modal } } openProfileModal={ this.openProfileModal }/> */}
 
             </Navbar>
         )
