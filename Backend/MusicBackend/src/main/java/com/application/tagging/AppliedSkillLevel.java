@@ -9,32 +9,54 @@ public class AppliedSkillLevel
 	@EmbeddedId
 	TagSkillLevelKey id;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@MapsId("post_id")
 	@JoinColumn(name = "post_id")
 	Post post;
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@MapsId("tag_id")
 	@JoinColumn(name = "tag_id")
 	Tag tag;
 	
 	
-	@ManyToOne
+	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name = "skill_id")
 	SkillLevel level;
 	
 	AppliedSkillLevel() {}
 	
-	public AppliedSkillLevel(Long postId, Long tagID, SkillLevel level)
+	public AppliedSkillLevel(Post post, Tag tag, SkillLevel level)
 	{
-		id = new TagSkillLevelKey(postId, tagID);
+		this.post = post;
+		this.tag = tag;
 		this.level = level;
+		this.id = new TagSkillLevelKey(post.getId(),tag.getId());
+		post.getAppliedTags().put(id, this);
+		tag.getApplications().put(id, this);
+		if(level != null)
+		{
+			level.getApplications().add(this);
+		}
 	}
 	
-	public AppliedSkillLevel(Long postId, Long tagId)
+	public AppliedSkillLevel(Post post, Tag tag)
 	{
-		this(postId, tagId, null);
+		this(post, tag, null);
+	}
+	
+	public void remove(AppliedSkillLevelRepository rep)
+	{
+		tag.getApplications().remove(id);
+		post.getAppliedTags().remove(id);
+		if(level != null)
+		{
+			level.getApplications().remove(this);
+		}
+		if(rep != null)
+		{
+			rep.delete(this);
+		}
 	}
 	
 	public SkillLevel getSkillLevel()
