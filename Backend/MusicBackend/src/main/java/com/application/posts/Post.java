@@ -30,7 +30,7 @@ public class Post
 	@JoinColumn(name="content_id")
 	private Content content;
 	
-	@OneToMany(mappedBy="post")
+	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="post")
 	@MapKey(name="id")
 	private Map<TagSkillLevelKey, AppliedSkillLevel> tags;
 	
@@ -90,30 +90,54 @@ public class Post
 		title = newTitle;
 	}
 	
-	public boolean addTag(Tag tag, SkillLevel level)
+	public boolean addTag(AppliedSkillLevelRepository rep, Tag tag, SkillLevel level)
 	{
 		if(tags.containsKey(new TagSkillLevelKey(this.id,tag.getId())))
 		{
 			return false;
 		}
-		//AppliedSkillLevel
+		AppliedSkillLevel app = new AppliedSkillLevel(this, tag, level);
+		rep.save(app);
 		return true;
 	}
 	
-	public boolean addTag(Tag tag)
+	public boolean addTag(AppliedSkillLevelRepository rep, Tag tag)
 	{
-		return false;
+		return addTag(rep, tag, null);
 	}
 	
-	public boolean removeTag(Tag tag)
+	public boolean removeTag(AppliedSkillLevelRepository rep, Tag tag)
 	{
-		return false;
-		
+		TagSkillLevelKey key = new TagSkillLevelKey(this.id,tag.getId());
+		if(!tags.containsKey(key))
+		{
+			return false;
+		}
+		AppliedSkillLevel level = tags.get(key);
+		level.remove(rep);
+		return true;
+	}
+	
+	public void remove(AppliedSkillLevelRepository rep, PostRepository myRep)
+	{
+		for(AppliedSkillLevel tag : tags.values())
+		{
+			tag.remove(rep);
+		}
+		if(rep != null)
+		{
+			myRep.delete(this);
+		}
 	}
 	
 	public boolean setTagSkill(Tag tag, SkillLevel level)
 	{
-		return false;
-		
+		TagSkillLevelKey key = new TagSkillLevelKey(this.id,tag.getId());
+		if(!tags.containsKey(key))
+		{
+			return false;
+		}
+		tags.get(key).setSkillLevel(level);
+		return true;
 	}
 }

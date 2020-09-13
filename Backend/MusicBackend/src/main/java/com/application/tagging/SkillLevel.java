@@ -79,4 +79,16 @@ public class SkillLevel
 	{
 		return applications;
 	}
+	
+	public void remove(AppliedSkillLevelRepository rep, SkillLevelRepository myRep)
+	{
+		for(AppliedSkillLevel application : applications)
+		{
+			application.remove(rep);
+		}
+		if(rep != null)
+		{
+			myRep.delete(this);
+		}
+	}
 }

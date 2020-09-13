@@ -1,14 +1,10 @@
 package com.application.tagging;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import javax.persistence.*;
 
-import org.hibernate.annotations.Type;
 
-import com.application.posts.Post;
 
 @Entity
 @Table(name="TAGS")
@@ -25,7 +21,7 @@ public class Tag
 	@Column(name = "has_skill", nullable=false)
 	private Integer allowskill;
 	
-	@OneToMany(mappedBy="tag")
+	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="tag")
 	@MapKey(name="id")
 	private Map<TagSkillLevelKey, AppliedSkillLevel> applications;
 	
@@ -80,5 +76,17 @@ public class Tag
 			return true;
 		}
 		return false;
+	}
+	
+	public void remove(AppliedSkillLevelRepository rep, TagRepository myRep)
+	{
+		for(AppliedSkillLevel application : applications.values())
+		{
+			application.remove(rep);
+		}
+		if(rep != null)
+		{
+			myRep.delete(this);
+		}
 	}
 }
