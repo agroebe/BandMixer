@@ -9,7 +9,7 @@ public class User
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Long id;
+    private Long ID;
 
     private String email;
 
@@ -21,11 +21,11 @@ public class User
     public User() {}
 
     public Long getId(){
-        return id;
+        return ID;
     }
 
     public void setId(Long id){
-        this.id = id;
+        this.ID = id;
     }
 
     public void setPassword(String password){this.password = password;}

@@ -50,4 +50,15 @@ public class MainController {
         //Returns a JSON or XML document with the users in it
         return userRepository.findAll();
     }
+
+    @PostMapping(path="/remove")
+    @CrossOrigin
+    public @ResponseBody String removeUser(@RequestParam Long id){
+        if(userRepository.findByID(id) != null){
+            userRepository.delete(userRepository.findByID(id));
+            return "user deleted";
+        }else{
+            return "user doesn't exist";
+        }
+    }
 }
