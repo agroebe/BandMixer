@@ -22,7 +22,7 @@ public class MainController {
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-        if(userRepository.findByUsername(name) != null && userRepository.findByEmail(email) != null){
+        if(userRepository.findByUsername(name) != null || userRepository.findByEmail(email) != null){
             return "user already exists";
         }
         User n = new User();
