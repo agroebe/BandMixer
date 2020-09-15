@@ -3,6 +3,7 @@ import com.application.people.UserRepository;
 import com.application.people.User;
 import com.application.tagging.Tag;
 import org.jasypt.util.password.BasicPasswordEncryptor;
+import org.jasypt.util.password.PasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -61,4 +62,27 @@ public class MainController {
             return "user doesn't exist";
         }
     }
+
+    @PostMapping(path="/login")
+    @CrossOrigin
+    public @ResponseBody String userLoginUsername(@RequestParam String loginID, @RequestParam String password){
+        BasicPasswordEncryptor encryptor = new BasicPasswordEncryptor();
+        if(userRepository.findByUsername(loginID) != null){
+            if(encryptor.checkPassword(password, userRepository.findByUsername(loginID).getPassword()) == true){
+                return "login successful";
+            }else{
+                return "incorrect password";
+            }
+        }else if(userRepository.findByEmail(loginID) != null){
+            if(encryptor.checkPassword(password, userRepository.findByEmail(loginID).getPassword()) == true){
+                return "login successful";
+            }else{
+                return "incorrect password";
+            }
+        }else{
+            return "no user registered under this loginID";
+        }
+    }
+
+
 }
