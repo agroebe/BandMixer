@@ -65,7 +65,7 @@ public class MainController {
 
     @PostMapping(path="/login")
     @CrossOrigin
-    public @ResponseBody String userLoginUsername(@RequestParam String loginID, @RequestParam String password){
+    public @ResponseBody String userLogin(@RequestParam String loginID, @RequestParam String password){
         BasicPasswordEncryptor encryptor = new BasicPasswordEncryptor();
         if(userRepository.findByUsername(loginID) != null){
             if(encryptor.checkPassword(password, userRepository.findByUsername(loginID).getPassword()) == true){
