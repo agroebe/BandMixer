@@ -1,0 +1,8 @@
+Minutes
+0 9/17/2020
+1 Andrew Sandor, Andrew Groebe, Timothy Schommer, and Aidan Webster
+2 Set up password and username connection with backend. Also now verifying password and username when logging in.
+3 Discussed current proggres on project. Ability for both ends to connect and talk to each other. Profile page and
+advanced search page have been set up.
+4 Plan to continue adding stuff and preparing for demo 2. Adding more functionality to the front end and attaching
+users to posts.

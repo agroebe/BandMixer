@@ -28,10 +28,6 @@ export default class RegisterModal extends React.Component {
 
     register() {
         this.close();
-
-        axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users/add?name=' + this.state.username + '&email=' + this.state.email + '&password=' + this.state.password).then(response => {
-            console.log(response)
-        })
     }
 
     render() {
@@ -43,25 +39,14 @@ export default class RegisterModal extends React.Component {
 
                 <Modal.Body>
                     <Form>
-                        <Form.Group>
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control type="text" onChange={ e => this.setState({ email: e.target.value }) }/>
-                        </Form.Group>
+                        <Form.Label>Username</Form.Label>
+                        <Form.Control type="text" onChange={ e => this.setState({ username: e.target.value }) }/>
 
-                        <Form.Group>
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control type="text" onChange={ e => this.setState({ username: e.target.value }) }/>
-                        </Form.Group>
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" onChange={ e => this.setState({ password: e.target.value }) }/>
 
-                        <Form.Group>
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" onChange={ e => this.setState({ password: e.target.value }) }/>
-                        </Form.Group>
-
-                        <Form.Group>
-                            <Form.Label>Confirm Password</Form.Label>
-                            <Form.Control type="password" onChange={ e => this.setState({ passwordConfirmation: e.target.value }) }/>
-                        </Form.Group>
+                        <Form.Label>Confirm Password</Form.Label>
+                        <Form.Control type="password" onChange={ e => this.setState({ passwordConfirmation: e.target.value }) }/>
                     </Form>
                 </Modal.Body>
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Modal, Button, ButtonGroup, Container, Row, Col, Image } from 'react-bootstrap';
 import './Modal.css'
 
-export default class ProfileModal extends Component {
+export default class EditProfileModal extends Component {
     constructor(props) {
         super(props);
         console.log(props)
@@ -14,7 +14,6 @@ export default class ProfileModal extends Component {
 
         this.close = this.close.bind(this);
         this.signIn = this.signIn.bind(this);
-        this.openEditProfileModal = this.openEditProfileModal.bind(this);
     }
 
     open() {
@@ -28,11 +27,7 @@ export default class ProfileModal extends Component {
     signIn() {
         this.close();
     }
-    openEditProfileModal() {
-     
-      this.EditProfileModal.open()
-      this.close();
-     }
+
     
     
       
@@ -42,47 +37,54 @@ export default class ProfileModal extends Component {
             <>
                 <Modal size="lg" show={ this.state.show } onHide={ this.close }>
                     <Modal.Header>
-                        <Modal.Title>User Profile</Modal.Title>
+                        <Modal.Title>Edit Profile</Modal.Title>
                     </Modal.Header>
 
                     <Modal.Body>
                     <Container>
                       <Row>
-                        <Col> <h1>
-                                Username
-                              </h1>
-                              <h2>
-                                Singer in random band
-                              </h2>
+                        <Col> 
+                            <Form>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>Edit Username</Form.Label>
+                                    <Form.Control type="username" placeholder="enter new username" />
+                                    
+                                </Form.Group>
+
+                                <Form.Group controlId="formBasicBio">
+                                    <Form.Label>Band Bio</Form.Label>
+                                    <Form.Control type="bio" placeholder="Bio" />
+                                </Form.Group>
+                            
+
+                                <Button variant="primary" type="submit">
+                                    Submit
+                                </Button>
+                                </Form>
                               </Col>
-                        <Col xs={1} md={4}>
-                          <Image src="holder.js/171x180" roundedCircle />
+                        <Col xs={6} md={4}>
+                          <Button variant="primary">Change Picture</Button>
                         </Col>
                       
                       </Row>
                       <Row>
                         <Col>
-                        <h2>Instruments:
-
-                          </h2>
-                          <h3>Guitar</h3>
-                          <h3>Bass</h3>
+                        <ButtonGroup className="mr-2" aria-label="Instruments">
+                          <Button variant="secondary">Guitar</Button>{' '}
+                          <Button variant="secondary">Piano</Button>{' '}
+                          <Button variant="secondary">Bass</Button>{' '}
+                          <Button variant="secondary">Singer</Button>
+                        </ButtonGroup>
                         </Col>
                         <Col>
-                          <h3>
-                            Skill Level:
 
-                          </h3>
-                          <h4>3</h4>
-                          <h4>5</h4>
                         </Col>
                         <Col>
-                          <h2>Contact:</h2>
+                          <h2>Contact</h2>
                           <h3>sample@gmail.com</h3>
                           <h3>123-456-7890</h3>
                         </Col>
                       </Row>
-    
                       
                     
                       </Container>
@@ -92,8 +94,6 @@ export default class ProfileModal extends Component {
                         <p className="redirect mr-auto" onClick={ this.props.openRegisterModal }>Don't have an account? Register here</p>
                         <Button variant="success" onClick={ this.signIn }>Sign In</Button>
                         <Button variant="danger" onClick={ this.close }>Cancel</Button>
-                        { <Button variant="primary" onClick={ this.openEditProfileModal }>Edit Profile</Button> }
-                      {<ProfileModal ref={ (modal) => { this.EditProfileModal = modal } } openEditProfileModal={ this.openEditProfileModal }/> }
                     </Modal.Footer>
                 </Modal>
             </>
