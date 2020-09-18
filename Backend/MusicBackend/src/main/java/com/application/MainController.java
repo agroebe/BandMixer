@@ -24,15 +24,10 @@ public class MainController {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
-        String nameAndEmailCheck = "";
         if(userRepository.findByUsername(name) != null){
-            nameAndEmailCheck += "username is taken";
-        }
-        if(userRepository.findByEmail(email) != null){
-            nameAndEmailCheck += "\nemail is already registered";
-        }
-        if(nameAndEmailCheck.length() > 0){
-            return nameAndEmailCheck;
+            return "username is taken";
+        }else if(userRepository.findByEmail(email) != null){
+            return "email is already registered";
         }
 
         User n = new User();
@@ -63,7 +58,7 @@ public class MainController {
         }
     }
 
-    @PostMapping(path="/login")
+    @GetMapping(path="/login")
     @CrossOrigin
     public @ResponseBody String userLogin(@RequestParam String loginID, @RequestParam String password){
         BasicPasswordEncryptor encryptor = new BasicPasswordEncryptor();
