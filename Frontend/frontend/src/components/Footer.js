@@ -4,7 +4,7 @@ import { Row, Col } from 'react-bootstrap';
 export default class Footer extends React.Component {
     render() {
         return(
-            <footer className="text-center text-light bg-dark mt-3 py-1 pt-2">
+            <footer className="text-center text-light bg-dark">
                 <Row>
                     <Col>
                         <strong><u>About</u></strong>
