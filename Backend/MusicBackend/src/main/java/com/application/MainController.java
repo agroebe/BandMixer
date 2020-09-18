@@ -58,7 +58,7 @@ public class MainController {
         }
     }
 
-    @GetMapping(path="/login")
+    @PostMapping(path="/login")
     @CrossOrigin
     public @ResponseBody String userLogin(@RequestParam String loginID, @RequestParam String password){
         BasicPasswordEncryptor encryptor = new BasicPasswordEncryptor();
