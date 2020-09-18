@@ -11,6 +11,8 @@ export default class RegisterModal extends React.Component {
             email: '',
             password: '',
             passwordConfirmation: '',
+            response: '',
+            responseExists: false,
             show: false
         };
 
@@ -26,8 +28,21 @@ export default class RegisterModal extends React.Component {
         this.setState({ show: false })
     }
 
-    register() {
-        this.close();
+    register(e) {
+        e.preventDefault()
+
+        if (this.state.password !== this.state.passwordConfirmation) {
+            this.setState({ response: 'It looks like your passwords don\'t match, try confirming again!', responseExists: true })
+            return;
+        }
+
+        this.setState({ responseExists: false })
+
+        axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users/add?name=' + this.state.username + '&email=' + this.state.email + '&password=' + this.state.password).then(r => {
+            this.setState({ response: r.data, responseExists: true })
+        })
+
+        // this.close();
     }
 
     render() {
@@ -38,23 +53,40 @@ export default class RegisterModal extends React.Component {
                 </Modal.Header>
 
                 <Modal.Body>
-                    <Form>
-                        <Form.Label>Username</Form.Label>
-                        <Form.Control type="text" onChange={ e => this.setState({ username: e.target.value }) }/>
+                    <Form onSubmit={this.register}>
+                        <Form.Group>
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control required type="email" onChange={ e => this.setState({ email: e.target.value }) }/>
+                            <Form.Control.Feedback type="invalid">
+                                Please provide a valid state.
+                            </Form.Control.Feedback>
+                        </Form.Group>
 
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" onChange={ e => this.setState({ password: e.target.value }) }/>
+                        <Form.Group>
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control required type="text" onChange={ e => this.setState({ username: e.target.value }) }/>
+                        </Form.Group>
 
-                        <Form.Label>Confirm Password</Form.Label>
-                        <Form.Control type="password" onChange={ e => this.setState({ passwordConfirmation: e.target.value }) }/>
+                        <Form.Group>
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control required type="password" onChange={ e => this.setState({ password: e.target.value }) }/>
+                        </Form.Group>
+
+                        <Form.Group>
+                            <Form.Label>Confirm Password</Form.Label>
+                            <Form.Control required type="password" onChange={ e => this.setState({ passwordConfirmation: e.target.value }) }/>
+                        </Form.Group>
+                        { this.state.responseExists &&
+                            <p className="text-danger">{ this.state.response }</p>
+                        }
+                        <hr></hr>
+                        <p className="redirect mr-auto d-inline" onClick={ this.props.openSignInModal }>Already registered? Sign in here</p>
+                        <div className="float-right">
+                            <Button variant="success" type="submit" className="mr-2">Register</Button>
+                            <Button variant="danger" onClick={ this.close }>Cancel</Button>
+                        </div>
                     </Form>
                 </Modal.Body>
-
-                <Modal.Footer>
-                    <p className="redirect mr-auto" onClick={ this.props.openSignInModal }>Already registered? Sign in here</p>
-                    <Button variant="success" onClick={ this.register }>Register</Button>
-                    <Button variant="danger" onClick={ this.close }>Cancel</Button>
-                </Modal.Footer>
             </Modal>
         )
     }
