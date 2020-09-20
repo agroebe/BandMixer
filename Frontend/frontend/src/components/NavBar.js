@@ -1,60 +1,27 @@
-import React, { useState } from 'react';
-import { Navbar, Button, Dropdown, FormControl } from 'react-bootstrap';
+import React from 'react';
+import { Navbar, Button, Dropdown, DropdownButton } from 'react-bootstrap';
 import SignInModal from './modals/SignInModal'
 import RegisterModal from './modals/RegisterModal'
 import ProfileModal from './modals/ProfileModal'
-
-const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
-    <a
-      href=""
-      ref={ref}
-      onClick={(e) => {
-        e.preventDefault();
-        onClick(e);
-      }}
-    >
-      {children}
-      &#x25bc;
-    </a>
-  ));
-
-  const CustomMenu = React.forwardRef(
-    ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
-      const [value, setValue] = useState('');
-  
-      return (
-        <div
-          ref={ref}
-          style={style}
-          className={className}
-          aria-labelledby={labeledBy}
-        >
-          <FormControl
-            autoFocus
-            className="mx-3 my-2 w-auto"
-            placeholder="Type to filter..."
-            onChange={(e) => setValue(e.target.value)}
-            value={value}
-          />
-          <ul className="list-unstyled">
-            {React.Children.toArray(children).filter(
-              (child) =>
-                !value || child.props.children.toLowerCase().startsWith(value),
-            )}
-          </ul>
-        </div>
-      );
-    },
-  );
-  
 
 export default class NavBar extends React.Component {
     constructor(props) {
         super(props);
 
+        this.state = {
+          loggedIn: false,
+          userId: ''
+        }
+
         this.openSignInModal = this.openSignInModal.bind(this);
         this.openRegisterModal = this.openRegisterModal.bind(this);
         this.openProfileModal = this.openProfileModal.bind(this);
+        this.setLoggedIn = this.setLoggedIn.bind(this);
+        this.setUserId = this.setUserId.bind(this);
+    }
+
+    componentDidMount() {
+      console.log(this.context)
     }
 
     /* This function will be passed in as a prop so it can be opened from the RegisterModal. */
@@ -74,22 +41,45 @@ export default class NavBar extends React.Component {
         this.profileModal.open()
     }
 
+    setLoggedIn(val) {
+      this.setState({
+        loggedIn: val
+      })
+    }
+
+    setUserId(val) {
+      this.setState({
+        userId: val
+      })
+    }
+
     render() {
         return(
             <Navbar bg="dark" variant="dark">
                 <Navbar.Brand>BandMixer</Navbar.Brand>
                 <Navbar.Collapse className="justify-content-end">
-                    <Button variant="primary" className="mr-2" onClick={ this.openSignInModal }>Sign In</Button>
-                    <Button variant="secondary" onClick={ this.openRegisterModal }>Register</Button>
-                    { <Button variant="primary" onClick={ this.openProfileModal }>Profile</Button> }
+                    { this.state.loggedIn ? (
+                      <DropdownButton alignRight id="dropdown-basic-button" title={ this.state.userId }>
+                      <Dropdown.Item>View Profile</Dropdown.Item>
+                      <Dropdown.Item>Edit Profile</Dropdown.Item>
+                      <Dropdown.Item onClick={ () => {
+                        this.setLoggedIn(false)
+                        this.setUserId('')
+                      } }>Logout</Dropdown.Item>
+                    </DropdownButton>
+                    ) : (
+                      <div>
+                        <Button variant="primary" className="mr-2" onClick={ this.openSignInModal }>Sign In</Button>
+                        <Button variant="secondary" onClick={ this.openRegisterModal }>Register</Button>
+                      </div>
+                    ) }
                     
                 </Navbar.Collapse>
 
                 { /* Modals for registering and signing in. */ }
-                <RegisterModal ref={ (modal) => { this.registerModal = modal } } openSignInModal={ this.openSignInModal }/>
-                <SignInModal ref={ (modal) => { this.signInModal = modal } } openRegisterModal={ this.openRegisterModal }/>
+                <RegisterModal ref={ (modal) => { this.registerModal = modal } } openSignInModal={ this.openSignInModal } setLoggedIn={ this.setLoggedIn } setUserId={ this.setUserId }/>
+                <SignInModal ref={ (modal) => { this.signInModal = modal } } openRegisterModal={ this.openRegisterModal } setLoggedIn={ this.setLoggedIn } setUserId={ this.setUserId }/>
                 { <ProfileModal ref={ (modal) => { this.profileModal = modal } } openProfileModal={ this.openProfileModal }/> }
-
             </Navbar>
         )
     }
