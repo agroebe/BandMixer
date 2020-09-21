@@ -1,7 +1,6 @@
 package com.application.people;
 
 //TODO Attach profiles to users
-//Not fully implemented, just here to demonstrate merge-requests
 public class Profile {
     private String location;
     private String phoneNumber;
