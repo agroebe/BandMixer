@@ -1,10 +1,12 @@
 package com.application.people;
 
 //TODO Attach profiles to users
+
 public class Profile {
     private String location;
     private String phoneNumber;
     private String profilePicture;
+    //private Long userID;
 
     public Profile(){
         location = null;
