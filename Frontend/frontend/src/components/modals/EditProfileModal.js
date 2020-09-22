@@ -76,9 +76,9 @@ export default class EditProfileModal extends Component {
 
                         </Col>
                         <Col>
-                          <h2>Contact</h2>
-                          <h3>sample@gmail.com</h3>
-                          <h3>123-456-7890</h3>
+                          <h3>Contact</h3>
+                          <h4>sample@gmail.com</h4>
+                          <h4>123-456-7890</h4>
                         </Col>
                       </Row>
                       
