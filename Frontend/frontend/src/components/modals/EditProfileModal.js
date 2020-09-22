@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, ButtonGroup, Container, Row, Col, Image } from 'react-bootstrap';
+import { Modal, Button, ButtonGroup, Container, Row, Col, Form } from 'react-bootstrap';
 import './Modal.css'
 
 export default class EditProfileModal extends Component {
@@ -27,10 +27,6 @@ export default class EditProfileModal extends Component {
     signIn() {
         this.close();
     }
-
-    
-    
-      
 
     render() {
         return(
@@ -86,13 +82,11 @@ export default class EditProfileModal extends Component {
                         </Col>
                       </Row>
                       
-                    
+            
                       </Container>
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <p className="redirect mr-auto" onClick={ this.props.openRegisterModal }>Don't have an account? Register here</p>
-                        <Button variant="success" onClick={ this.signIn }>Sign In</Button>
                         <Button variant="danger" onClick={ this.close }>Cancel</Button>
                     </Modal.Footer>
                 </Modal>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, Form, CardDeck, Card, Badge } from 'react-bootstrap';
+import { Container, Row, Col, Form, CardDeck, Card, Badge, Button } from 'react-bootstrap';
 
 export default class About extends React.Component {
     render() {
@@ -42,6 +42,7 @@ export default class About extends React.Component {
                                 <option>Hip-hop</option>
                             </Form.Control>
                         </Form.Group>
+                        <Button className="text-center m-auto">Apply Filter(s)</Button>
                     </Col>
                     <Col xs={9}>
                         <h3>Results</h3>
