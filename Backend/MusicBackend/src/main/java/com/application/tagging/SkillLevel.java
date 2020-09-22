@@ -5,6 +5,11 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+/**
+ * Entity for denoting valid skill levels
+ * @author Tim Schommer
+ *
+ */
 @Entity
 @Table(name="SKILL_LEVELS")
 @Check(constraints="value >= 0")
