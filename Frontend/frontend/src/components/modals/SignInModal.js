@@ -30,25 +30,26 @@ export default class SignInModal extends Component {
 
     signIn() {
         axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users/login?loginID=' + this.state.loginId + '&password=' + this.state.password).then(r => {
-            console.log(r.data)
+            if (r.data.includes('successful')) {
+                toast.success('Welcome back to BandMixer, ' + this.state.loginId + '!', {
+                    position: "top-center",
+                    autoClose: 2500,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    transition: Zoom
+                });
+    
+                this.props.setLoggedIn(true)
+                this.props.setUserId(this.state.loginId)
+    
+                this.close();
+            }
+
             this.setState({ response: r.data, responseExists: true })
         })
-        
-        toast.success('Welcome to BandMixer, ' + this.state.loginId + '!', {
-            position: "top-center",
-            autoClose: 2500,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            transition: Zoom
-        });
-
-        this.props.setLoggedIn(true)
-        this.props.setUserId(this.state.loginId)
-
-        this.close();
     }
 
     render() {
@@ -70,11 +71,11 @@ export default class SignInModal extends Component {
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" onChange={ e => this.setState({ password: e.target.value }) }/>
                         </Form.Group>
-                    </Modal.Body>
 
-                    { this.state.responseExists &&
-                        <p className="text-danger">{ this.state.response }</p>
-                    }
+                        { this.state.responseExists &&
+                            <p className="text-danger">{ this.state.response }</p>
+                        }
+                    </Modal.Body>
 
                     <Modal.Footer>
                         <p className="redirect mr-auto" onClick={ this.props.openRegisterModal }>Don't have an account? Register here</p>

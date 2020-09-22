@@ -13,8 +13,6 @@ export default class ProfileModal extends Component {
         };
 
         this.close = this.close.bind(this);
-        this.signIn = this.signIn.bind(this);
-        this.openEditProfileModal = this.openEditProfileModal.bind(this);
     }
 
     open() {
@@ -28,14 +26,6 @@ export default class ProfileModal extends Component {
     signIn() {
         this.close();
     }
-    openEditProfileModal() {
-     
-      this.EditProfileModal.open()
-      this.close();
-     }
-    
-    
-      
 
     render() {
         return(
@@ -46,51 +36,35 @@ export default class ProfileModal extends Component {
                     </Modal.Header>
 
                     <Modal.Body>
-                    <Container>
-                      <Row>
-                        <Col> <h1>
-                                Username
-                              </h1>
-                              <h2>
-                                Singer in random band
-                              </h2>
-                              </Col>
-                        <Col xs={1} md={4}>
-                          <Image src="holder.js/171x180" roundedCircle />
-                        </Col>
-                      
-                      </Row>
-                      <Row>
-                        <Col>
-                        <h2>Instruments:
-
-                          </h2>
-                          <h3>Guitar</h3>
-                          <h3>Bass</h3>
-                        </Col>
-                        <Col>
-                          <h3>
-                            Skill Level:
-
-                          </h3>
-                          <h4>3</h4>
-                          <h4>5</h4>
-                        </Col>
-                        <Col>
-                          <h2>Contact:</h2>
-                          <h3>sample@gmail.com</h3>
-                          <h3>123-456-7890</h3>
-                        </Col>
-                      </Row>
-    
-                      
-                    
+                      <Container>
+                        <Row>
+                          <Col>
+                            <h1>Username</h1>
+                            <h2>Singer in random band</h2>
+                          </Col>
+                          <Col xs={1} md={4}><Image src="holder.js/171x180" roundedCircle/></Col>
+                        </Row>
+                        <Row>
+                          <Col>
+                            <h2>Instruments:</h2>
+                            <h3>Guitar</h3>
+                            <h3>Bass</h3>
+                          </Col>
+                          <Col>
+                            <h3>Skill Level:</h3>
+                            <h4>3</h4>
+                            <h4>5</h4>
+                          </Col>
+                          <Col>
+                            <h2>Contact:</h2>
+                            <h3>sample@gmail.com</h3>
+                            <h3>123-456-7890</h3>
+                          </Col>
+                        </Row>
                       </Container>
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <p className="redirect mr-auto" onClick={ this.props.openRegisterModal }>Don't have an account? Register here</p>
-                        <Button variant="success" onClick={ this.signIn }>Sign In</Button>
                         <Button variant="danger" onClick={ this.close }>Cancel</Button>
                         { <Button variant="primary" onClick={ this.openEditProfileModal }>Edit Profile</Button> }
                       {<ProfileModal ref={ (modal) => { this.EditProfileModal = modal } } openEditProfileModal={ this.openEditProfileModal }/> }
