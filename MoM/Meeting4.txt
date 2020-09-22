@@ -1,0 +1,11 @@
+Minutes
+0 9/22/2020
+1 Andrew Sandor, Andrew Groebe, Timothy Schommer, and Aidan Webster
+2 Gave demo of work that's been done since previous demo
+3 Discussed current proggres on project. Ability for both ends to connect and talk to each other. Profile page and
+advanced search page have been set up.
+Results page has been created plus register and sign in now works. User profile and edit profile pages were 
+connected. Work was done on postmates to get the register function to add new users along with the ability to
+delete them.
+4 Have profiles set up on backend so that it can work together with the frontend. Create a working search function
+and have users stay signed in after refresh. Move the user profiles to their own screen. 
