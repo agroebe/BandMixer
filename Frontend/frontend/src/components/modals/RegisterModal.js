@@ -26,7 +26,7 @@ export default class RegisterModal extends React.Component {
     }
 
     close() {
-        this.setState({ show: false })
+        this.setState({ responseExists: false, response: '', show: false })
     }
 
     register(e) {
@@ -56,9 +56,10 @@ export default class RegisterModal extends React.Component {
 
                 this.props.setLoggedIn(true)
                 this.props.setUserId(this.state.username)
+                
+            } else {
+                this.setState({ response: r.data, responseExists: true })
             }
-            
-            this.setState({ response: r.data, responseExists: true })
         })
     }
 

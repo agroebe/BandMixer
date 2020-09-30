@@ -25,7 +25,7 @@ export default class SignInModal extends Component {
     }
 
     close() {
-        this.setState({ show: false })
+        this.setState({ responseExists: false, response: '', show: false })
     }
 
     signIn() {
@@ -46,9 +46,9 @@ export default class SignInModal extends Component {
                 this.props.setUserId(this.state.loginId)
     
                 this.close();
+            } else {
+                this.setState({ response: r.data, responseExists: true })
             }
-
-            this.setState({ response: r.data, responseExists: true })
         })
     }
 
