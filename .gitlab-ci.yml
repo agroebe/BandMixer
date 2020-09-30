@@ -35,4 +35,13 @@ autoDeploy:
  - sudo mv target/*.jar /target/web-demo.jar
  - sudo systemctl stop systemd-web-demo
  - sudo systemctl start systemd-web-demo
+
+ frontend-build:
+   stage: frontendbuild
+   tags:
+   - shell
+   script:
+   - pwd
+
+
  
