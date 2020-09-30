@@ -11,7 +11,7 @@ maven-build:
  tags:
  - BACKEND
  script:
- - cd cy01/Backend/MusicBackend
+ - cd Backend/MusicBackend
  - mvn package -B
 
 maven-test:
@@ -19,7 +19,7 @@ maven-test:
  tags:
  - BACKEND
  script:
- - cd cy01/Backend/MusicBackend
+ - cd Backend/MusicBackend
  - mvn test
  artifacts:
   paths:
@@ -30,7 +30,7 @@ autoDeploy:
  tags:
  - BACKEND
  script:
- - cd cy01/Backend/MusicBackend
+ - cd Backend/MusicBackend
  - mvn package
  - sudo mv target/*.jar /target/web-demo.jar
  - sudo systemctl stop systemd-web-demo
