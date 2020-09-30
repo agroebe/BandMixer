@@ -66,7 +66,6 @@ export default class ProfileModal extends Component {
 
                     <Modal.Footer>
                         <Button variant="danger" onClick={ this.close }>Cancel</Button>
-                        { <Button variant="primary" onClick={ this.openEditProfileModal }>Edit Profile</Button> }
                       {<ProfileModal ref={ (modal) => { this.EditProfileModal = modal } } openEditProfileModal={ this.openEditProfileModal }/> }
                     </Modal.Footer>
                 </Modal>

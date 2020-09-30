@@ -1,6 +1,9 @@
 package com.application.people;
 
+import org.springframework.data.jpa.repository.Modifying;
+
 import javax.persistence.*;
+import javax.transaction.Transactional;
 
 @Entity
 @Table(name="USERS")
@@ -15,9 +18,11 @@ public class User
 
     private String username;
 
-
     private String password;
-    
+
+    @Column(name = "is_signed_in", nullable=false)
+    private Integer staySignedIn;
+
     public User() {}
 
     public Long getId(){
@@ -44,8 +49,17 @@ public class User
         return email;
     }
 
-    public void setEmail(String email){
-        this.email = email;
+    public void setEmail(String email){ this.email = email;}
+
+    public boolean setStaySignedIn(boolean staySignedIn)
+    {
+        this.staySignedIn = (staySignedIn ? 1 : 0);
+        return true;
+    }
+
+    public Boolean getStaySignedIn()
+    {
+        return staySignedIn==0 ? false : true;
     }
 
 }
