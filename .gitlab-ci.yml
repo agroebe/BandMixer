@@ -9,7 +9,7 @@ stages:
 maven-build:
  stage: mavenbuild
  tags:
- - shell
+ - BACKEND
  script:
  - cd Spring
  - mvn package -B
@@ -17,7 +17,7 @@ maven-build:
 maven-test:
  stage: maventest
  tags:
- - shell
+ - BACKEND
  script:
  - cd Spring
  - mvn test
@@ -28,7 +28,7 @@ maven-test:
 autoDeploy:
  stage: autodeploy
  tags:
- - shell
+ - BACKEND
  script:
  - cd Spring
  - mvn package
@@ -39,7 +39,7 @@ autoDeploy:
 frontend-build:
    stage: frontendbuild
    tags:
-   - shell
+   - FRONTEND
    script:
    - pwd
 
