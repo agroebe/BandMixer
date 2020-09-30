@@ -1,0 +1,36 @@
+stages:
+ - mavenbuild
+ - maventest
+ - autodeploy
+ - frontendbuild
+ - frontendtest
+ 
+ 
+maven-build:
+stage: mavenbuild
+tags:
+-shell
+script:
+-cd Spring
+-mvn package -B
+
+maven-test:
+stage: maventest
+tags:
+-shell
+script:
+cd Spring
+-mvn test
+artifacts:
+paths:
+-Spring/target/.*jar
+
+stage: autodeploy
+tags:
+-shell
+script:
+-cd Spring
+-mvn package
+-sudo mv target/.*jar /target/web-demo.jar
+-sudo systemctl stop systemd-web-demo
+-sudo systemctl start systemd-web-demo
