@@ -32,7 +32,7 @@ autoDeploy:
  script:
  - cd Backend/MusicBackend
  - mvn package
- - sudo mv target/*.jar /target/web-demo.jar
+ - sudo mv target/*.jar target/web-demo.jar
  - sudo systemctl stop systemd-web-demo
  - sudo systemctl start systemd-web-demo
 
