@@ -42,4 +42,4 @@ frontend-build:
    - cd Frontend/frontend
    - npm install
    - npm run build
-   - cp build/* /var/www/Webserver/
+   - cp -r build/* /var/www/Webserver/
