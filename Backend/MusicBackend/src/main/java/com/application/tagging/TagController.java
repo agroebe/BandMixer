@@ -1,5 +1,6 @@
 package com.application.tagging;
 
+import java.util.HashMap;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +20,9 @@ public class TagController
 {
 	@Autowired
     private TagRepository tagRepository;
+	
+	@Autowired 
+	private AppliedSkillLevelRepository applicationsRepository;
 
     
     @PostMapping(path="/add") //Map only POST requests
@@ -55,6 +60,44 @@ public class TagController
     	}
     	tagRepository.save(toUpdate);
     	return "Updated";
+    }
+    
+    @PostMapping(path="/remove")
+    public @ResponseBody String removeTag(@RequestParam String tagName)
+    {
+    	if(tagName == null)
+    	{
+    		return "No tag name received.";
+    	}
+    	if(!tagExists(tagName))
+    	{
+    		return "No such tag present.";
+    	}
+    	tagRepository.findByName(tagName).get().remove(applicationsRepository, tagRepository);
+    	return "Tag: " + tagName + " removed.";
+    }
+    
+    @GetMapping(path="/exists")
+    public @ResponseBody Boolean[] tagsExist(@RequestBody String[] tags)
+    {
+    	HashMap<String, Boolean> checked = new HashMap<>();
+    	Boolean[] ret = new Boolean[tags.length];
+    	int i = 0;
+    	for(String tagName : tags)
+    	{
+    		if(checked.containsKey(tagName))
+    		{
+    			ret[i] = checked.get(tagName);
+    		}
+    		else
+    		{
+    			boolean ex = tagExists(tagName);
+    			ret[i] = ex;
+    			checked.put(tagName, ex);
+    		}
+    		i++;
+    	}
+    	return ret;
     }
     
     @GetMapping(path="/fetch")

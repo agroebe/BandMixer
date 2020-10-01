@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.application.tagging.AppliedSkillLevelRepository;
 
 
 @Controller
@@ -17,6 +20,9 @@ public class PostController
 {
 	@Autowired
 	private PostRepository postRepository;
+	
+	@Autowired
+	private AppliedSkillLevelRepository applicationRepository;
 	
 	@GetMapping(path="/all")
     public @ResponseBody Iterable<Post> getAllPosts(){
@@ -37,7 +43,7 @@ public class PostController
 	
 	//TODO This should be a function of user, remove later
 	@PostMapping(path="/add")
-	public @ResponseBody String addPost(@RequestParam String title, @RequestParam String type)
+	public @ResponseBody String addPost(@RequestParam String title, @RequestParam String type, @RequestBody RequestTag[] tags)
 	{
 		Post p = new Post(title, type);
 		postRepository.save(p);
@@ -68,6 +74,18 @@ public class PostController
     	postRepository.save(toUpdate);
     	return "Updated";
     }
+	
+	@PostMapping(path="/remove")
+	public @ResponseBody String removePost(@RequestParam Long id)
+	{
+		Optional<Post> post = postRepository.findById(id);
+    	if(!post.isPresent())
+    	{
+    		return "no such post!";
+    	}
+    	post.get().remove(applicationRepository, postRepository);
+    	return "Post removed.";
+	}
     
     
 	
