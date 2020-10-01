@@ -15,8 +15,9 @@ export default class About extends React.Component {
                 return "Pianists"
             case "5":
                  return "Keyboardists"
+            default:
+                return "Undefined"
         }
-        return "Undefined"
     }
 
     render() {

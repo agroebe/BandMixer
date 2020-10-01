@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { ToastContainer, toast, Zoom } from 'react-toastify';
+import { toast, Zoom } from 'react-toastify';
 import './Modal.css'
 
 export default class RegisterModal extends React.Component {
