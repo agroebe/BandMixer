@@ -42,4 +42,4 @@ frontend-build:
    - cd Frontend/frontend
    - npm install
    - npm run build
-   - cp -r build/* /var/www/html/
+   - sudo cp -r build/* /var/www/html/
