@@ -53,9 +53,7 @@ export default class EditProfileModal extends Component {
                                 </Form.Group>
                             
 
-                                <Button variant="primary" type="submit">
-                                    Submit
-                                </Button>
+                               
                                 </Form>
                               </Col>
                         <Col xs={6} md={4}>
@@ -76,9 +74,27 @@ export default class EditProfileModal extends Component {
 
                         </Col>
                         <Col>
-                          <h3>Contact</h3>
-                          <h4>sample@gmail.com</h4>
-                          <h4>123-456-7890</h4>
+                        <Form>
+                            <Form.Group controlId="formBasicNumber">
+                                <Form.Label>Edit Email</Form.Label>
+                                <Form.Control type="email" placeholder="enter updated email" />
+                                
+                            </Form.Group>
+
+                            <Form.Group controlId="formBasicBio">
+                                <Form.Label>Edit Number</Form.Label>
+                                <Form.Control type="num" placeholder="Num" />
+                            </Form.Group>
+                        
+                            <Form.Group controlId="formBasicBio">
+                                <Form.Label>Edit Location</Form.Label>
+                                <Form.Control type="location" placeholder="Location" />
+                            </Form.Group>
+
+                            <Button variant="primary" type="submit">
+                                Submit
+                            </Button>
+                            </Form>
                         </Col>
                       </Row>
                       

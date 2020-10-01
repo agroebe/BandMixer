@@ -9,6 +9,15 @@ export default class ProfileModal extends Component {
         this.state = {
             username: '',
             password: '',
+            contactEmail: 'email@email.com',
+            contactNumber: '1234567890',
+            contactLocation: 'Ames, IA',
+            bio: 'random bio',
+            skill1: '1',
+            skill2: '4',
+            instrument1: 'Guitar',
+            instrument2: 'Bass',
+
             show: false
         };
 
@@ -39,26 +48,28 @@ export default class ProfileModal extends Component {
                       <Container>
                         <Row>
                           <Col>
-                            <h1>Username</h1>
-                            <h2>Singer in random band</h2>
+                            <h2>{this.state.username}</h2>
+                            <h3>{this.state.bio}</h3>
                           </Col>
                           <Col xs={1} md={4}><Image src="holder.js/171x180" roundedCircle/></Col>
                         </Row>
                         <Row>
                           <Col>
                             <h2>Instruments:</h2>
-                            <h3>Guitar</h3>
-                            <h3>Bass</h3>
+                            <h3>{this.state.instrument1}</h3>
+                            <h3>{this.state.instrument2}</h3>
                           </Col>
                           <Col>
                             <h3>Skill Level:</h3>
-                            <h4>3</h4>
-                            <h4>5</h4>
+                            <h4>{this.state.skill1}</h4>
+                            <h4>{this.state.skill2}</h4>
                           </Col>
                           <Col>
-                            <h2>Contact:</h2>
-                            <h3>sample@gmail.com</h3>
-                            <h3>123-456-7890</h3>
+                          
+                            <h2>Contact Info</h2>
+                            <h3>{this.state.contactEmail}</h3>
+                            <h3>{this.state.contactNumber}</h3>
+                            <h3>{this.state.contactLocation}</h3>
                           </Col>
                         </Row>
                       </Container>
