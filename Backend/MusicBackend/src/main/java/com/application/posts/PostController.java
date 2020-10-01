@@ -2,6 +2,8 @@ package com.application.posts;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,14 +33,11 @@ public class PostController
     }
 	
 	@GetMapping(path="/fetch")
-    public @ResponseBody Post getById(@RequestParam Long id)
+    public @ResponseBody Post getById(@RequestBody @Valid RequestPost post)
     {
-    	Optional<Post> post = postRepository.findById(id);
-    	if(!post.isPresent())
-    	{
-    		throw new PostNotFoundException("Id-" + id);
-    	}
-    	return post.get();
+		long id = post.getId();
+    	Optional<Post> foundpost = postRepository.findById(id);
+    	return foundpost.get();
     }
 	
 	//TODO This should be a function of user, remove later
@@ -51,17 +50,13 @@ public class PostController
 	}
 	
 	@PostMapping(path="/update")
-    public @ResponseBody String updatePost(@RequestParam Long id, @RequestParam(required=false) String newTitle, @RequestParam(required=false) String newText)
+    public @ResponseBody String updatePost(@RequestBody @Valid RequestPost id, @RequestParam(required=false) String newTitle, @RequestParam(required=false) String newText)
     {
 		if(newTitle == null && newText == null)
 		{
 			return "Nothing to update";
 		}
-		Optional<Post> post = postRepository.findById(id);
-    	if(!post.isPresent())
-    	{
-    		return "no such post!";
-    	}
+		Optional<Post> post = postRepository.findById(id.getId());
     	Post toUpdate = post.get();
     	if(newTitle != null)
     	{
@@ -76,9 +71,9 @@ public class PostController
     }
 	
 	@PostMapping(path="/remove")
-	public @ResponseBody String removePost(@RequestParam Long id)
+	public @ResponseBody String removePost(@RequestBody @Valid RequestPost id)
 	{
-		Optional<Post> post = postRepository.findById(id);
+		Optional<Post> post = postRepository.findById(id.getId());
     	if(!post.isPresent())
     	{
     		return "no such post!";
@@ -88,10 +83,4 @@ public class PostController
 	}
     
     
-	
-	private class PostNotFoundException extends IllegalArgumentException
-    {
-    	public PostNotFoundException() {super();}
-    	public PostNotFoundException(String message) {super(message);}
-    }
 }

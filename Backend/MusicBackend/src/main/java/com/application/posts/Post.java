@@ -30,6 +30,9 @@ public class Post
 	@JoinColumn(name="content_id")
 	private Content content;
 	
+	@Column(name="is_search", nullable=false)
+	private Integer isSearch;
+	
 	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="post")
 	@MapKey(name="id")
 	private Map<TagSkillLevelKey, AppliedSkillLevel> tags;
@@ -48,6 +51,32 @@ public class Post
 		}
 		title = givenTitle;
 		contentType = type;
+		this.isSearch = 0;
+	}
+	
+	public Post(String givenTitle, String type, boolean isSearch)
+	{
+		if(givenTitle == null)
+		{
+			throw new NullPointerException("Tag initialized with a null name.");
+		}
+		else if(type == null)
+		{
+			throw new NullPointerException("Tag initialized with a null name.");
+		}
+		title = givenTitle;
+		contentType = type;
+		this.isSearch = (isSearch ? 1 : 0);
+	}
+	
+	public Boolean getIsSearch()
+	{
+		return (isSearch==0? false : true);
+	}
+	
+	public void setIsSearch(boolean isSearch)
+	{
+		this.isSearch = (isSearch ? 1 : 0);
 	}
 	
 	public Long getId()
