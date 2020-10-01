@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Jumbotron, Form, Button, Badge } from 'react-bootstrap';
 import './Showcase.css'
 
@@ -28,7 +29,13 @@ export default class Showcase extends React.Component {
                         }) }
                     </Form.Control>
                     <Form.Control type="text" placeholder="ZIP code or location" className="mr-2" onChange={ e => this.setState({ location: e.target.value }) }></Form.Control>
-                    <Button type="submit">Search</Button>
+                    <Link to={{
+                        pathname: '/results',
+                        state: {
+                            location: this.state.location,
+                            instrument: this.state.instrument
+                        }
+                    }}><Button type="submit">Search</Button></Link>
                 </Form>
                 <h5 className="d-inline">Confused? Try out <a href="#">our beginner tutorial</a>!</h5>
             </Jumbotron>

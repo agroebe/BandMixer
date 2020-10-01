@@ -2,6 +2,23 @@ import React from 'react';
 import { Container, Row, Col, Form, CardDeck, Card, Badge, Button } from 'react-bootstrap';
 
 export default class About extends React.Component {
+
+    toInstrumentName(id) {
+        switch (id) {
+            case "1":
+                return "Guitarists"
+            case "2":
+                return "Bassists"
+            case "3":
+                return "Drummers"
+            case "4":
+                return "Pianists"
+            case "5":
+                 return "Keyboardists"
+        }
+        return "Undefined"
+    }
+
     render() {
         return(
             <Container className="mt-4">
@@ -45,7 +62,7 @@ export default class About extends React.Component {
                         <Button className="text-center m-auto">Apply Filter(s)</Button>
                     </Col>
                     <Col xs={9}>
-                        <h3>Results</h3>
+                        <h3>Results - { this.toInstrumentName(this.props.location.state.instrument) } in { this.props.location.state.location }</h3>
                         <hr></hr>
                         <p>Results: 6 musicians found...</p>
                         <CardDeck>
