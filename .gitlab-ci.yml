@@ -40,5 +40,6 @@ frontend-build:
    - BACKEND
    script:
    - cd Frontend/frontend
+   - npm install
    - npm run build
    - cp build/* /var/www/Webserver/
