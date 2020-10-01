@@ -37,7 +37,7 @@ autoDeploy:
 frontend-build:
    stage: frontendbuild
    tags:
-   - FRONTEND
+   - BACKEND
    script:
    - pwd
 
