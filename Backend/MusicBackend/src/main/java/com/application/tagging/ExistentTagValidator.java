@@ -1,4 +1,4 @@
-package com.application.posts;
+package com.application.tagging;
 
 import java.util.Optional;
 
@@ -10,26 +10,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.application.BeanUtil;
 
-public class ExistentPostValidator implements ConstraintValidator<ExistentPost, Object>
+public class ExistentTagValidator implements ConstraintValidator<ExistentTag, Object>
 {
 	@Autowired
-	PostRepository repo;
+	TagRepository repo;
 	
+	private String name;
 	
-	public void initialize(ExistentPost constraint)
+	public void initialize(ExistentTag constraint)
 	{
-		repo = BeanUtil.getBean(PostRepository.class);
+		repo = BeanUtil.getBean(TagRepository.class);
 	}
 	
 	@Override
 	public boolean isValid(Object value, ConstraintValidatorContext context) {
-		Long idValue = (Long)new BeanWrapperImpl(value).getPropertyValue("id");
-		Optional<Post> find = repo.findById(idValue);
+		name = (String)new BeanWrapperImpl(value).getPropertyValue("name");
+		Optional<Tag> find = repo.findByName(name);
 		if(!find.isPresent())
 		{
 			return false;
 		}
 		return true;
+	}
+	
+	String message()
+	{
+		return "The tag: " + name + " does not exist.";
 	}
 
 }

@@ -1,15 +1,16 @@
 package com.application.tagging;
 
-public class ExistentSkillLevel 
+@ExistentTag
+public class RequestExistentTag 
 {
 	private String name;
 	
-	public ExistentSkillLevel()
+	public RequestExistentTag()
 	{
 		name = "undefined";
 	}
 	
-	public ExistentSkillLevel(String name)
+	public RequestExistentTag(String name)
 	{
 		if(name == null || name.trim().equals(""))
 		{

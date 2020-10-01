@@ -1,4 +1,4 @@
-package com.application.posts;
+package com.application;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
