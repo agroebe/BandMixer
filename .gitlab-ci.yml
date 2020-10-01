@@ -18,8 +18,7 @@ maven-test:
  - BACKEND
  script:
  - cd Backend/MusicBackend
- - mvn testPulling docker image -alpine:latest ...
-ERROR: Preparation failed: invalid reference format (docker.go:142:0s)
+ - mvn test
  artifacts:
   paths:
    - Spring/target/*.jar
