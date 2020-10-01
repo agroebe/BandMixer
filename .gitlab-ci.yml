@@ -41,9 +41,7 @@ frontend-build:
    tags:
    - FRONTEND
    script:
-   - cd Frontend/frontend
-   - npm run build
-   - cp build/* /var/www/Webserver/
+   - pwd
 
 
  
