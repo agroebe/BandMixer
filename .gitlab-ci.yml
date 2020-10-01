@@ -1,0 +1,45 @@
+stages:
+ - mavenbuild
+ - maventest
+ - autodeploy
+ - frontendbuild
+ 
+maven-build:
+ stage: mavenbuild
+ tags:
+ - BACKEND
+ script:
+ - cd Backend/MusicBackend
+ - mvn package -B
+
+maven-test:
+ stage: maventest
+ tags:
+ - BACKEND
+ script:
+ - cd Backend/MusicBackend
+ - mvn test
+ artifacts:
+  paths:
+   - Spring/target/*.jar
+
+autoDeploy:
+ stage: autodeploy
+ tags:
+ - BACKEND
+ script:
+ - cd Backend/MusicBackend
+ - mvn package
+ - sudo mv target/*.jar target/web-demo.jar
+ - sudo systemctl stop system-web-demo
+ - sudo systemctl start system-web-demo
+
+frontend-build:
+   stage: frontendbuild
+   tags:
+   - BACKEND
+   script:
+   - cd Frontend/frontend
+   - npm install
+   - npm run build
+   - sudo cp -r build/* /var/www/html/

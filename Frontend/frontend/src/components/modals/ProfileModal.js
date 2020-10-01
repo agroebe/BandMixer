@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button, ButtonGroup, Container, Row, Col, Image } from 'react-bootstrap';
+import { Modal, Button, Container, Row, Col, Image } from 'react-bootstrap';
 import './Modal.css'
 
 export default class ProfileModal extends Component {

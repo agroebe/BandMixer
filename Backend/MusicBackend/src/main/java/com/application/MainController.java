@@ -60,16 +60,22 @@ public class MainController {
 
     @PostMapping(path="/login")
     @CrossOrigin
-    public @ResponseBody String userLogin(@RequestParam String loginID, @RequestParam String password){
+    public @ResponseBody String userLogin(@RequestParam String loginID, @RequestParam String password, @RequestParam Boolean stayLoggedIn){
         BasicPasswordEncryptor encryptor = new BasicPasswordEncryptor();
         if(userRepository.findByUsername(loginID) != null){
             if(encryptor.checkPassword(password, userRepository.findByUsername(loginID).getPassword()) == true){
+                User toUpdate = userRepository.findByUsername(loginID);
+                toUpdate.setStaySignedIn(stayLoggedIn);
+                userRepository.save(toUpdate);
                 return "login successful";
             }else{
                 return "incorrect password";
             }
         }else if(userRepository.findByEmail(loginID) != null){
             if(encryptor.checkPassword(password, userRepository.findByEmail(loginID).getPassword()) == true){
+                User toUpdate = userRepository.findByEmail(loginID);
+                toUpdate.setStaySignedIn(stayLoggedIn);
+                userRepository.save(toUpdate);
                 return "login successful";
             }else{
                 return "incorrect password";
@@ -77,6 +83,23 @@ public class MainController {
         }else{
             return "no user registered under this loginID";
         }
+    }
+
+    @PostMapping(path="/changeRememberMe")
+    @CrossOrigin
+    public @ResponseBody Boolean changeRememberMe(@RequestParam String loginID, @RequestParam Boolean stayLoggedIn){
+        if(userRepository.findByUsername(loginID) != null){
+            User toUpdate = userRepository.findByUsername(loginID);
+            toUpdate.setStaySignedIn(stayLoggedIn);
+            userRepository.save(toUpdate);
+            return true;
+        }else if(userRepository.findByEmail(loginID) != null){
+            User toUpdate = userRepository.findByEmail(loginID);
+            toUpdate.setStaySignedIn(stayLoggedIn);
+            userRepository.save(toUpdate);
+            return true;
+        }
+        return false;
     }
 
 
