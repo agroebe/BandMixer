@@ -3,8 +3,6 @@ stages:
  - maventest
  - autodeploy
  - frontendbuild
- - frontendtest
- 
  
 maven-build:
  stage: mavenbuild
