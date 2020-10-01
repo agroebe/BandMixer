@@ -77,7 +77,7 @@ public class TagController
     	return "Tag: " + tagName + " removed.";
     }
     
-    @GetMapping(path="/exists")
+    @GetMapping(path="/allexists")
     public @ResponseBody Boolean[] tagsExist(@RequestBody String[] tags)
     {
     	HashMap<String, Boolean> checked = new HashMap<>();
