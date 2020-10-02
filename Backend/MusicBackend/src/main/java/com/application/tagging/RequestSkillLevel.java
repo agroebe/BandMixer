@@ -1,5 +1,6 @@
 package com.application.tagging;
 
+@ExistentSkillLevel(nameField="name")
 public class RequestSkillLevel 
 {
 	private String name;
