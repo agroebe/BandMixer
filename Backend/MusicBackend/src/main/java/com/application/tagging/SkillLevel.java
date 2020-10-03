@@ -96,4 +96,41 @@ public class SkillLevel
 			myRep.delete(this);
 		}
 	}
+	
+	public void remove(AppliedSkillLevelRepository rep, SkillLevelRepository myRep, SkillLevel refactor)
+	{
+		for(AppliedSkillLevel application : applications)
+		{
+			application.setSkillLevel(refactor);
+			refactor.getApplications().add(application);
+		}
+		myRep.save(refactor);
+		if(rep != null)
+		{
+			myRep.delete(this);
+		}
+	}
+	
+	public void remove(AppliedSkillLevelRepository rep, SkillLevelRepository myRep, SkillLevel refactorUp, SkillLevel refactorDown)
+	{
+		for(AppliedSkillLevel application : applications)
+		{
+			if(application.getIsLowerBound())
+			{
+				application.setSkillLevel(refactorUp);
+				refactorUp.getApplications().add(application);
+			}
+			else
+			{
+				application.setSkillLevel(refactorDown);
+				refactorDown.getApplications().add(application);
+			}
+		}
+		myRep.save(refactorUp);
+		myRep.save(refactorDown);
+		if(rep != null)
+		{
+			myRep.delete(this);
+		}
+	}
 }

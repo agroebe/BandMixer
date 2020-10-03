@@ -48,7 +48,7 @@ public class UpdateExistingSkillLevelValidator implements ConstraintValidator<Up
 			msg = "The skill level: " + name + " does not exist.";
 			return false;
 		}
-		if((newName == null || newName.trim().equals("")) && valuefd == null)
+		if((newName == null || newName.trim().equals("") || newName.trim().equals(name.trim())) && valuefd == null)
 		{
 			msg = "Nothing given to update with";
 			return false;
@@ -65,8 +65,8 @@ public class UpdateExistingSkillLevelValidator implements ConstraintValidator<Up
 				msg = "Cannnot change another skill level into 'unset'.";
 				return false;
 			}
-			find = repo.findByName(newName.trim());
-			if(find.isPresent())
+			Optional<SkillLevel> find2 = repo.findByName(newName.trim());
+			if(find2.isPresent())
 			{
 				msg = "Skill level matching new name already exists.";
 				return false;
@@ -75,6 +75,12 @@ public class UpdateExistingSkillLevelValidator implements ConstraintValidator<Up
 		if(valuefd != null && valuefd < 0)
 		{
 			msg = "The new value (" + valuefd + ") for the level is outside of acceptable bounds. All values must be non-negative";
+			return false;
+		}
+		if(valuefd != null && valuefd == find.get().getValue() && 
+				(newName == null || name.trim().equals(newName.trim())))
+		{
+			msg = "Nothing given to update with";
 			return false;
 		}
 		

@@ -11,8 +11,8 @@ public class RequestSkillLevelUpdate
 	
 	public RequestSkillLevelUpdate(String nm, String newnm, Integer val)
 	{
-		name = nm;
-		newName = newnm;
+		name = (nm == null? null: nm.trim());
+		newName = (newnm == null? null: newnm.trim());
 		value = val;
 	}
 	
@@ -35,13 +35,13 @@ public class RequestSkillLevelUpdate
 		return name;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.name = (name == null? null: name.trim());;
 	}
 	public String getNewName() {
 		return newName;
 	}
 	public void setNewName(String newName) {
-		this.newName = newName;
+		this.newName = (newName == null? null: newName.trim());
 	}
 	public Integer getValue() {
 		return value;
