@@ -6,11 +6,14 @@ import java.util.Set;
 import java.util.Stack;
 
 import javax.validation.Valid;
+import javax.xml.ws.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  *
  */
 @Controller
+@CrossOrigin
 @RequestMapping(path="/skill-levels") 
 public class SkillLevelController 
 {
@@ -26,17 +30,19 @@ public class SkillLevelController
 	
 	@Autowired
 	private AppliedSkillLevelRepository applicationRepo;
-	
-	public String add(@RequestBody @Valid RequestNewSkillLevel newLevel)
+
+	@PostMapping(path="/add", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@CrossOrigin
+	public ResponseEntity<Void> add(@RequestBody @Valid RequestNewSkillLevelWrapper newLevel)
 	{
-		String message = "Skill Level " + newLevel.getName() + " added.";
-		Optional<SkillLevel> old = repo.findByValue(newLevel.getValue());
-		if(old.isPresent())
+		String message = "Skill Level " + newLevel.getNewLevel().getName() + " added.";
+		Optional<SkillLevel> old = repo.findByValue(newLevel.getNewLevel().getValue());
+		if(old.isPresent() == false)
 		{
-			message = "Skill Level " + newLevel.getName() + " inserted.";
-			List<SkillLevel> above = repo.findWithGreaterOrEqual(newLevel.getValue());
+			message = "Skill Level " + newLevel.getNewLevel().getName() + " inserted.";
+			List<SkillLevel> above = repo.findWithGreaterOrEqual(newLevel.getNewLevel().getValue());
 			Stack<SkillLevel> toAdjust = new Stack<>();
-			int base = newLevel.getValue() - 1;
+			int base = newLevel.getNewLevel().getValue() - 1;
 			for(SkillLevel lv : above)
 			{
 				if(lv.getValue() > base + 1)
@@ -52,12 +58,14 @@ public class SkillLevelController
 				adjustee.setValue(adjustee.getValue() + 1);
 				repo.save(adjustee);
 			}
-			SkillLevel toAdd = new SkillLevel(newLevel.getName(), newLevel.getValue());
+			SkillLevel toAdd = new SkillLevel(newLevel.getNewLevel().getName(), newLevel.getNewLevel().getValue());
 			repo.save(toAdd);
 		}
-		return message;
+		return new ResponseEntity<Void>(HttpStatus.CREATED);
 	}
-	
+
+	@PostMapping(path="/remove")
+	@CrossOrigin
 	public String remove(@RequestBody @Valid RequestSkillLevel level)
 	{
 		Optional<SkillLevel> toRemoveTemp = repo.findByName(level.getName());
@@ -99,7 +107,9 @@ public class SkillLevelController
 					+" All other tags paired with it have been refactored downwards.";
 		}
 	}
-	
+
+	@PostMapping(path="/reorder")
+	@CrossOrigin
 	public String reorder()
 	{
 		int base = 0;
@@ -112,7 +122,9 @@ public class SkillLevelController
 		}
 		return "Successfully reordered.";
 	}
-	
+
+	@PostMapping(path="/update")
+	@CrossOrigin
 	public String update(@RequestBody @Valid RequestSkillLevelUpdate level)
 	{
 		Optional<SkillLevel> toUpdateTemp = repo.findByName(level.getName());
@@ -163,9 +175,17 @@ public class SkillLevelController
 		}
 		return "Skill level " + level.getName().trim() + " successfully updated.";
 	}
-	
+
+	@GetMapping(path="/get")
+	@CrossOrigin
 	public SkillLevel get(@RequestBody @Valid RequestSkillLevel level)
 	{
 		return repo.findByName(level.getName()).get();
+	}
+
+	@GetMapping(path="/all")
+	@CrossOrigin
+	public @ResponseBody Iterable<SkillLevel> getAllSkillLevels(){
+		return repo.findAll();
 	}
 }

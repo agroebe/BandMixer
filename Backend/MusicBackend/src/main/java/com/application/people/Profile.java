@@ -6,7 +6,7 @@ public class Profile {
     private String location;
     private String phoneNumber;
     private String profilePicture;
-    //private Long userID;
+    private Long userID;
 
     public Profile(){
         location = null;
