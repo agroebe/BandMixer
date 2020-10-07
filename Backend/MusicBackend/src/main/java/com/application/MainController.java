@@ -45,7 +45,7 @@ public class MainController {
     @CrossOrigin
     public @ResponseBody Iterable<User> getAllUsers(HttpServletResponse response){
         //Returns a JSON or XML document with the users in it
-        response.addHeader("Access-Control-Expose-Headers", "Content-Range")
+        response.addHeader("Access-Control-Expose-Headers", "Content-Range");
         response.addHeader("Content-Range", "users 0-20/50");
         return userRepository.findAll();
     }
