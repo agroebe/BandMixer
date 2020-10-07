@@ -33,7 +33,7 @@ public class SkillLevelController
 
 	@PostMapping(path="/add", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@CrossOrigin
-	public ResponseEntity<Void> add(@RequestBody @Valid RequestNewSkillLevelWrapper newLevel)
+	public ResponseEntity<String> add(@RequestBody @Valid RequestNewSkillLevelWrapper newLevel)
 	{
 		String message = "Skill Level " + newLevel.getNewLevel().getName() + " added.";
 		Optional<SkillLevel> old = repo.findByValue(newLevel.getNewLevel().getValue());
@@ -61,17 +61,18 @@ public class SkillLevelController
 			SkillLevel toAdd = new SkillLevel(newLevel.getNewLevel().getName(), newLevel.getNewLevel().getValue());
 			repo.save(toAdd);
 		}
-		return new ResponseEntity<Void>(HttpStatus.CREATED);
+
+		return new ResponseEntity<String>(message, HttpStatus.CREATED);
 	}
 
 	@PostMapping(path="/remove")
 	@CrossOrigin
-	public String remove(@RequestBody @Valid RequestSkillLevel level)
+	public ResponseEntity<String> remove(@RequestBody @Valid RequestSkillLevelWrapper level)
 	{
-		Optional<SkillLevel> toRemoveTemp = repo.findByName(level.getName());
+		Optional<SkillLevel> toRemoveTemp = repo.findByName(level.getLevel().getName());
 		if(!toRemoveTemp.isPresent())
 		{
-			return "Error. The requested skill level no longer exists.";
+			return new ResponseEntity<String>("Error. The requested skill level no longer exists.", HttpStatus.CREATED);
 		}
 		SkillLevel toRemove = toRemoveTemp.get();
 		Optional<SkillLevel> below = repo.findFirstLess(toRemove.getValue());
@@ -80,37 +81,37 @@ public class SkillLevelController
 		if(apps.isEmpty())
 		{
 			toRemove.remove(applicationRepo, repo);
-			return "Skill Level " + level.getName() + " removed";
+			return new ResponseEntity<String>("Skill Level " + level.getLevel().getName() + " removed", HttpStatus.CREATED);
 		}
 		else if(!above.isPresent() && !below.isPresent())
 		{
 			toRemove.remove(applicationRepo, repo);
-			return "Skill Level " + level.getName() + " removed. No way to refactor containing tags";
+			return new ResponseEntity<String>("Skill Level " + level.getLevel().getName() + " removed. No way to refactor containing tags", HttpStatus.CREATED);
 		}
 		else if(!above.isPresent())
 		{
 			toRemove.remove(applicationRepo, repo, below.get());
-			return "Skill Level " + level.getName() + 
-					" removed. All tags paired with it have been refactored downwards.";
+			return new ResponseEntity<String>("Skill Level " + level.getLevel().getName() +
+					" removed. All tags paired with it have been refactored downwards.", HttpStatus.CREATED);
 		}
 		else if(!below.isPresent())
 		{
 			toRemove.remove(applicationRepo, repo, above.get());
-			return "Skill Level " + level.getName() + 
-					" removed. All tags paired with it have been refactored upwards.";
+			return new ResponseEntity<String>("Skill Level " + level.getLevel().getName() +
+					" removed. All tags paired with it have been refactored upwards.", HttpStatus.CREATED);
 		}
 		else
 		{
 			toRemove.remove(applicationRepo, repo, above.get(), below.get());
-			return "Skill Level " + level.getName() + 
+			return new ResponseEntity<String>("Skill Level " + level.getLevel().getName() +
 					" removed. All lower bounded tags paired with it have been refactored upwards."
-					+" All other tags paired with it have been refactored downwards.";
+					+" All other tags paired with it have been refactored downwards.", HttpStatus.CREATED);
 		}
 	}
 
 	@PostMapping(path="/reorder")
 	@CrossOrigin
-	public String reorder()
+	public ResponseEntity<String> reorder()
 	{
 		int base = 0;
 		List<SkillLevel> above = repo.findWithGreaterOrEqual(0);
@@ -120,27 +121,27 @@ public class SkillLevelController
 			repo.save(level);
 			base++;
 		}
-		return "Successfully reordered.";
+		return new ResponseEntity<String>("Successfully reordered.", HttpStatus.CREATED);
 	}
 
 	@PostMapping(path="/update")
 	@CrossOrigin
-	public String update(@RequestBody @Valid RequestSkillLevelUpdate level)
+	public ResponseEntity<String> update(@RequestBody @Valid RequestSkillLevelUpdateWrapper level)
 	{
-		Optional<SkillLevel> toUpdateTemp = repo.findByName(level.getName());
+		Optional<SkillLevel> toUpdateTemp = repo.findByName(level.getLevel().getName());
 		if(!toUpdateTemp.isPresent())
 		{
-			return "Error. The requested skill level no longer exists.";
+			return new ResponseEntity<String>("Error. The requested skill level no longer exists.", HttpStatus.CREATED);
 		}
 		SkillLevel toUpdate = toUpdateTemp.get();
-		if(level.getNewName() != null && level.getName().trim().equals(level.getNewName().trim()))
+		if(level.getLevel().getNewName() != null && level.getLevel().getName().trim().equals(level.getLevel().getNewName().trim()))
 		{
-			toUpdate.setName(level.getNewName().trim());
+			toUpdate.setName(level.getLevel().getNewName().trim());
 			repo.save(toUpdate);
 		}
-		if(level.getValue() != null && level.getValue() != toUpdate.getValue())
+		if(level.getLevel().getValue() != null && level.getLevel().getValue() != toUpdate.getValue())
 		{
-			int val = level.getValue();
+			int val = level.getLevel().getValue();
 			Optional<SkillLevel> current = repo.findByValue(val);
 			if(!current.isPresent())
 			{
@@ -173,14 +174,14 @@ public class SkillLevelController
 				}
 			}
 		}
-		return "Skill level " + level.getName().trim() + " successfully updated.";
+		return new ResponseEntity<String>("Skill level " + level.getLevel().getName().trim() + " successfully updated.", HttpStatus.CREATED);
 	}
 
 	@GetMapping(path="/get")
 	@CrossOrigin
-	public SkillLevel get(@RequestBody @Valid RequestSkillLevel level)
+	public ResponseEntity<SkillLevel> get(@RequestBody @Valid RequestSkillLevelWrapper level)
 	{
-		return repo.findByName(level.getName()).get();
+		return new ResponseEntity<SkillLevel>(repo.findByName(level.getLevel().getName()).get(), HttpStatus.CREATED);
 	}
 
 	@GetMapping(path="/all")

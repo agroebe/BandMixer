@@ -13,5 +13,8 @@ import javax.validation.*;
 public @interface ExistentTag 
 {
 	String message() default "The tag does not exist.";
+
+	Class<?>[] groups() default {};
+	Class<? extends Payload>[] payload() default {};
 	
 }
