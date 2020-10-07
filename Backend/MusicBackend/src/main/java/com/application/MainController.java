@@ -7,6 +7,7 @@ import org.jasypt.util.password.PasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @CrossOrigin
@@ -42,8 +43,9 @@ public class MainController {
 
     @GetMapping(path="/all")
     @CrossOrigin
-    public @ResponseBody Iterable<User> getAllUsers(){
+    public @ResponseBody Iterable<User> getAllUsers(HttpServletResponse response){
         //Returns a JSON or XML document with the users in it
+        response.addHeader("Content-Range", "users 0-20/50");
         return userRepository.findAll();
     }
 
