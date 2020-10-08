@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Modal, Button, ButtonGroup, Container, Row, Col, Form } from 'react-bootstrap';
+import axios from 'axios';
+import { Modal, Button, ButtonGroup, Container, Row, Col, Form, InputGroup, FormControl } from 'react-bootstrap';
 import './Modal.css'
 
 export default class EditProfileModal extends Component {
@@ -8,7 +9,19 @@ export default class EditProfileModal extends Component {
         console.log(props)
         this.state = {
             username: '',
+            userID: '',
             password: '',
+            contactEmail: '',
+            number: '',
+            location: '',
+            bio: '',
+            guitar: true,
+            bass: false,
+            piano: false,
+            singer: false,
+            skillG: '4',
+            
+
             show: false
         };
 
@@ -17,7 +30,29 @@ export default class EditProfileModal extends Component {
     }
 
     open() {
+      /*  axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users/userID?userID=' + this.state.userID + '&password=' + this.state.password).then(r => {
+            if (r.data.includes('successful')) {
+
+
+               //set var function call                        
+                this.fill();
+
+                this.setState({ show: true })
+            } else {
+                this.close();
+            }
+        })*/
+       this.fill();
+
         this.setState({ show: true })
+    }
+
+   fill(){
+        axios.get('http://coms-309-cy-01.cs.iastate.edu:8080/profiles/14').then(r => {
+            //console.log(r.data)
+            this.setState({ username: r.data.username, location: r.data.location, phone: r.data.phoneNumber })
+        }
+        )   
     }
 
     close() {
@@ -26,6 +61,34 @@ export default class EditProfileModal extends Component {
 
     signIn() {
         this.close();
+    }
+
+    save(){
+        this.close();
+    }
+
+    guitarVisible() {
+        this.setState({
+            guitar: !this.state.guitar
+        })
+    }
+
+    bassVisible() {
+        this.setState({
+            bass: !this.state.bass
+        })
+    }
+
+    singerVisible() {
+        this.setState({
+            singer: !this.state.singer
+        })
+    }
+
+    pianoVisible() {
+        this.setState({
+            piano: !this.state.piano
+        })
     }
 
     render() {
@@ -42,13 +105,13 @@ export default class EditProfileModal extends Component {
                         <Col> 
                             <Form>
                                 <Form.Group controlId="formBasicEmail">
-                                    <Form.Label>Edit Username</Form.Label>
+                                    <Form.Label>{this.state.username}</Form.Label>
                                     <Form.Control type="username" placeholder="enter new username" />
                                     
                                 </Form.Group>
 
                                 <Form.Group controlId="formBasicBio">
-                                    <Form.Label>Band Bio</Form.Label>
+                                    <Form.Label>{this.state.bio}</Form.Label>
                                     <Form.Control type="bio" placeholder="Bio" />
                                 </Form.Group>
                             
@@ -64,38 +127,122 @@ export default class EditProfileModal extends Component {
                       <Row>
                         <Col>
                         <ButtonGroup className="mr-2" aria-label="Instruments">
-                          <Button variant="secondary">Guitar</Button>{' '}
-                          <Button variant="secondary">Piano</Button>{' '}
-                          <Button variant="secondary">Bass</Button>{' '}
-                          <Button variant="secondary">Singer</Button>
+                          <Button variant="secondary" onClick={()=>this.guitarVisible()}>Guitar</Button>{' '}
+                          <Button variant="secondary" onClick={()=>this.pianoVisible()}>Piano</Button>{' '}
+                          <Button variant="secondary" onClick={()=>this.bassVisible()}>Bass</Button>{' '}
+                          <Button variant="secondary" onClick={()=>this.singerVisible()}>Singer</Button>
                         </ButtonGroup>
                         </Col>
                         <Col>
-
+                            
                         </Col>
                         <Col>
-                        <Form>
-                            <Form.Group controlId="formBasicNumber">
-                                <Form.Label>Edit Email</Form.Label>
-                                <Form.Control type="email" placeholder="enter updated email" />
-                                
-                            </Form.Group>
-
-                            <Form.Group controlId="formBasicBio">
-                                <Form.Label>Edit Number</Form.Label>
-                                <Form.Control type="num" placeholder="Num" />
-                            </Form.Group>
-                        
-                            <Form.Group controlId="formBasicBio">
-                                <Form.Label>Edit Location</Form.Label>
-                                <Form.Control type="location" placeholder="Location" />
-                            </Form.Group>
-
-                            <Button variant="primary" type="submit">
-                                Submit
-                            </Button>
-                            </Form>
+                            <h3>Edit Contact Info</h3>
+                            <InputGroup className="mb-3">
+                                <InputGroup.Prepend>
+                                <InputGroup.Text id="basic-addon1">Email</InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <FormControl
+                                placeholder={this.state.email}
+                                aria-label={this.state.email}
+                                aria-describedby="basic-addon1"
+                                />
+                            </InputGroup>
+                            <InputGroup className="mb-4">
+                                <InputGroup.Prepend>
+                                <InputGroup.Text id="basic-addon1">Phone #</InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <FormControl
+                                placeholder={this.state.phone}
+                                aria-label={this.state.phone}
+                                aria-describedby="basic-addon1"
+                                />
+                            </InputGroup>
+                            <InputGroup className="mb-5">
+                                <InputGroup.Prepend>
+                                <InputGroup.Text id="basic-addon1">Location</InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <FormControl
+                                placeholder={this.state.location}
+                                aria-label={this.state.location}
+                                aria-describedby="basic-addon1"
+                                />
+                            </InputGroup>
                         </Col>
+                      </Row>
+                      <Row>
+
+                            
+                                {
+                                    this.state.guitar?
+                                    <div>
+                                        Guitar:
+                                        <InputGroup className="mb-5">
+                                            <InputGroup.Prepend>
+                                            <InputGroup.Text id="basic-addon1"> Skill Level</InputGroup.Text>
+                                            </InputGroup.Prepend>
+                                            <FormControl
+                                            placeholder={this.state.skillG}
+                                            aria-label={this.state.skillG}
+                                            aria-describedby="basic-addon1"
+                                            />
+                                        </InputGroup>
+                                    </div>
+                                    :null
+                                }
+                                {
+                                    this.state.bass?
+                                    <div>
+                                        Bass:
+                                        <InputGroup className="mb-5">
+                                            <InputGroup.Prepend>
+                                            <InputGroup.Text id="basic-addon1"> Skill Level</InputGroup.Text>
+                                            </InputGroup.Prepend>
+                                            <FormControl
+                                            placeholder={this.state.skillB}
+                                            aria-label={this.state.skillB}
+                                            aria-describedby="basic-addon1"
+                                            />
+                                        </InputGroup>
+                                    </div>
+                                    :null
+                                }
+                                {
+                                    this.state.singer?
+                                    <div>
+                                        Singer:
+                                        <InputGroup className="mb-5">
+                                            <InputGroup.Prepend>
+                                            <InputGroup.Text id="basic-addon1"> Skill Level</InputGroup.Text>
+                                            </InputGroup.Prepend>
+                                            <FormControl
+                                            placeholder={this.state.skillS}
+                                            aria-label={this.state.skillS}
+                                            aria-describedby="basic-addon1"
+                                            />
+                                        </InputGroup>
+                                    </div>
+                                    :null
+                                }
+                                {
+                                    this.state.piano?
+                                    <div>
+                                        Piano:
+                                        <InputGroup className="mb-5">
+                                            <InputGroup.Prepend>
+                                            <InputGroup.Text id="basic-addon1"> Skill Level</InputGroup.Text>
+                                            </InputGroup.Prepend>
+                                            <FormControl
+                                            placeholder={this.state.skillP}
+                                            aria-label={this.state.skillP}
+                                            aria-describedby="basic-addon1"
+                                            />
+                                        </InputGroup>
+                                    </div>
+                                    :null
+                                }
+                            
+
                       </Row>
                       
             
@@ -103,6 +250,7 @@ export default class EditProfileModal extends Component {
                     </Modal.Body>
 
                     <Modal.Footer>
+                        <Button variant="success" onClick={this.save}>Save Changes</Button>
                         <Button variant="danger" onClick={ this.close }>Cancel</Button>
                     </Modal.Footer>
                 </Modal>

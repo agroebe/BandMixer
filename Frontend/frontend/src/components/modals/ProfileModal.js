@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import { Modal, Button, Container, Row, Col, Image } from 'react-bootstrap';
 import './Modal.css'
 
@@ -7,25 +8,44 @@ export default class ProfileModal extends Component {
         super(props);
         console.log(props)
         this.state = {
-            username: '',
-            password: '',
-            contactEmail: 'email@email.com',
-            contactNumber: '1234567890',
-            contactLocation: 'Ames, IA',
-            bio: 'random bio',
-            skill1: '1',
-            skill2: '4',
-            instrument1: 'Guitar',
-            instrument2: 'Bass',
+          username: '',
+          userID: '',
+          password: '',
+          contactEmail: '',
+          phone: '',
+          location: '',
+          bio: '',
+          
 
-            show: false
+          show: false
+
         };
 
         this.close = this.close.bind(this);
     }
 
     open() {
-        this.setState({ show: true })
+      /*axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users/userID?userID=' + this.state.userID).then(r => {
+        if (r.data.includes('successful')) {
+           //set var function call
+            
+            this.fill();
+            this.setState({ show: true })
+        } else {
+            this.close();
+        }
+      })*/
+      this.fill();
+
+      this.setState({ show: true })
+    }
+
+    fill(){
+      axios.get('http://coms-309-cy-01.cs.iastate.edu:8080/profiles/14').then(r => {
+          //console.log(r.data)
+          this.setState({ username: r.data.username, location: r.data.location, phone: r.data.phoneNumber })
+      }
+      )   
     }
 
     close() {
@@ -68,8 +88,8 @@ export default class ProfileModal extends Component {
                           
                             <h2>Contact Info</h2>
                             <h3>{this.state.contactEmail}</h3>
-                            <h3>{this.state.contactNumber}</h3>
-                            <h3>{this.state.contactLocation}</h3>
+                            <h3>{this.state.phone}</h3>
+                            <h3>{this.state.location}</h3>
                           </Col>
                         </Row>
                       </Container>
