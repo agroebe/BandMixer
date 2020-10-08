@@ -29,7 +29,7 @@ export default class SignInModal extends Component {
     }
 
     signIn() {
-        axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users/login?loginID=' + this.state.loginId + '&password=' + this.state.password).then(r => {
+        axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users/login?loginID=' + this.state.loginId + '&password=' + this.state.password + '&stayLoggedIn=false').then(r => {
             if (r.data.includes('successful')) {
                 toast.success('Welcome back to BandMixer, ' + this.state.loginId + '!', {
                     position: "top-center",
