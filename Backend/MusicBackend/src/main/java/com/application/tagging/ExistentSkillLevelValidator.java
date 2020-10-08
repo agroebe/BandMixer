@@ -7,7 +7,7 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.application.BeanUtil;
+import com.application.util.BeanUtil;
 
 public class ExistentSkillLevelValidator implements ConstraintValidator<ExistentSkillLevel, Object>
 {
@@ -29,12 +29,16 @@ public class ExistentSkillLevelValidator implements ConstraintValidator<Existent
 		if(name == null)
 		{
 			msg = "Skill level name was not set";
+			context.disableDefaultConstraintViolation();
+			context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
 			return false;
 		}
 		Optional<SkillLevel> find = repo.findByName(name);
 		if(!find.isPresent())
 		{
 			msg = "The skill level: " + name + " does not exist.";
+			context.disableDefaultConstraintViolation();
+			context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
 			return false;
 		}
 		return true;

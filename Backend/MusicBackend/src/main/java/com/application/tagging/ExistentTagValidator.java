@@ -8,7 +8,7 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.application.BeanUtil;
+import com.application.util.BeanUtil;
 
 public class ExistentTagValidator implements ConstraintValidator<ExistentTag, Object>
 {

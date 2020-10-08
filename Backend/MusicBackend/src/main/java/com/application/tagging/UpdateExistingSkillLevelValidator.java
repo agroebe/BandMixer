@@ -7,7 +7,7 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.application.BeanUtil;
+import com.application.util.BeanUtil;
 
 public class UpdateExistingSkillLevelValidator implements ConstraintValidator<UpdateExistentSkillLevel, Object>
 {
@@ -35,22 +35,30 @@ public class UpdateExistingSkillLevelValidator implements ConstraintValidator<Up
 		if(name == null)
 		{
 			msg = "Skill level name was not set";
+			context.disableDefaultConstraintViolation();
+			context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
 			return false;
 		}
 		if(name.equals("unset"))
 		{
 			msg = "Cannot update the value for 'unset'";
+			context.disableDefaultConstraintViolation();
+			context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
 			return false;
 		}
 		Optional<SkillLevel> find = repo.findByName(name);
 		if(!find.isPresent())
 		{
 			msg = "The skill level: " + name + " does not exist.";
+			context.disableDefaultConstraintViolation();
+			context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
 			return false;
 		}
 		if((newName == null || newName.equals("") || newName.equals(name)) && valuefd == null)
 		{
 			msg = "Nothing given to update with";
+			context.disableDefaultConstraintViolation();
+			context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
 			return false;
 		}
 		if(newName != null)
@@ -58,29 +66,39 @@ public class UpdateExistingSkillLevelValidator implements ConstraintValidator<Up
 			if(newName.contains(" "))
 			{
 				msg = "Skill level names cannot contain whitespace.";
+				context.disableDefaultConstraintViolation();
+				context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
 				return false;
 			}
 			if(newName.equals("unset"))
 			{
 				msg = "Cannnot change another skill level into 'unset'.";
+				context.disableDefaultConstraintViolation();
+				context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
 				return false;
 			}
 			Optional<SkillLevel> find2 = repo.findByName(newName);
 			if(find2.isPresent())
 			{
 				msg = "Skill level matching new name already exists.";
+				context.disableDefaultConstraintViolation();
+				context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
 				return false;
 			}
 		}
 		if(valuefd != null && valuefd < 0)
 		{
 			msg = "The new value (" + valuefd + ") for the level is outside of acceptable bounds. All values must be non-negative";
+			context.disableDefaultConstraintViolation();
+			context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
 			return false;
 		}
 		if(valuefd != null && valuefd == find.get().getValue() && 
 				(newName == null || name.equals(newName)))
 		{
 			msg = "Nothing given to update with";
+			context.disableDefaultConstraintViolation();
+			context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
 			return false;
 		}
 		
