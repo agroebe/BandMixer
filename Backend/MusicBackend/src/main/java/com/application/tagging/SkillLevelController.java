@@ -185,9 +185,9 @@ public class SkillLevelController
 
 	@GetMapping(path="/get")
 	@CrossOrigin
-	public ResponseEntity<SkillLevel> get(@RequestBody @Valid RequestSkillLevelWrapper level)
+	public ResponseEntity<SkillLevel> get(@RequestBody @Valid RequestSkillLevel level)
 	{
-		return new ResponseEntity<SkillLevel>(repo.findByName(level.getLevel().getName()).get(), HttpStatus.CREATED);
+		return new ResponseEntity<SkillLevel>(repo.findByName(level.getName()).get(), HttpStatus.CREATED);
 	}
 
 	@GetMapping(path="/all")
