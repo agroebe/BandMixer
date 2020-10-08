@@ -43,6 +43,21 @@ public class ProfileController {
         }
     }
 
+    @PostMapping(path="/{userId}/update")
+    @CrossOrigin
+    public @ResponseBody String updateProfileForUser(@PathVariable Long userId, @RequestBody Profile profile){
+        Profile toUpdate = repository.findByUserId(userId);
+        if(toUpdate != null){
+            toUpdate.setLocation(profile.getLocation());
+            toUpdate.setPhoneNumber(profile.getPhoneNumber());
+            toUpdate.setProfilePicture(profile.getProfilePicture());
+            repository.save(toUpdate);
+            return "user " + userId + " has been updated";
+        }else{
+            return "invalid userId";
+        }
+    }
+
 
     private class ProfileNotFoundException extends IllegalArgumentException
     {
