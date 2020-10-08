@@ -10,7 +10,7 @@ public class RequestNewSkillLevel
 	
 	public RequestNewSkillLevel(String nm, Integer val)
 	{
-		name = nm;
+		name = (nm == null ? null : nm.trim());
 		value = val;
 	}
 	
@@ -18,7 +18,7 @@ public class RequestNewSkillLevel
 		return name;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.name = (name == null ? null : name.trim());
 	}
 	public Integer getValue() {
 		return value;

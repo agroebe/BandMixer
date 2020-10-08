@@ -37,7 +37,7 @@ public class UpdateExistingSkillLevelValidator implements ConstraintValidator<Up
 			msg = "Skill level name was not set";
 			return false;
 		}
-		if(name.trim().equals("unset"))
+		if(name.equals("unset"))
 		{
 			msg = "Cannot update the value for 'unset'";
 			return false;
@@ -48,24 +48,24 @@ public class UpdateExistingSkillLevelValidator implements ConstraintValidator<Up
 			msg = "The skill level: " + name + " does not exist.";
 			return false;
 		}
-		if((newName == null || newName.trim().equals("") || newName.trim().equals(name.trim())) && valuefd == null)
+		if((newName == null || newName.equals("") || newName.equals(name)) && valuefd == null)
 		{
 			msg = "Nothing given to update with";
 			return false;
 		}
 		if(newName != null)
 		{
-			if(newName.trim().contains(" "))
+			if(newName.contains(" "))
 			{
 				msg = "Skill level names cannot contain whitespace.";
 				return false;
 			}
-			if(newName.trim().equals("unset"))
+			if(newName.equals("unset"))
 			{
 				msg = "Cannnot change another skill level into 'unset'.";
 				return false;
 			}
-			Optional<SkillLevel> find2 = repo.findByName(newName.trim());
+			Optional<SkillLevel> find2 = repo.findByName(newName);
 			if(find2.isPresent())
 			{
 				msg = "Skill level matching new name already exists.";
@@ -78,7 +78,7 @@ public class UpdateExistingSkillLevelValidator implements ConstraintValidator<Up
 			return false;
 		}
 		if(valuefd != null && valuefd == find.get().getValue() && 
-				(newName == null || name.trim().equals(newName.trim())))
+				(newName == null || name.equals(newName)))
 		{
 			msg = "Nothing given to update with";
 			return false;

@@ -35,13 +35,13 @@ public class NewSkillLevelValidator implements ConstraintValidator<NewSkillLevel
 			msg = "Skill level name was not set";
 			return false;
 		}
-		Optional<SkillLevel> find = repo.findByName(name.trim());
+		Optional<SkillLevel> find = repo.findByName(name);
 		if(find.isPresent())
 		{
 			msg = "The skill level: " + name + " already exists.";
 			return false;
 		}
-		if(name.trim().equals("") || name.contains(" "))
+		if(name.equals("") || name.contains(" "))
 		{
 			msg = "Skill level names cannot contain whitespace or be empty strings";
 			return false;
@@ -56,12 +56,12 @@ public class NewSkillLevelValidator implements ConstraintValidator<NewSkillLevel
 			msg = "The value (" + valuefd + ") for new skill level '" + name + "' is outside of acceptable bounds. All values must be non-negative";
 			return false;
 		}
-		if(valuefd == 0 && !name.trim().equals("unset"))
+		if(valuefd == 0 && !name.equals("unset"))
 		{
 			msg = "Only the 'unset' skill level may carry the value of 0, all other skill levels must contain a greater value.";
 			return false;
 		}
-		if(name.trim().equals("unset") && valuefd != 0)
+		if(name.equals("unset") && valuefd != 0)
 		{
 			msg = "The skill level 'unset' can only have a value of 0";
 			return false;

@@ -134,9 +134,9 @@ public class SkillLevelController
 			return new ResponseEntity<String>("Error. The requested skill level no longer exists.", HttpStatus.CREATED);
 		}
 		SkillLevel toUpdate = toUpdateTemp.get();
-		if(level.getLevel().getNewName() != null && level.getLevel().getName().trim().equals(level.getLevel().getNewName().trim()))
+		if(level.getLevel().getNewName() != null && !level.getLevel().getName().equals(level.getLevel().getNewName()))
 		{
-			toUpdate.setName(level.getLevel().getNewName().trim());
+			toUpdate.setName(level.getLevel().getNewName());
 			repo.save(toUpdate);
 		}
 		if(level.getLevel().getValue() != null && level.getLevel().getValue() != toUpdate.getValue())
@@ -146,11 +146,15 @@ public class SkillLevelController
 			if(!current.isPresent())
 			{
 				toUpdate.setValue(val);
+				repo.save(toUpdate);
 			}
 			else
 			{
 				int oldval = toUpdate.getValue();
-				toUpdate.setValue(val);
+				Optional<Integer> maxopt = repo.findMaxValue();
+				int max = maxopt.get();
+				toUpdate.setValue(max + 1);
+				repo.save(toUpdate);
 				List<SkillLevel> items;
 				if(oldval < val)
 				{
@@ -158,9 +162,10 @@ public class SkillLevelController
 					for(SkillLevel item : items)
 					{
 						item.setValue(item.getValue() - 1);
+						repo.save(item);
 					}
-					items.add(toUpdate);
-					repo.saveAll(items);
+					toUpdate.setValue(val);
+					repo.save(toUpdate);
 				}
 				else
 				{
@@ -168,13 +173,14 @@ public class SkillLevelController
 					for(SkillLevel item : items)
 					{
 						item.setValue(item.getValue() + 1);
+						repo.save(item);
 					}
-					items.add(toUpdate);
-					repo.saveAll(items);
+					toUpdate.setValue(val);
+					repo.save(toUpdate);
 				}
 			}
 		}
-		return new ResponseEntity<String>("Skill level " + level.getLevel().getName().trim() + " successfully updated.", HttpStatus.CREATED);
+		return new ResponseEntity<String>("Skill level " + level.getLevel().getName() + " successfully updated.", HttpStatus.CREATED);
 	}
 
 	@GetMapping(path="/get")

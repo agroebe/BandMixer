@@ -1,7 +1,9 @@
 package com.application.tagging;
 
+import javax.validation.Valid;
+
 public class RequestSkillLevelUpdateWrapper {
-    private RequestSkillLevelUpdate level;
+    @Valid private RequestSkillLevelUpdate level;
 
     public RequestSkillLevelUpdate getLevel(){
         return level;
