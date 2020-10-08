@@ -3,6 +3,10 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.*;
+
+import com.application.skill_level.AppliedSkillLevel;
+import com.application.skill_level.AppliedSkillLevelRepository;
+import com.application.skill_level.SkillLevel;
 import com.application.tagging.*;
 
 @Entity

@@ -1,4 +1,4 @@
-package com.application.tagging;
+package com.application.skill_level;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package com.application.tagging;
+package com.application.skill_level;
 
 @ExistentSkillLevel(nameField="name")
 public class RequestSkillLevel 

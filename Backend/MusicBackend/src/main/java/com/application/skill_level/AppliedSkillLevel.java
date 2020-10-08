@@ -1,7 +1,9 @@
-package com.application.tagging;
+package com.application.skill_level;
 import javax.persistence.*;
 
 import com.application.posts.Post;
+import com.application.tagging.Tag;
+import com.application.tagging.TagSkillLevelKey;
 
 @Entity
 public class AppliedSkillLevel 

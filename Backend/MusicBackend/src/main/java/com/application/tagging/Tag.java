@@ -4,6 +4,9 @@ import java.util.Map;
 
 import javax.persistence.*;
 
+import com.application.skill_level.AppliedSkillLevel;
+import com.application.skill_level.AppliedSkillLevelRepository;
+
 
 
 @Entity

@@ -1,4 +1,4 @@
-package com.application.tagging;
+package com.application.skill_level;
 import org.hibernate.annotations.Check;
 
 import java.util.Set;

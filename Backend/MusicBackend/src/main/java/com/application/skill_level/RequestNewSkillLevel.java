@@ -1,4 +1,4 @@
-package com.application.tagging;
+package com.application.skill_level;
 
 @NewSkillLevel(nameField="name", valueField="value")
 public class RequestNewSkillLevel 

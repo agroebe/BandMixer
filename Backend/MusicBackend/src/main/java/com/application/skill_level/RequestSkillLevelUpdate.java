@@ -1,4 +1,4 @@
-package com.application.tagging;
+package com.application.skill_level;
 
 @UpdateExistentSkillLevel(nameField="name", valueField="value", newNameField="newName")
 public class RequestSkillLevelUpdate 
