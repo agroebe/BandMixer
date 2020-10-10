@@ -54,54 +54,143 @@ public class UpdateExistingSkillLevelValidator implements ConstraintValidator<Up
 			context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
 			return false;
 		}
-		if((newName == null || newName.equals("") || newName.equals(name)) && valuefd == null)
+		SkillLevel found = find.get();
+		if((newName == null || newName.equals("")) && valuefd == null)
 		{
 			msg = "Nothing given to update with";
 			context.disableDefaultConstraintViolation();
 			context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
 			return false;
 		}
-		if(newName != null)
+		else if((newName == null || newName.equals("")))
 		{
-			if(newName.contains(" "))
+			if(valuefd == found.getValue())
 			{
-				msg = "Skill level names cannot contain whitespace.";
+				msg = "Nothing given to update with";
+				context.disableDefaultConstraintViolation();
+				context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
+				return false;
+			}
+			if(valuefd <= 0)
+			{
+				msg = "All skill level values must be non-negative, "
+						+ "and only the 'unset' skill level may use the value 0";
+				context.disableDefaultConstraintViolation();
+				context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
+				return false;
+			}
+		}
+		else if(valuefd == null)
+		{
+			if(newName.contains(" ") || newName.contains("\t"))
+			{
+				msg = "Skill Level names cannot contain whitespace.";
 				context.disableDefaultConstraintViolation();
 				context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
 				return false;
 			}
 			if(newName.equals("unset"))
 			{
-				msg = "Cannnot change another skill level into 'unset'.";
+				msg = "Cannot change a skill level into 'unset'";
 				context.disableDefaultConstraintViolation();
 				context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
 				return false;
 			}
-			Optional<SkillLevel> find2 = repo.findByName(newName);
-			if(find2.isPresent())
+			if(newName.equals(name))
 			{
-				msg = "Skill level matching new name already exists.";
+				msg = "Nothing given to update with";
+				context.disableDefaultConstraintViolation();
+				context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
+				return false;
+			}
+			Optional<SkillLevel> newFind = repo.findByName(newName);
+			if(newFind.isPresent())
+			{
+				msg = "The new skill level name '" + newName + "' already exists.";
 				context.disableDefaultConstraintViolation();
 				context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
 				return false;
 			}
 		}
-		if(valuefd != null && valuefd < 0)
+		else
 		{
-			msg = "The new value (" + valuefd + ") for the level is outside of acceptable bounds. All values must be non-negative";
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
-			return false;
+			if(newName.equals(name) && valuefd == found.getValue())
+			{
+				msg = "Nothing given to update with";
+				context.disableDefaultConstraintViolation();
+				context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
+				return false;
+			}
+			else if(newName.equals(name))
+			{
+				if(valuefd <= 0)
+				{
+					msg = "All skill level values must be non-negative, "
+							+ "and only the 'unset' skill level may use the value 0";
+					context.disableDefaultConstraintViolation();
+					context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
+					return false;
+				}
+			}
+			else if(valuefd == found.getValue())
+			{
+				if(newName.contains(" ") || newName.contains("\t"))
+				{
+					msg = "Skill Level names cannot contain whitespace.";
+					context.disableDefaultConstraintViolation();
+					context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
+					return false;
+				}
+				if(newName.equals("unset"))
+				{
+					msg = "Cannot change a skill level into 'unset'";
+					context.disableDefaultConstraintViolation();
+					context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
+					return false;
+				}
+				Optional<SkillLevel> newFind = repo.findByName(newName);
+				if(newFind.isPresent())
+				{
+					msg = "The new skill level name '" + newName + "' already exists.";
+					context.disableDefaultConstraintViolation();
+					context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
+					return false;
+				}
+			}
+			else
+			{
+				if(newName.contains(" ") || newName.contains("\t"))
+				{
+					msg = "Skill Level names cannot contain whitespace.";
+					context.disableDefaultConstraintViolation();
+					context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
+					return false;
+				}
+				if(newName.equals("unset"))
+				{
+					msg = "Cannot change a skill level into 'unset'";
+					context.disableDefaultConstraintViolation();
+					context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
+					return false;
+				}
+				Optional<SkillLevel> newFind = repo.findByName(newName);
+				if(newFind.isPresent())
+				{
+					msg = "The new skill level name '" + newName + "' already exists.";
+					context.disableDefaultConstraintViolation();
+					context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
+					return false;
+				}
+				if(valuefd <= 0)
+				{
+					msg = "All skill level values must be non-negative, "
+							+ "and only the 'unset' skill level may use the value 0";
+					context.disableDefaultConstraintViolation();
+					context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
+					return false;
+				}
+			}
 		}
-		if(valuefd != null && valuefd == find.get().getValue() && 
-				(newName == null || name.equals(newName)))
-		{
-			msg = "Nothing given to update with";
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
-			return false;
-		}
-		
 		return true;
 	}
 	

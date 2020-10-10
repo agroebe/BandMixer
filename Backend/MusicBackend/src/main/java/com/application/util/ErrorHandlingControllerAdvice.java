@@ -19,14 +19,10 @@ public class ErrorHandlingControllerAdvice
 	@ResponseBody ValidationErrorResponse onConstraintValidationException(ConstraintViolationException e)
 	{
 		ValidationErrorResponse err = new ValidationErrorResponse();
-		System.out.println("About to start loop1");
-		System.out.println("size: " + e.getConstraintViolations().size());
 		for(ConstraintViolation violation : e.getConstraintViolations())
 		{
 			err.getViolations().add(new Violation(violation.getPropertyPath().toString(), violation.getMessage()));
-			System.out.println("constraint violation: " + violation.getPropertyPath().toString() + " Message: " + violation.getMessage());
 		}
-		System.out.println("Done with loop 1");
 		return err;
 	}
 	
@@ -49,9 +45,7 @@ public class ErrorHandlingControllerAdvice
 				err.getViolations().add(new Violation(objectError.getObjectName(), objectError.getDefaultMessage()));
 			}
 			
-			System.out.println("param violation: " + objectError.getObjectName() + " Message: " + objectError.getCode());
 		}
-		System.out.println("Done with loop 2");
 		return err;
 	}
 }

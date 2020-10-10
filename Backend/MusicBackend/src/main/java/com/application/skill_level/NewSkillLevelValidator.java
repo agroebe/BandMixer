@@ -45,7 +45,7 @@ public class NewSkillLevelValidator implements ConstraintValidator<NewSkillLevel
 			context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
 			return false;
 		}
-		if(name.equals("") || name.contains(" "))
+		if(name.equals("") || name.contains(" ") || name.contains("\t"))
 		{
 			msg = "Skill level names cannot contain whitespace or be empty strings";
 			context.disableDefaultConstraintViolation();

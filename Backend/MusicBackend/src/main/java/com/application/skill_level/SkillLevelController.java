@@ -37,7 +37,7 @@ public class SkillLevelController
 	{
 		String message = "Skill Level " + newLevel.getName() + " added.";
 		Optional<SkillLevel> old = repo.findByValue(newLevel.getValue());
-		if(old.isPresent() == false)
+		if(old.isPresent())
 		{
 			message = "Skill Level " + newLevel.getName() + " inserted.";
 			List<SkillLevel> above = repo.findWithGreaterOrEqual(newLevel.getValue());
@@ -58,6 +58,11 @@ public class SkillLevelController
 				adjustee.setValue(adjustee.getValue() + 1);
 				repo.save(adjustee);
 			}
+			SkillLevel toAdd = new SkillLevel(newLevel.getName(), newLevel.getValue());
+			repo.save(toAdd);
+		}
+		else
+		{
 			SkillLevel toAdd = new SkillLevel(newLevel.getName(), newLevel.getValue());
 			repo.save(toAdd);
 		}
