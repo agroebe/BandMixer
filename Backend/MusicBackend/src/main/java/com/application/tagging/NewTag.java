@@ -7,10 +7,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import javax.validation.*;
 
-@Constraint(validatedBy = ExistentTagValidator.class)
+@Constraint(validatedBy = NewTagValidator.class)
 @Retention(RUNTIME)
 @Target(TYPE)
-public @interface ExistentTag 
+public @interface NewTag 
 {
 	String message() default "The tag does not exist.";
 	String namefield();

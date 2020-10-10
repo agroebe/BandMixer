@@ -1,37 +1,23 @@
 package com.application.tagging;
 
-@ExistentTag
+@ExistentTag(namefield="name")
 public class RequestExistentTag 
 {
 	private String name;
 	
 	public RequestExistentTag()
 	{
-		name = "undefined";
+		name = null;
 	}
 	
 	public RequestExistentTag(String name)
 	{
-		if(name == null || name.trim().equals(""))
-		{
-			this.name = "undefined";
-		}
-		else
-		{
-			this.name = name;
-		}
+		this.name = (name == null ? null : name.trim());
 	}
 	
 	public void setName(String name)
 	{
-		if(name == null || name.trim().equals(""))
-		{
-			this.name = "undefined";
-		}
-		else
-		{
-			this.name = name;
-		}
+		this.name = (name == null ? null : name.trim());
 	}
 	
 	public String getName()
