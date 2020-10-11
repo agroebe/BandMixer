@@ -30,7 +30,7 @@ public class UpdateTagValidator implements ConstraintValidator<UpdateTag, Object
 	@Override
 	public boolean isValid(Object value, ConstraintValidatorContext context) {
 		String name = (String)new BeanWrapperImpl(value).getPropertyValue(namefield);
-		if(name == null)
+		if(name == null || name.equals(""))
 		{
 			String msg = "The tag name was not set.";
 			context.disableDefaultConstraintViolation();

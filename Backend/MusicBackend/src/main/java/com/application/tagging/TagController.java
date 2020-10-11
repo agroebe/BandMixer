@@ -2,6 +2,8 @@ package com.application.tagging;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,7 +29,7 @@ public class TagController
 
     
     @PostMapping(path="/add") //Map only POST requests
-    public @ResponseBody String addNewTag(@RequestBody RequestNewTag newTag)
+    public @ResponseBody String addNewTag(@RequestBody @Valid RequestNewTag newTag)
     {
     	Tag n = new Tag(newTag.getName(), newTag.getAcceptsSkill());
 		tagRepository.save(n);
@@ -35,7 +37,7 @@ public class TagController
     }
     
     @PostMapping(path="/update")
-    public @ResponseBody String updateTag(@RequestBody RequestUpdateTag updateTag)
+    public @ResponseBody String updateTag(@RequestBody @Valid RequestUpdateTag updateTag)
     {
     	
     	Optional<Tag> member = tagRepository.findByName(updateTag.getName());
@@ -58,7 +60,7 @@ public class TagController
     }
     
     @PostMapping(path="/remove")
-    public @ResponseBody String removeTag(@RequestBody RequestExistentTag tag)
+    public @ResponseBody String removeTag(@RequestBody @Valid RequestExistentTag tag)
     {
     	
     	tagRepository.findByName(tag.getName()).get().remove(applicationsRepository, tagRepository);
@@ -66,7 +68,7 @@ public class TagController
     }
     
     @GetMapping(path="/fetch")
-    public @ResponseBody Tag getByName(@RequestParam String name)
+    public @ResponseBody Tag getByName(@RequestParam @Valid String name)
     {
     	Optional<Tag> tag = tagRepository.findByName(name);
     	return tag.get();
@@ -82,7 +84,7 @@ public class TagController
 
     
     @GetMapping(path="/hasSkill")
-    public @ResponseBody boolean allowsSkill(@RequestBody RequestExistentTag tagChoice)
+    public @ResponseBody boolean allowsSkill(@RequestBody @Valid RequestExistentTag tagChoice)
     {
     	Optional<Tag> tag = tagRepository.findByName(tagChoice.getName());
     	return tag.get().getAllowskill();

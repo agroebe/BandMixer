@@ -9,7 +9,7 @@ public class RequestNewTag
 	public RequestNewTag()
 	{
 		name = null;
-		acceptsSkill = false;
+		acceptsSkill = true;
 	}
 	
 	public RequestNewTag(String name, boolean acceptsSkill)
