@@ -1,4 +1,4 @@
-package com.application.skill_level;
+package validation.validators;
 
 import java.util.Optional;
 
@@ -8,7 +8,11 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.application.skill_level.SkillLevel;
+import com.application.skill_level.SkillLevelRepository;
 import com.application.util.BeanUtil;
+
+import validation.annotations.NewSkillLevel;
 
 public class NewSkillLevelValidator implements ConstraintValidator<NewSkillLevel, Object>
 {
@@ -28,6 +32,13 @@ public class NewSkillLevelValidator implements ConstraintValidator<NewSkillLevel
 	
 	@Override
 	public boolean isValid(Object value, ConstraintValidatorContext context) {
+		if(value == null)
+		{
+			String msg = "Cannot pass a null parameter.";
+			context.disableDefaultConstraintViolation();
+			context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
+			return false;
+		}
 		String name = (String)new BeanWrapperImpl(value).getPropertyValue(nameField);
 		Integer valuefd = (Integer)new BeanWrapperImpl(value).getPropertyValue(valueField);
 		if(name == null)

@@ -1,4 +1,4 @@
-package com.application.skill_level;
+package validation.annotations;
 
 import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -8,6 +8,8 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
+
+import validation.validators.UpdateExistingSkillLevelValidator;
 
 @Constraint(validatedBy = UpdateExistingSkillLevelValidator.class)
 @Retention(RUNTIME)

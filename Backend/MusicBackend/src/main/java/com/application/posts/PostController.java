@@ -42,7 +42,7 @@ public class PostController
 	
 	//TODO This should be a function of user, remove later
 	@PostMapping(path="/add")
-	public @ResponseBody String addPost(@RequestParam String title, @RequestParam String type, @RequestBody RequestTag[] tags)
+	public @ResponseBody String addPost(@RequestBody @Valid RequestNewPost post)
 	{
 		Post p = new Post(title, type);
 		postRepository.save(p);
@@ -50,7 +50,7 @@ public class PostController
 	}
 	
 	@PostMapping(path="/update")
-    public @ResponseBody String updatePost(@RequestBody @Valid RequestPost id, @RequestParam(required=false) String newTitle, @RequestParam(required=false) String newText)
+    public @ResponseBody String updatePost(@RequestBody @Valid RequestUpdatePost post)
     {
 		if(newTitle == null && newText == null)
 		{

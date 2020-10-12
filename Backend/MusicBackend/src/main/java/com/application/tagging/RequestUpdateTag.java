@@ -1,5 +1,7 @@
 package com.application.tagging;
 
+import validation.annotations.UpdateTag;
+
 @UpdateTag(namefield="name", newNameField="newName", allowSkillField="allowsSkill")
 public class RequestUpdateTag 
 {

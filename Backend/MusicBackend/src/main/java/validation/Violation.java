@@ -1,4 +1,4 @@
-package com.application.util;
+package validation;
 
 public class Violation 
 {

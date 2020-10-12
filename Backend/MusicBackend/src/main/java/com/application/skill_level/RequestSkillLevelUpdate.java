@@ -1,5 +1,7 @@
 package com.application.skill_level;
 
+import validation.annotations.UpdateExistentSkillLevel;
+
 @UpdateExistentSkillLevel(nameField="name", valueField="value", newNameField="newName")
 public class RequestSkillLevelUpdate 
 {

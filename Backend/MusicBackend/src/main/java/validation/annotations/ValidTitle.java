@@ -1,20 +1,20 @@
-package com.application.tagging;
+package validation.annotations;
 
-import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import javax.validation.*;
 
-@Constraint(validatedBy = NewTagValidator.class)
-@Retention(RUNTIME)
-@Target(TYPE)
-public @interface NewTag 
-{
-	String message() default "The tag does not exist.";
-	String namefield();
+import validation.validators.TitleValidator;
 
+@Constraint(validatedBy = TitleValidator.class)
+@Retention(RUNTIME)
+@Target(FIELD)
+public @interface ValidTitle 
+{
+	String message() default "The title is invalid.";
 	Class<?>[] groups() default {};
 	Class<? extends Payload>[] payload() default {};
 	

@@ -1,8 +1,17 @@
 package com.application.posts;
 
-@ExistentPost
+import javax.validation.GroupSequence;
+import javax.validation.constraints.NotNull;
+
+import validation.annotations.ExistentPost;
+import validation.ordergroups.First;
+import validation.ordergroups.Second;
+
+@GroupSequence({First.class,Second.class})
+@NotNull(groups= {First.class})
 public class RequestPost 
 {
+	@ExistentPost(groups=Second.class)
 	private long id;
 	
 	public RequestPost()

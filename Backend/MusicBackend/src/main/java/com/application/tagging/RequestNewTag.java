@@ -1,5 +1,7 @@
 package com.application.tagging;
 
+import validation.annotations.NewTag;
+
 @NewTag(namefield="name")
 public class RequestNewTag 
 {

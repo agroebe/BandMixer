@@ -1,4 +1,4 @@
-package com.application.util;
+package validation;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
@@ -31,8 +31,6 @@ public class ErrorHandlingControllerAdvice
 	@ResponseBody ValidationErrorResponse onMethodArgumentNotValidException(MethodArgumentNotValidException e)
 	{
 		ValidationErrorResponse err = new ValidationErrorResponse();
-		System.out.println("About to start loop2");
-		System.out.println("size: " + e.getBindingResult().getFieldErrorCount());
 		for(ObjectError objectError : e.getBindingResult().getAllErrors())
 		{
 			if(objectError instanceof FieldError)

@@ -1,5 +1,7 @@
 package com.application.tagging;
 
+import validation.annotations.ExistentTag;
+
 @ExistentTag(namefield="name")
 public class RequestExistentTag 
 {
