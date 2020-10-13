@@ -88,9 +88,19 @@ public class Post
 		return id;
 	}
 	
+	public void setId(long id)
+	{
+		this.id = id;
+	}
+	
 	public Long getOwnerId()
 	{
 		return ownerId;
+	}
+	
+	public void setOwnerId(long id)
+	{
+		this.ownerId = id;
 	}
 	
 	public String getTitle()
@@ -101,6 +111,11 @@ public class Post
 	public String getContentType()
 	{
 		return contentType;
+	}
+	
+	public void setContentType(String type)
+	{
+		this.contentType = type;
 	}
 	
 	public String getTextContent()
@@ -125,11 +140,17 @@ public class Post
 	
 	public boolean addTag(AppliedSkillLevelRepository rep, Tag tag, SkillLevel level)
 	{
+		return addTag(rep, tag, level, false, false);
+	}
+	
+	public boolean addTag(AppliedSkillLevelRepository rep, Tag tag, SkillLevel level, 
+			boolean bounded, boolean lowerbounded)
+	{
 		if(tags.containsKey(new TagSkillLevelKey(this.id,tag.getId())))
 		{
 			return false;
 		}
-		AppliedSkillLevel app = new AppliedSkillLevel(this, tag, level);
+		AppliedSkillLevel app = new AppliedSkillLevel(this, tag, level, bounded, lowerbounded);
 		rep.save(app);
 		return true;
 	}
@@ -163,14 +184,17 @@ public class Post
 		}
 	}
 	
-	public boolean setTagSkill(Tag tag, SkillLevel level)
+	public boolean updateTag(Tag tag, SkillLevel level, boolean isbounded, boolean lowerbounded)
 	{
 		TagSkillLevelKey key = new TagSkillLevelKey(this.id,tag.getId());
 		if(!tags.containsKey(key))
 		{
 			return false;
 		}
-		tags.get(key).setSkillLevel(level);
+		AppliedSkillLevel app = tags.get(key);
+		app.setSkillLevel(level);
+		app.setIsBounded(isbounded);
+		app.setIsLowerBound(lowerbounded);
 		return true;
 	}
 }

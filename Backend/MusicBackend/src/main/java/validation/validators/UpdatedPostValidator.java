@@ -18,45 +18,48 @@ import com.application.tagging.TagRepository;
 import com.application.tagging.TagSkillLevelKey;
 import com.application.util.BeanUtil;
 
-import validation.annotations.UpdatedTag;
+import validation.annotations.UpdatedPost;
 
 public class UpdatedPostValidator implements ConstraintValidator<UpdatedPost, Object>
 {
 	@Autowired
 	private PostRepository repo;
 	
-	@Autowired
-	private TagRepository tagrepo;
-	
 	private String idfield;
-	private String tagfield;
+	private String titlefield;
+	private String typefield;
+	private String textContentField;
+	private String searchField;
 	
-	public void initialize(UpdatedTag constraint)
+	public void initialize(UpdatedPost constraint)
 	{
 		repo = BeanUtil.getBean(PostRepository.class);
-		tagrepo = BeanUtil.getBean(TagRepository.class);
 		idfield = constraint.idfield();
-		tagfield = constraint.tagfield();
+		titlefield = constraint.titlefield();
+		typefield = constraint.typefield();
+		textContentField = constraint.textContentField();
+		searchField = constraint.searchField();
 	}
 	
 	@Override
 	public boolean isValid(Object value, ConstraintValidatorContext context) {
 		
 		long idvalue = (long)new BeanWrapperImpl(value).getPropertyValue(idfield);
+		String newTitle = (String)new BeanWrapperImpl(value).getPropertyValue(titlefield);
+		String newType = (String)new BeanWrapperImpl(value).getPropertyValue(typefield);
+		String newText = (String)new BeanWrapperImpl(value).getPropertyValue(textContentField);
+		boolean newSearch = (boolean)new BeanWrapperImpl(value).getPropertyValue(searchField);
 		Optional<Post> find = repo.findById(idvalue);
-		RequestTagApplication newApp = (RequestTagApplication)new BeanWrapperImpl(value).getPropertyValue(tagfield);
-		RequestExistentTag tag = newApp.getTag();
+		
 		
 		Post found = find.get();
-		Optional<Tag> tagfind = tagrepo.findByName(tag.getName());
-		Tag tagfound = tagfind.get();
-		TagSkillLevelKey key = new TagSkillLevelKey(idvalue, tagfound.getId());
-		AppliedSkillLevel application = found.getAppliedTags().get(key);
-		boolean noskillchanged = newApp.getSkill().getName().equals(application.getSkillLevel().getName());
-		boolean noboundingchanged = newApp.getBounded() == application.getIsBounded();
-		boolean noboundchanged = newApp.getLowerBounded() == application.getIsLowerBound();
 		
-		if(noskillchanged && noboundingchanged && noboundchanged)
+		boolean notitlechange = newTitle == null || !newTitle.equals(found.getTitle());
+		boolean notypechange = newType == null || !newType.equals(found.getContentType());
+		boolean notextchange = newText == null || !newText.equals(found.getTextContent());
+		boolean nosearchChange = newSearch == found.getIsSearch();
+		
+		if(notitlechange && notypechange && notextchange && nosearchChange)
 		{
 			String msg = "Nothing given to update with.";
 			context.disableDefaultConstraintViolation();

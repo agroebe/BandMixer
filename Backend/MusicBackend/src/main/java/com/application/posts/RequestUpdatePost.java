@@ -1,20 +1,29 @@
 package com.application.posts;
 
+import javax.validation.GroupSequence;
+
 import validation.annotations.ContentType;
 import validation.annotations.ExistentPost;
+import validation.annotations.NullChecks;
+import validation.annotations.UpdatedPost;
 import validation.annotations.ValidTitle;
 import validation.ordergroups.First;
 import validation.ordergroups.Second;
+import validation.ordergroups.Third;
 
+@GroupSequence({First.class,Second.class,Third.class})
+@NullChecks(fields= {}, groups=First.class)
+@UpdatedPost(groups=Third.class, idfield = "id", searchField = "isSearch", 
+	textContentField = "textContent", titlefield = "title", typefield = "contentType")
 public class RequestUpdatePost 
 {
-	@ExistentPost
+	@ExistentPost(groups=Second.class)
 	private Long id;
 
-	@ValidTitle(groups=First.class)
+	@ValidTitle(groups=Second.class)
 	private String title;
 	
-	@ContentType(groups=First.class)
+	@ContentType(groups=Second.class)
 	private String contentType;
 	
 	private String textContent;
@@ -22,6 +31,16 @@ public class RequestUpdatePost
 	//private long contentId;
 	
 	private boolean isSearch;
+	
+	public RequestUpdatePost()
+	{
+		id = -3L;
+		title = null;
+		contentType = null;
+		textContent = null;
+		isSearch = false;
+	}
+	
 	public Long getId() {
 		return id;
 	}
