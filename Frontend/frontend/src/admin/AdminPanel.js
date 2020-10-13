@@ -6,7 +6,7 @@ import UserList from './UserList'
 function AdminPanel() {
     return (
         <Admin dataProvider={ restProvider('http://coms-309-cy-01.cs.iastate.edu:8080')}>
-            <Resource name='users/all' list={ UserList }/>
+            <Resource name='users' list={ UserList }/>
         </Admin>
     )
 }
