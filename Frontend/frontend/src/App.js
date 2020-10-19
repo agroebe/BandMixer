@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import NavBar from './components/NavBar'
 import Home from './routes/Home'
-import About from './routes/About'
-import Footer from './components/Footer'
-import { BrowserRouter, Route} from 'react-router-dom'
+import Results from './routes/Results'
+import AdminPanel from './admin/AdminPanel'
+import { BrowserRouter, Route } from 'react-router-dom'
 
 export default function App() {
   return (
@@ -11,7 +11,8 @@ export default function App() {
       <NavBar/>
       <BrowserRouter>
         <Route path='/' exact component={ Home }/>
-        <Route path='/about' exact component={ About }/>
+        <Route path='/results' exact component={ Results }/>
+        <Route path='/admin' exact component={ AdminPanel }/>
       </BrowserRouter>
       {/* <Footer/> */}
     </div>

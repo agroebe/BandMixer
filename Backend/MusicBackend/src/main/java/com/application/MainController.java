@@ -1,12 +1,13 @@
 package com.application;
 import com.application.people.UserRepository;
 import com.application.people.User;
-import com.application.tagging.Tag;
 import org.jasypt.util.password.BasicPasswordEncryptor;
-import org.jasypt.util.password.PasswordEncryptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 @Controller
 @CrossOrigin
@@ -17,9 +18,9 @@ public class MainController {
     private UserRepository userRepository;
 
     
-    @PostMapping(path="/add") //Map only POST requests
+    @PostMapping(path="") //Map only POST requests
     @CrossOrigin
-    public @ResponseBody String addNewUser(@RequestParam String name, @RequestParam String email, @RequestParam String password){
+    public @ResponseBody String addNewUser(@RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam Boolean stayLoggedIn){
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
@@ -36,40 +37,96 @@ public class MainController {
         //Encrypt Password
         password = passwordEncryptor.encryptPassword(password);
         n.setPassword(password);
+        n.setStaySignedIn(stayLoggedIn);
         userRepository.save(n);
         return "Saved";
     }
 
-    @GetMapping(path="/all")
+    //Returns all users
+    @GetMapping(path="")
     @CrossOrigin
-    public @ResponseBody Iterable<User> getAllUsers(){
+    public @ResponseBody Iterable<User> getAllUsers(HttpServletResponse response){
         //Returns a JSON or XML document with the users in it
+        response.addHeader("Access-Control-Expose-Headers", "Content-Range");
+        response.addHeader("Content-Range", "users 0-20/50");
         return userRepository.findAll();
     }
 
-    @PostMapping(path="/remove")
+    //Returns a specific user
+    @GetMapping(path= {"/{userId}"})
     @CrossOrigin
-    public @ResponseBody String removeUser(@RequestParam Long id){
-        if(userRepository.findByID(id) != null){
-            userRepository.delete(userRepository.findByID(id));
+    public @ResponseBody Optional<User> getByUserId(@PathVariable Long userId){
+        if(userId != null){
+            return userRepository.findById(userId);
+        }
+        return null;
+    }
+
+    //Deletes a specific user
+    @DeleteMapping(path="/{userId}")
+    @CrossOrigin
+    public @ResponseBody String removeAllUsers(@PathVariable Long userId){
+        if(userRepository.findByID(userId) != null){
+            userRepository.delete(userRepository.findByID(userId));
             return "user deleted";
         }else{
             return "user doesn't exist";
         }
     }
 
+    //Deletes all users
+    @DeleteMapping(path="")
+    @CrossOrigin
+    public @ResponseBody String removeUser(){
+       userRepository.deleteAll();
+       return "all users have been deleted";
+    }
+
+    //Updates all users method stub(not sure what we want this to do yet
+    @PutMapping(path="")
+    @CrossOrigin
+    public @ResponseBody String updateAllUsers(){
+        return null;
+    }
+
+    //Updates specific user
+    @PutMapping(path="/{userId}")
+    @CrossOrigin
+    public @ResponseBody User updateUser(@PathVariable Long userId, @RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam Boolean stayLoggedIn, @RequestParam Long newId){
+        BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
+        User toUpdate = userRepository.findByID(userId);
+        if(toUpdate != null){
+            toUpdate.setStaySignedIn(stayLoggedIn);
+            password = passwordEncryptor.encryptPassword(password);
+            toUpdate.setPassword(password);
+            toUpdate.setName(name);
+            toUpdate.setEmail(email);
+            toUpdate.setId(newId);
+            userRepository.save(toUpdate);
+            return toUpdate;
+        }else{
+            return null;
+        }
+    }
+
     @PostMapping(path="/login")
     @CrossOrigin
-    public @ResponseBody String userLogin(@RequestParam String loginID, @RequestParam String password){
+    public @ResponseBody String userLogin(@RequestParam String loginID, @RequestParam String password, @RequestParam Boolean stayLoggedIn){
         BasicPasswordEncryptor encryptor = new BasicPasswordEncryptor();
         if(userRepository.findByUsername(loginID) != null){
             if(encryptor.checkPassword(password, userRepository.findByUsername(loginID).getPassword()) == true){
+                User toUpdate = userRepository.findByUsername(loginID);
+                toUpdate.setStaySignedIn(stayLoggedIn);
+                userRepository.save(toUpdate);
                 return "login successful";
             }else{
                 return "incorrect password";
             }
         }else if(userRepository.findByEmail(loginID) != null){
             if(encryptor.checkPassword(password, userRepository.findByEmail(loginID).getPassword()) == true){
+                User toUpdate = userRepository.findByEmail(loginID);
+                toUpdate.setStaySignedIn(stayLoggedIn);
+                userRepository.save(toUpdate);
                 return "login successful";
             }else{
                 return "incorrect password";
@@ -77,6 +134,23 @@ public class MainController {
         }else{
             return "no user registered under this loginID";
         }
+    }
+
+    @PostMapping(path="/changeRememberMe")
+    @CrossOrigin
+    public @ResponseBody Boolean changeRememberMe(@RequestParam String loginID, @RequestParam Boolean stayLoggedIn){
+        if(userRepository.findByUsername(loginID) != null){
+            User toUpdate = userRepository.findByUsername(loginID);
+            toUpdate.setStaySignedIn(stayLoggedIn);
+            userRepository.save(toUpdate);
+            return true;
+        }else if(userRepository.findByEmail(loginID) != null){
+            User toUpdate = userRepository.findByEmail(loginID);
+            toUpdate.setStaySignedIn(stayLoggedIn);
+            userRepository.save(toUpdate);
+            return true;
+        }
+        return false;
     }
 
 

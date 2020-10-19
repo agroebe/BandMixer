@@ -25,11 +25,11 @@ export default class SignInModal extends Component {
     }
 
     close() {
-        this.setState({ show: false })
+        this.setState({ responseExists: false, response: '', show: false })
     }
 
     signIn() {
-        axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users/login?loginID=' + this.state.loginId + '&password=' + this.state.password).then(r => {
+        axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users/login?loginID=' + this.state.loginId + '&password=' + this.state.password + '&stayLoggedIn=false').then(r => {
             if (r.data.includes('successful')) {
                 toast.success('Welcome back to BandMixer, ' + this.state.loginId + '!', {
                     position: "top-center",
@@ -46,9 +46,9 @@ export default class SignInModal extends Component {
                 this.props.setUserId(this.state.loginId)
     
                 this.close();
+            } else {
+                this.setState({ response: r.data, responseExists: true })
             }
-
-            this.setState({ response: r.data, responseExists: true })
         })
     }
 

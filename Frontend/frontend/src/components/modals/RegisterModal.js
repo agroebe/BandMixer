@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { ToastContainer, toast, Zoom } from 'react-toastify';
+import { toast, Zoom } from 'react-toastify';
 import './Modal.css'
 
 export default class RegisterModal extends React.Component {
@@ -26,7 +26,7 @@ export default class RegisterModal extends React.Component {
     }
 
     close() {
-        this.setState({ show: false })
+        this.setState({ responseExists: false, response: '', show: false })
     }
 
     register(e) {
@@ -56,9 +56,10 @@ export default class RegisterModal extends React.Component {
 
                 this.props.setLoggedIn(true)
                 this.props.setUserId(this.state.username)
+                
+            } else {
+                this.setState({ response: r.data, responseExists: true })
             }
-            
-            this.setState({ response: r.data, responseExists: true })
         })
     }
 

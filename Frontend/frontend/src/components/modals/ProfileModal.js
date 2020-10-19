@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Modal, Button, ButtonGroup, Container, Row, Col, Image } from 'react-bootstrap';
+import axios from 'axios';
+import { Modal, Button, Container, Row, Col, Image } from 'react-bootstrap';
 import './Modal.css'
 
 export default class ProfileModal extends Component {
@@ -7,16 +8,44 @@ export default class ProfileModal extends Component {
         super(props);
         console.log(props)
         this.state = {
-            username: '',
-            password: '',
-            show: false
+          username: '',
+          userID: '',
+          password: '',
+          contactEmail: '',
+          phone: '',
+          location: '',
+          bio: '',
+          
+
+          show: false
+
         };
 
         this.close = this.close.bind(this);
     }
 
     open() {
-        this.setState({ show: true })
+      /*axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users/userID?userID=' + this.state.userID).then(r => {
+        if (r.data.includes('successful')) {
+           //set var function call
+            
+            this.fill();
+            this.setState({ show: true })
+        } else {
+            this.close();
+        }
+      })*/
+      this.fill();
+
+      this.setState({ show: true })
+    }
+
+    fill(){
+      axios.get('http://coms-309-cy-01.cs.iastate.edu:8080/profiles/14').then(r => {
+          //console.log(r.data)
+          this.setState({ username: r.data.username, location: r.data.location, phone: r.data.phoneNumber })
+      }
+      )   
     }
 
     close() {
@@ -39,26 +68,28 @@ export default class ProfileModal extends Component {
                       <Container>
                         <Row>
                           <Col>
-                            <h1>Username</h1>
-                            <h2>Singer in random band</h2>
+                            <h2>{this.state.username}</h2>
+                            <h3>{this.state.bio}</h3>
                           </Col>
                           <Col xs={1} md={4}><Image src="holder.js/171x180" roundedCircle/></Col>
                         </Row>
                         <Row>
                           <Col>
                             <h2>Instruments:</h2>
-                            <h3>Guitar</h3>
-                            <h3>Bass</h3>
+                            <h3>{this.state.instrument1}</h3>
+                            <h3>{this.state.instrument2}</h3>
                           </Col>
                           <Col>
                             <h3>Skill Level:</h3>
-                            <h4>3</h4>
-                            <h4>5</h4>
+                            <h4>{this.state.skill1}</h4>
+                            <h4>{this.state.skill2}</h4>
                           </Col>
                           <Col>
-                            <h2>Contact:</h2>
-                            <h3>sample@gmail.com</h3>
-                            <h3>123-456-7890</h3>
+                          
+                            <h2>Contact Info</h2>
+                            <h3>{this.state.contactEmail}</h3>
+                            <h3>{this.state.phone}</h3>
+                            <h3>{this.state.location}</h3>
                           </Col>
                         </Row>
                       </Container>
@@ -66,7 +97,6 @@ export default class ProfileModal extends Component {
 
                     <Modal.Footer>
                         <Button variant="danger" onClick={ this.close }>Cancel</Button>
-                        { <Button variant="primary" onClick={ this.openEditProfileModal }>Edit Profile</Button> }
                       {<ProfileModal ref={ (modal) => { this.EditProfileModal = modal } } openEditProfileModal={ this.openEditProfileModal }/> }
                     </Modal.Footer>
                 </Modal>

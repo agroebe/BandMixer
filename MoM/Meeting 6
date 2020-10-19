@@ -1,0 +1,8 @@
+Minutes
+0 10/15/2020
+1 Aidan Webster, Timothy Schommer
+2 Implemented Profiles on backend
+3 Added more validation annotations, tested that code 
+4 Changed user registration to fit frontend framework
+5 Plans for next week: Add location functionality, start work on search functionality
+6 Also talked about how to accomplish meaningful testing wiht the database given our complex tag relations
