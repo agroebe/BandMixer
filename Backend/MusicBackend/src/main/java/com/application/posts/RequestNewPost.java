@@ -18,7 +18,7 @@ import javax.validation.GroupSequence;
 import javax.validation.Valid;
 import javax.validation.groups.ConvertGroup;
 
-@GroupSequence({First.class, Second.class, Third.class})
+@GroupSequence({RequestNewPost.class, First.class, Second.class, Third.class})
 @NullChecks(fields= {"title", "contentType", "applications"}, groups=First.class)
 public class RequestNewPost 
 {

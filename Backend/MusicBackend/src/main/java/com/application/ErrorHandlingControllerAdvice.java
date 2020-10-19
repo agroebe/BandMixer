@@ -1,4 +1,4 @@
-package validation;
+package com.application;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import validation.ValidationErrorResponse;
+import validation.Violation;
 
 @ControllerAdvice
 public class ErrorHandlingControllerAdvice 

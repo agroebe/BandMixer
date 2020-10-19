@@ -17,7 +17,7 @@ import validation.ordergroups.Fourth;
 import validation.ordergroups.Second;
 import validation.ordergroups.Third;
 
-@GroupSequence({First.class, Second.class, Third.class, Fourth.class, Fifth.class})
+@GroupSequence({RequestExistentPostUpdateTag.class,First.class, Second.class, Third.class, Fourth.class, Fifth.class})
 @NullChecks(fields= {"application"}, groups=First.class)
 @MatchedTag(idfield = "id", tagfield = "application", version = 2, groups=Fourth.class)
 @UpdatedTag(idfield = "id", tagfield = "application", groups=Fifth.class)

@@ -15,7 +15,7 @@ import validation.ordergroups.Fourth;
 import validation.ordergroups.Second;
 import validation.ordergroups.Third;
 
-@GroupSequence({First.class,Second.class,Third.class, Fourth.class})
+@GroupSequence({RequestExistentPostNewTag.class, First.class,Second.class,Third.class, Fourth.class})
 @NullChecks(fields= {"application"} ,groups=First.class)
 @UnmatchedTag(idfield = "id", tagfield = "application", groups=Fourth.class)
 public class RequestExistentPostNewTag 

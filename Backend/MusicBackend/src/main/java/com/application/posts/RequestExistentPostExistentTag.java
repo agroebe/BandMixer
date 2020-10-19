@@ -16,7 +16,7 @@ import validation.ordergroups.Fourth;
 import validation.ordergroups.Second;
 import validation.ordergroups.Third;
 
-@GroupSequence({First.class, Second.class, Third.class, Fourth.class})
+@GroupSequence({RequestExistentPostExistentTag.class, First.class, Second.class, Third.class, Fourth.class})
 @NotNull(groups=First.class)
 @MatchedTag(idfield="id", tagfield="tag", version=1, groups=Fourth.class)
 public class RequestExistentPostExistentTag 
