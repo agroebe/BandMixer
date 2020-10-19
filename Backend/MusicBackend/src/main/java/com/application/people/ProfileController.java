@@ -1,12 +1,5 @@
 package com.application.people;
 
-import org.springframework.stereotype.Controller;
-
-@Controller
-public class ProfileController {
-}
-package com.application.people;
-
 import com.application.tagging.TagController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
