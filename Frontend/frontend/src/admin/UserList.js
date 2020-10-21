@@ -1,10 +1,9 @@
 import React from 'react'
-import { List, Datagrid, TextField, EditButton, DeleteWithConfirmButton, CreateButton, TopToolbar } from 'react-admin'
+import { List, Datagrid, TextField, EditButton, DeleteWithConfirmButton, CreateButton } from 'react-admin'
 
 const UserList = (props) => {
     return (
         <>
-            <TopToolbar>Hi</TopToolbar>
             <List {...props}>
                 <Datagrid>
                     <TextField source='id'/>

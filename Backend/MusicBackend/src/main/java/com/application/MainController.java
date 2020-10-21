@@ -20,7 +20,7 @@ public class MainController {
     
     @PostMapping(path="") //Map only POST requests
     @CrossOrigin
-    public @ResponseBody String addNewUser(@RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam Boolean stayLoggedIn){
+    public @ResponseBody String addNewUser(@RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam(required = false) Boolean stayLoggedIn){
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
@@ -37,7 +37,11 @@ public class MainController {
         //Encrypt Password
         password = passwordEncryptor.encryptPassword(password);
         n.setPassword(password);
-        n.setStaySignedIn(stayLoggedIn);
+        if(stayLoggedIn != null){
+            n.setStaySignedIn(stayLoggedIn);
+        }else{
+            n.setStaySignedIn(false);
+        }
         userRepository.save(n);
         return "Saved";
     }
