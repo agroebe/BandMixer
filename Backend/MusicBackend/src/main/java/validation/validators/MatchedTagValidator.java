@@ -8,6 +8,7 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.application.ProgramaticValidator;
 import com.application.posts.Post;
 import com.application.posts.PostRepository;
 import com.application.tagging.RequestExistentTag;
@@ -26,6 +27,9 @@ public class MatchedTagValidator implements ConstraintValidator<MatchedTag, Obje
 	
 	@Autowired
 	private TagRepository tagrepo;
+	
+	@Autowired
+	private ProgramaticValidator validator;
 	
 	private String idfield;
 	private String tagfield;
@@ -52,11 +56,13 @@ public class MatchedTagValidator implements ConstraintValidator<MatchedTag, Obje
 			case 1:
 			{
 				tag = (RequestExistentTag)new BeanWrapperImpl(value).getPropertyValue(tagfield);
+				validator.validate(tag);
 				break;
 			}
 			case 2:
 			{
 				RequestTagApplication temp = (RequestTagApplication)new BeanWrapperImpl(value).getPropertyValue(tagfield);
+				validator.validate(temp);
 				tag = temp.getTag();
 				break;
 			}

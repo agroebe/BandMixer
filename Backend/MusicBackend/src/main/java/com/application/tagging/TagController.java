@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.application.View;
 import com.application.skill_level.AppliedSkillLevelRepository;
+import com.fasterxml.jackson.annotation.JsonView;
 
 
 @Controller
@@ -67,6 +69,7 @@ public class TagController
     	return "Tag: " + tag.getName() + " removed.";
     }
     
+    @JsonView(View.TagView.class)
     @GetMapping(path="/fetch")
     public @ResponseBody Tag getByName(@RequestParam @Valid String name)
     {
@@ -74,6 +77,7 @@ public class TagController
     	return tag.get();
     }
 
+    @JsonView(View.TagView.class)
     @GetMapping(path="/all")
     @CrossOrigin
     public @ResponseBody Iterable<Tag> getAllTags(){

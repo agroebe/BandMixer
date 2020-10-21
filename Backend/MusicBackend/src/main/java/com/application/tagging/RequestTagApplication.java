@@ -10,16 +10,14 @@ import validation.annotations.NullChecks;
 import validation.ordergroups.First;
 import validation.ordergroups.Second;
 
-@GroupSequence({First.class, Second.class})
+@GroupSequence({ First.class,RequestTagApplication.class, Second.class})
 @NullChecks(groups= {First.class}, fields= {"tag","skill"})
 public class RequestTagApplication 
 {
 	@Valid
-	@ConvertGroup(to=Second.class)
 	private RequestExistentTag tag;
 	
 	@Valid
-	@ConvertGroup(to=Second.class)
 	private RequestSkillLevel skill;
 	
 	private boolean bounded;

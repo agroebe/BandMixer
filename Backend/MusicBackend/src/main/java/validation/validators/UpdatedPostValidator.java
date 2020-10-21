@@ -51,12 +51,12 @@ public class UpdatedPostValidator implements ConstraintValidator<UpdatedPost, Ob
 		boolean newSearch = (boolean)new BeanWrapperImpl(value).getPropertyValue(searchField);
 		Optional<Post> find = repo.findById(idvalue);
 		
-		
 		Post found = find.get();
 		
-		boolean notitlechange = newTitle == null || !newTitle.equals(found.getTitle());
-		boolean notypechange = newType == null || !newType.equals(found.getContentType());
-		boolean notextchange = newText == null || !newText.equals(found.getTextContent());
+		boolean notitlechange = newTitle == null || newTitle.equals(found.getTitle());
+		boolean notypechange = newType == null || newType.equals(found.getContentType());
+		boolean notextchange = newText == null || (newText.equals(found.getTextContent()) && !newText.equals("")) 
+				|| (found.getTextContent() == null && newText.equals(""));
 		boolean nosearchChange = newSearch == found.getIsSearch();
 		
 		if(notitlechange && notypechange && notextchange && nosearchChange)

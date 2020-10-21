@@ -16,17 +16,15 @@ import validation.ordergroups.Fourth;
 import validation.ordergroups.Second;
 import validation.ordergroups.Third;
 
-@GroupSequence({RequestExistentPostExistentTag.class, First.class, Second.class, Third.class, Fourth.class})
+@GroupSequence({First.class, Second.class, RequestExistentPostExistentTag.class, Third.class})
 @NotNull(groups=First.class)
-@MatchedTag(idfield="id", tagfield="tag", version=1, groups=Fourth.class)
+@MatchedTag(idfield="id", tagfield="tag", version=1, groups=Third.class)
 public class RequestExistentPostExistentTag 
 {
 	@ExistentPost(groups=Second.class)
 	private long id;
 	
 	@NotNull(groups=Second.class)
-	@Valid
-	@ConvertGroup(to=Third.class)
 	private RequestExistentTag tag;
 	
 	public RequestExistentPostExistentTag()

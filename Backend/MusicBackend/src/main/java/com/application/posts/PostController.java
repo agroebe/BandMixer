@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.application.View;
 import com.application.skill_level.AppliedSkillLevelRepository;
 import com.application.skill_level.SkillLevel;
 import com.application.skill_level.SkillLevelRepository;
 import com.application.tagging.RequestTagApplication;
 import com.application.tagging.Tag;
 import com.application.tagging.TagRepository;
+import com.fasterxml.jackson.annotation.JsonView;
 
 
 @Controller
@@ -38,12 +40,14 @@ public class PostController
 	@Autowired
 	private AppliedSkillLevelRepository applicationRepository;
 	
+	@JsonView(View.PostView.class)
 	@GetMapping(path="/all")
     public @ResponseBody Iterable<Post> getAllPosts(){
         //Returns a JSON or XML document with the users in it
         return postRepository.findAll();
     }
 	
+	@JsonView(View.PostView.class)
 	@GetMapping(path="/fetch")
     public @ResponseBody Post getById(@RequestBody @Valid RequestPost post)
     {
@@ -57,7 +61,8 @@ public class PostController
 	public @ResponseBody String addPost(@RequestBody @Valid RequestNewPost post)
 	{
 		Post p = new Post(post.getTitle(), post.getContentType(), post.getIsSearch());
-		p.setTextContent(post.getTextContent());
+		p.setTextContent(((post.getTextContent() == null || post.getTextContent().equals(""))? null : post.getTextContent()));
+		p.setOwnerId(post.getOwnerId());
 		for(RequestTagApplication tag : post.getApplications())
 		{
 			Tag tg = tagRepository.findByName(tag.getTag().getName()).get();
@@ -67,6 +72,7 @@ public class PostController
 		postRepository.save(p);
 		return "Saved";
 	}
+	
 	
 	@PostMapping(path="/update")
     public @ResponseBody String updatePost(@RequestBody @Valid RequestUpdatePost updatePost)
@@ -81,9 +87,10 @@ public class PostController
 		
 		Post found = find.get();
 		
-		boolean notitlechange = newTitle == null || !newTitle.equals(found.getTitle());
-		boolean notypechange = newType == null || !newType.equals(found.getContentType());
-		boolean notextchange = newText == null || !newText.equals(found.getTextContent());
+		boolean notitlechange = newTitle == null || newTitle.equals(found.getTitle());
+		boolean notypechange = newType == null || newType.equals(found.getContentType());
+		boolean notextchange = newText == null ||(newText.equals(found.getTextContent()) && !newText.equals("")) 
+				|| (found.getTextContent() == null && newText.equals(""));
 		boolean nosearchChange = newSearch == found.getIsSearch();
 		
 		if(!notitlechange)

@@ -14,8 +14,6 @@ import validation.annotations.NullChecks;
 
 public class NullChecksValidator implements ConstraintValidator<NullChecks, Object>
 {
-	
-	
 	private String[] fields;
 	
 	public void initialize(NullChecks constraint)

@@ -3,7 +3,8 @@ package com.application.tagging;
 import java.util.Map;
 
 import javax.persistence.*;
-
+import com.fasterxml.jackson.annotation.JsonView;
+import com.application.View;
 import com.application.skill_level.AppliedSkillLevel;
 import com.application.skill_level.AppliedSkillLevelRepository;
 
@@ -13,18 +14,22 @@ import com.application.skill_level.AppliedSkillLevelRepository;
 @Table(name="TAGS")
 public class Tag 
 {
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
 	
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@Column(name = "name",unique=true, nullable=false)
 	private String name;
 	
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@Column(name = "has_skill", nullable=false)
 	private Integer allowskill;
 	
-	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="tag")
+	@JsonView(View.TagView.class)
+	@OneToMany(mappedBy="tag")
 	@MapKey(name="id")
 	private Map<TagSkillLevelKey, AppliedSkillLevel> applications;
 	

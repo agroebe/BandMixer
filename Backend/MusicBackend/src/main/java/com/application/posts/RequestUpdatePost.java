@@ -11,7 +11,7 @@ import validation.ordergroups.First;
 import validation.ordergroups.Second;
 import validation.ordergroups.Third;
 
-@GroupSequence({RequestUpdatePost.class,First.class,Second.class,Third.class})
+@GroupSequence({First.class,RequestUpdatePost.class,Second.class,Third.class})
 @NullChecks(fields= {}, groups=First.class)
 @UpdatedPost(groups=Third.class, idfield = "id", searchField = "isSearch", 
 	textContentField = "textContent", titlefield = "title", typefield = "contentType")

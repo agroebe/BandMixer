@@ -1,6 +1,9 @@
 package com.application.skill_level;
 import org.hibernate.annotations.Check;
 
+import com.application.View;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import java.util.Set;
 
 import javax.persistence.*;
@@ -15,17 +18,21 @@ import javax.persistence.*;
 @Check(constraints="value >= 0")
 public class SkillLevel 
 {
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
 	
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@Column(name = "name",unique=true, nullable=false)
 	private String name;
 	
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@Column(name = "value",unique=true, nullable=false)
 	private Integer value;
 	
+	@JsonView(View.SkillLevelView.class)
 	@OneToMany(mappedBy="level")
 	private Set<AppliedSkillLevel> applications;
 	

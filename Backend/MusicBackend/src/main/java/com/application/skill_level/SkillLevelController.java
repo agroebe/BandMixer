@@ -15,6 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import com.application.View;
+import com.fasterxml.jackson.annotation.JsonView;
+
 /**
  * 
  * @author Tim Schommer
@@ -188,6 +191,7 @@ public class SkillLevelController
 		return "Skill level " + level.getName() + " successfully updated.";
 	}
 
+	@JsonView(View.SkillLevelView.class)
 	@GetMapping(path="/get")
 	@CrossOrigin
 	public @ResponseBody SkillLevel get(@RequestBody @Valid RequestSkillLevel level)
@@ -195,6 +199,7 @@ public class SkillLevelController
 		return repo.findByName(level.getName()).get();
 	}
 
+	@JsonView(View.SkillLevelView.class)
 	@GetMapping(path="/all")
 	@CrossOrigin
 	public @ResponseBody Iterable<SkillLevel> getAllSkillLevels(){

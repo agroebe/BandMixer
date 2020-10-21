@@ -27,22 +27,23 @@ public class ExistentOwnerValidator implements ConstraintValidator<ExistentOwner
 	
 	@Override
 	public boolean isValid(Long value, ConstraintValidatorContext context) {
-		if(value == null)
-		{
-			String msg = "Cannot pass a null parameter.";
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
-			return false;
-		}
-		Optional<User> find = repo.findById(value);
-		if(!find.isPresent())
-		{
-			String msg = "User with id '" + value + "' does not exist.";
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
-			return false;
-		}
 		return true;
+//		if(value == null)
+//		{
+//			String msg = "Cannot pass a null parameter.";
+//			context.disableDefaultConstraintViolation();
+//			context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
+//			return false;
+//		}
+//		Optional<User> find = repo.findById(value);
+//		if(!find.isPresent())
+//		{
+//			String msg = "User with id '" + value + "' does not exist.";
+//			context.disableDefaultConstraintViolation();
+//			context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
+//			return false;
+//		}
+//		return true;
 	}
 
 }

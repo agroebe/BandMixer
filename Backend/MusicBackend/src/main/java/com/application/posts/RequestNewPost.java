@@ -18,11 +18,11 @@ import javax.validation.GroupSequence;
 import javax.validation.Valid;
 import javax.validation.groups.ConvertGroup;
 
-@GroupSequence({RequestNewPost.class, First.class, Second.class, Third.class})
+@GroupSequence({First.class, Second.class, RequestNewPost.class, Third.class})
 @NullChecks(fields= {"title", "contentType", "applications"}, groups=First.class)
 public class RequestNewPost 
 {
-	@ExistentOwner(groups=Second.class)
+	//@ExistentOwner(groups=Second.class)
 	private long ownerid;
 	
 	@ValidTitle(groups=Second.class)
@@ -38,7 +38,7 @@ public class RequestNewPost
 	private boolean isSearch;
 	
 	@UniqueList(groups=Third.class)
-	private List< @ConvertGroup(to=Second.class) @Valid RequestTagApplication> applications;
+	private List<RequestTagApplication> applications;
 	
 	public RequestNewPost()
 	{

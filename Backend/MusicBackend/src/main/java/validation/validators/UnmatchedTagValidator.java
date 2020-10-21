@@ -8,6 +8,7 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.application.ProgramaticValidator;
 import com.application.posts.Post;
 import com.application.posts.PostRepository;
 import com.application.tagging.RequestExistentTag;
@@ -27,6 +28,9 @@ public class UnmatchedTagValidator implements ConstraintValidator<UnmatchedTag, 
 	@Autowired
 	private TagRepository tagrepo;
 	
+	@Autowired
+	private ProgramaticValidator validator;
+	
 	private String idfield;
 	private String tagfield;
 	
@@ -39,11 +43,13 @@ public class UnmatchedTagValidator implements ConstraintValidator<UnmatchedTag, 
 	}
 	
 	@Override
-	public boolean isValid(Object value, ConstraintValidatorContext context) {
-		
+	public boolean isValid(Object value, ConstraintValidatorContext context) 
+	{
 		long idvalue = (long)new BeanWrapperImpl(value).getPropertyValue(idfield);
 		Optional<Post> find = repo.findById(idvalue);
-		RequestExistentTag tag = ((RequestTagApplication)new BeanWrapperImpl(value).getPropertyValue(tagfield)).getTag();
+		RequestTagApplication application = (RequestTagApplication)new BeanWrapperImpl(value).getPropertyValue(tagfield);
+		validator.validate(application);
+		RequestExistentTag tag = application.getTag();
 		Post found = find.get();
 		Optional<Tag> tagfind = tagrepo.findByName(tag.getName());
 		Tag tagfound = tagfind.get();

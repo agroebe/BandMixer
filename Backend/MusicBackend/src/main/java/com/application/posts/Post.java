@@ -4,40 +4,50 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.application.View;
 import com.application.skill_level.AppliedSkillLevel;
 import com.application.skill_level.AppliedSkillLevelRepository;
 import com.application.skill_level.SkillLevel;
 import com.application.tagging.*;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 @Table(name="POSTS")
 public class Post 
 {
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
 	
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@Column(name="owner_id")
 	private Long ownerId;
 	
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@Column(name="title", nullable=false)
 	private String title;
 	
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@Column(name="content_type", nullable=false)
 	private String contentType;
 	
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@Column(name="text_content")
 	private String textContent;
 	
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@OneToOne(cascade=CascadeType.ALL, orphanRemoval=true)
 	@JoinColumn(name="content_id")
 	private Content content;
 	
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@Column(name="is_search", nullable=false)
 	private Integer isSearch;
 	
-	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="post")
+	@JsonView(View.PostView.class)
+	@OneToMany(mappedBy="post")
 	@MapKey(name="id")
 	private Map<TagSkillLevelKey, AppliedSkillLevel> tags;
 	

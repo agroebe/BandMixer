@@ -1,9 +1,11 @@
 package com.application.skill_level;
 import javax.persistence.*;
 
+import com.application.View;
 import com.application.posts.Post;
 import com.application.tagging.Tag;
 import com.application.tagging.TagSkillLevelKey;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 public class AppliedSkillLevel 
@@ -11,24 +13,29 @@ public class AppliedSkillLevel
 	@EmbeddedId
 	TagSkillLevelKey id;
 	
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JsonView({View.TagView.class,View.SkillLevelView.class})
+	@ManyToOne
 	@MapsId("post_id")
 	@JoinColumn(name = "post_id")
 	Post post;
 	
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JsonView({View.PostView.class,View.SkillLevelView.class})
+	@ManyToOne
 	@MapsId("tag_id")
 	@JoinColumn(name = "tag_id")
 	Tag tag;
 	
 	
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@JsonView({View.TagView.class,View.PostView.class})
+	@ManyToOne
 	@JoinColumn(name = "skill_id")
 	SkillLevel level;
 	
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@Column(name="is_bounded", nullable=false)
 	private Integer isBounded;
 	
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@Column(name="is_lower_bound", nullable=false)
 	private Integer isLowerBound;
 	
