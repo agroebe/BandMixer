@@ -9,14 +9,14 @@ public class RequestSkillLevel
 	
 	public RequestSkillLevel()
 	{
-		name = "undefined";
+		name = "unset";
 	}
 	
 	public RequestSkillLevel(String name)
 	{
 		if(name == null || name.trim().equals(""))
 		{
-			this.name = "undefined";
+			this.name = "unset";
 		}
 		else
 		{
@@ -28,7 +28,7 @@ public class RequestSkillLevel
 	{
 		if(name == null || name.trim().equals(""))
 		{
-			this.name = "undefined";
+			this.name = "unset";
 		}
 		else
 		{

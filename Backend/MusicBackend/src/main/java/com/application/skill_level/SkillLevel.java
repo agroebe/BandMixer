@@ -4,6 +4,7 @@ import org.hibernate.annotations.Check;
 import com.application.View;
 import com.fasterxml.jackson.annotation.JsonView;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -94,7 +95,8 @@ public class SkillLevel
 	
 	public void remove(AppliedSkillLevelRepository rep, SkillLevelRepository myRep)
 	{
-		for(AppliedSkillLevel application : applications)
+		ArrayList<AppliedSkillLevel> vals = new ArrayList<AppliedSkillLevel>(applications);
+		for(AppliedSkillLevel application : vals)
 		{
 			application.remove(rep);
 		}
@@ -106,7 +108,8 @@ public class SkillLevel
 	
 	public void remove(AppliedSkillLevelRepository rep, SkillLevelRepository myRep, SkillLevel refactor)
 	{
-		for(AppliedSkillLevel application : applications)
+		ArrayList<AppliedSkillLevel> vals = new ArrayList<AppliedSkillLevel>(applications);
+		for(AppliedSkillLevel application : vals)
 		{
 			application.setSkillLevel(refactor);
 			refactor.getApplications().add(application);
@@ -120,7 +123,8 @@ public class SkillLevel
 	
 	public void remove(AppliedSkillLevelRepository rep, SkillLevelRepository myRep, SkillLevel refactorUp, SkillLevel refactorDown)
 	{
-		for(AppliedSkillLevel application : applications)
+		ArrayList<AppliedSkillLevel> vals = new ArrayList<AppliedSkillLevel>(applications);
+		for(AppliedSkillLevel application : vals)
 		{
 			if(application.getIsLowerBound())
 			{

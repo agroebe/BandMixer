@@ -1,17 +1,13 @@
 package com.application.posts;
 
 import javax.validation.GroupSequence;
-import javax.validation.Valid;
-import javax.validation.groups.ConvertGroup;
 
 import com.application.tagging.RequestTagApplication;
-import com.application.util.*;
 
 import validation.annotations.ExistentPost;
 import validation.annotations.MatchedTag;
 import validation.annotations.NullChecks;
 import validation.annotations.UpdatedTag;
-import validation.ordergroups.Fifth;
 import validation.ordergroups.First;
 import validation.ordergroups.Fourth;
 import validation.ordergroups.Second;
@@ -28,7 +24,10 @@ public class RequestExistentPostUpdateTag
 	
 	private RequestTagApplication application;
 	
-	public RequestExistentPostUpdateTag() {}
+	public RequestExistentPostUpdateTag() 
+	{
+		id = -3;
+	}
 
 	public long getId() {
 		return id;

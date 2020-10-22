@@ -63,13 +63,13 @@ public class PostController
 		Post p = new Post(post.getTitle(), post.getContentType(), post.getIsSearch());
 		p.setTextContent(((post.getTextContent() == null || post.getTextContent().equals(""))? null : post.getTextContent()));
 		p.setOwnerId(post.getOwnerId());
+		postRepository.save(p);
 		for(RequestTagApplication tag : post.getApplications())
 		{
 			Tag tg = tagRepository.findByName(tag.getTag().getName()).get();
 			SkillLevel level = skillLevelRepository.findByName(tag.getSkill().getName()).get();
 			p.addTag(applicationRepository, tg, level, tag.getBounded(), tag.getLowerBounded());
 		}
-		postRepository.save(p);
 		return "Saved";
 	}
 	
@@ -155,7 +155,7 @@ public class PostController
 		RequestTagApplication tag = requestPost.getApplication();
 		Tag tg = tagRepository.findByName(tag.getTag().getName()).get();
 		SkillLevel level = skillLevelRepository.findByName(tag.getSkill().getName()).get();
-		post.get().updateTag(tg, level, tag.getBounded(), tag.getLowerBounded());
+		post.get().updateTag(applicationRepository, tg, level, tag.getBounded(), tag.getLowerBounded());
     	return "Tag updated.";
 	}
 }

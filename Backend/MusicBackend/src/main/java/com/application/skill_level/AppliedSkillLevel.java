@@ -89,7 +89,7 @@ public class AppliedSkillLevel
 	
 	public Boolean getIsLowerBound()
 	{
-		return (isBounded == 0 && isLowerBound == 0? false: true);
+		return (isBounded == 0 || isLowerBound == 0? false: true);
 	}
 	
 	public void setIsBounded(boolean bounded)

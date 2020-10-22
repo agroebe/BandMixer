@@ -1,5 +1,6 @@
 package com.application.tagging;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.persistence.*;
@@ -88,7 +89,8 @@ public class Tag
 	
 	public void remove(AppliedSkillLevelRepository rep, TagRepository myRep)
 	{
-		for(AppliedSkillLevel application : applications.values())
+		ArrayList<AppliedSkillLevel> vals = new ArrayList<AppliedSkillLevel>(applications.values());
+		for(AppliedSkillLevel application : vals)
 		{
 			application.remove(rep);
 		}

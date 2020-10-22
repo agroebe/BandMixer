@@ -1,6 +1,7 @@
 package com.application.posts;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import javax.persistence.*;
 
@@ -66,6 +67,7 @@ public class Post
 		title = givenTitle;
 		contentType = type;
 		this.isSearch = 0;
+		this.tags = new HashMap<TagSkillLevelKey, AppliedSkillLevel>();
 	}
 	
 	public Post(String givenTitle, String type, boolean isSearch)
@@ -81,6 +83,7 @@ public class Post
 		title = givenTitle;
 		contentType = type;
 		this.isSearch = (isSearch ? 1 : 0);
+		this.tags = new HashMap<TagSkillLevelKey, AppliedSkillLevel>();
 	}
 	
 	public Boolean getIsSearch()
@@ -184,7 +187,8 @@ public class Post
 	
 	public void remove(AppliedSkillLevelRepository rep, PostRepository myRep)
 	{
-		for(AppliedSkillLevel tag : tags.values())
+		ArrayList<AppliedSkillLevel> vals = new ArrayList<AppliedSkillLevel>(tags.values());
+		for(AppliedSkillLevel tag :vals)
 		{
 			tag.remove(rep);
 		}
@@ -194,7 +198,7 @@ public class Post
 		}
 	}
 	
-	public boolean updateTag(Tag tag, SkillLevel level, boolean isbounded, boolean lowerbounded)
+	public boolean updateTag(AppliedSkillLevelRepository rep, Tag tag, SkillLevel level, boolean isbounded, boolean lowerbounded)
 	{
 		TagSkillLevelKey key = new TagSkillLevelKey(this.id,tag.getId());
 		if(!tags.containsKey(key))
@@ -205,6 +209,7 @@ public class Post
 		app.setSkillLevel(level);
 		app.setIsBounded(isbounded);
 		app.setIsLowerBound(lowerbounded);
+		rep.save(app);
 		return true;
 	}
 }
