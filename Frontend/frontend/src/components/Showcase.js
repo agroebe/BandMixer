@@ -66,7 +66,8 @@ export default class Showcase extends React.Component {
                                 return <option value={ index + 1} key={index }>{value}</option>
                             }) }
                         </Form.Control>
-                        <Form.Control type="text" placeholder="ZIP code or location" className="mr-2" onChange={ e => this.setState({ location: e.target.value }) }></Form.Control>
+                        {/* <Form.Control type="text" placeholder="ZIP code or location" className="mr-2" onChange={ e => this.setState({ location: e.target.value }) }></Form.Control> */}
+                        <Form.Control type="text" placeholder={ toTitleCase(this.props.loc) } readOnly className="mr-2" onChange={ e => this.setState({ location: e.target.value }) }></Form.Control>
                         <Link to={{
                             pathname: '/results',
                             state: {
@@ -81,3 +82,15 @@ export default class Showcase extends React.Component {
         )
     }
 }
+
+function toTitleCase(str) {
+    if (str == null) {
+        return "Select a location..."
+    }
+    return str.replace(
+      /\w\S*/g,
+      function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }
+    );
+  }

@@ -6,7 +6,7 @@ export default class Home extends React.Component {
     render() {
         return(
             <>
-                <Showcase/>
+                <Showcase loc={this.props.loc}/>
                 <CardDeck className="mx-auto w-75">
                 <Card>
                     <Card.Img variant="top" src="https://www.superprof.co.uk/blog/wp-content/uploads/2017/07/guitar-guitar-player-musician-instrument-guitarist-1060x707.jpg" height="275px"/>
