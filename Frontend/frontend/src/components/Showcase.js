@@ -66,12 +66,11 @@ export default class Showcase extends React.Component {
                                 return <option value={ index + 1} key={index }>{value}</option>
                             }) }
                         </Form.Control>
-                        {/* <Form.Control type="text" placeholder="ZIP code or location" className="mr-2" onChange={ e => this.setState({ location: e.target.value }) }></Form.Control> */}
                         <Form.Control type="text" placeholder={ toTitleCase(this.props.loc) } readOnly className="mr-2" onChange={ e => this.setState({ location: e.target.value }) }></Form.Control>
                         <Link to={{
                             pathname: '/results',
                             state: {
-                                location: this.state.location,
+                                location: this.props.loc,
                                 instrument: this.state.instrument
                             }
                         }}><Button type="submit">Search</Button></Link>
