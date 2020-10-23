@@ -126,6 +126,16 @@ public class AppliedSkillLevel
 	
 	public void setSkillLevel(SkillLevel level)
 	{
-		setSkillLevel(level, false, false);
+		if(this.level != null)
+		{
+			this.level.getApplications().remove(this);
+		}
+		
+		if(level != null)
+		{
+			level.getApplications().add(this);
+		}
+		
+		this.level = level;
 	}
 }

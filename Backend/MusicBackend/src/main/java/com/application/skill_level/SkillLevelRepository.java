@@ -21,7 +21,7 @@ public interface SkillLevelRepository extends CrudRepository<SkillLevel, Long>
 	@Query(value="select * from skill_levels as lv where lv.value > :value order by lv.value asc limit 1", nativeQuery=true)
 	public Optional<SkillLevel> findFirstGreater(@Param("value")Integer value);
 	
-	@Query(value="select * from skill_levels as lv where lv.value < :value order by lv.value asc limit 1", nativeQuery=true)
+	@Query(value="select * from skill_levels as lv where lv.value < :value order by lv.value desc limit 1", nativeQuery=true)
 	public Optional<SkillLevel> findFirstLess(@Param("value")Integer value);
 	
 	@Query(value="select lv.value from skill_levels as lv order by lv.value desc limit 1", nativeQuery=true)
@@ -30,6 +30,6 @@ public interface SkillLevelRepository extends CrudRepository<SkillLevel, Long>
 	@Query(value="select * from skill_levels as lv where lv.value > :lower and lv.value <= :upper order by lv.value asc", nativeQuery=true)
 	public List<SkillLevel> findInIntervalUpperInclusive(@Param("lower")Integer lower, @Param("upper")Integer upper);
 	
-	@Query(value="select * from skill_levels as lv where lv.value >= :lower and lv.value < :upper order by lv.value asc", nativeQuery=true)
+	@Query(value="select * from skill_levels as lv where lv.value >= :lower and lv.value < :upper order by lv.value desc", nativeQuery=true)
 	public List<SkillLevel> findInIntervalLowerInclusive(@Param("lower")Integer lower, @Param("upper")Integer upper);
 }
