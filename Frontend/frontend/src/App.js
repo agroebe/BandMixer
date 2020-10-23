@@ -3,7 +3,9 @@ import NavBar from './components/NavBar'
 import Home from './routes/Home'
 import Results from './routes/Results'
 import AdminPanel from './admin/AdminPanel'
-import { BrowserRouter, Route } from 'react-router-dom'
+import NotFoundPage from './routes/NotFoundPage'
+import Footer from './components/Footer'
+import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 
 export default function App() {
   return (
@@ -26,6 +28,8 @@ export default function App() {
         <Route path='/pennsylvania' exact component={withProps(Home, { loc: 'pennsylvania' })}/>
         <Route path='/texas' exact component={withProps(Home, { loc: 'texas' })}/>
         <Route path='/washington' exact component={withProps(Home, { loc: 'washington' })}/>
+
+        <Route path="*" component={ NotFoundPage } />
 
       </BrowserRouter>
       <Footer/>
