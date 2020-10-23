@@ -2,14 +2,21 @@ package com.application.tagging;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.application.View;
+import com.application.skill_level.AppliedSkillLevelRepository;
+import com.fasterxml.jackson.annotation.JsonView;
 
 
 @Controller
@@ -18,38 +25,35 @@ public class TagController
 {
 	@Autowired
     private TagRepository tagRepository;
+	
+	@Autowired 
+	private AppliedSkillLevelRepository applicationsRepository;
 
     
     @PostMapping(path="/add") //Map only POST requests
-    public @ResponseBody String addNewTag(@RequestParam String name, @RequestParam(defaultValue="true") boolean allowSkill)
+    public @ResponseBody String addNewTag(@RequestBody @Valid RequestNewTag newTag)
     {
-    	if(!tagExists(name))
-    	{
-    		Tag n = new Tag(name, allowSkill);
-    		tagRepository.save(n);
-    		return "Saved";
-    	}
-        return "Already Present";
+    	Tag n = new Tag(newTag.getName(), newTag.getAcceptsSkill());
+		tagRepository.save(n);
+		return "Saved";
     }
     
     @PostMapping(path="/update")
-    public @ResponseBody String updateTag(@RequestParam String oldName, @RequestParam(required=false) String newName, @RequestParam(required=false) Boolean allowSkill)
+    public @ResponseBody String updateTag(@RequestBody @Valid RequestUpdateTag updateTag)
     {
-    	if(newName == null && allowSkill == null)
-    	{
-    		return "Nothing to update.";
-    	}
-    	if(!tagExists(oldName))
-    	{
-    		return "No such tag present";
-    	}
-    	Optional<Tag> member = tagRepository.findByName(oldName);
+    	
+    	Optional<Tag> member = tagRepository.findByName(updateTag.getName());
     	Tag toUpdate = member.get();
-    	if(newName != null)
+    	String newName = updateTag.getNewName();
+    	String name = updateTag.getName();
+    	boolean allowSkill = updateTag.getAllowsSkill();
+    	boolean noNameChange = (newName == null || newName.equals("") || newName.equals(name));
+		boolean noAllowChange = allowSkill == toUpdate.getAllowskill();
+    	if(!noNameChange)
     	{
     		toUpdate.setName(newName);
     	}
-    	if(allowSkill != null)
+    	if(!noAllowChange)
     	{
     		toUpdate.setAllowsSkill(allowSkill);
     	}
@@ -57,17 +61,23 @@ public class TagController
     	return "Updated";
     }
     
+    @PostMapping(path="/remove")
+    public @ResponseBody String removeTag(@RequestBody @Valid RequestExistentTag tag)
+    {
+    	
+    	tagRepository.findByName(tag.getName()).get().remove(applicationsRepository, tagRepository);
+    	return "Tag: " + tag.getName() + " removed.";
+    }
+    
+    @JsonView(View.TagView.class)
     @GetMapping(path="/fetch")
-    public @ResponseBody Tag getByName(@RequestParam String name)
+    public @ResponseBody Tag getByName(@RequestParam @Valid String name)
     {
     	Optional<Tag> tag = tagRepository.findByName(name);
-    	if(!tag.isPresent())
-    	{
-    		throw new TagNotFoundException("name-" + name);
-    	}
     	return tag.get();
     }
 
+    @JsonView(View.TagView.class)
     @GetMapping(path="/all")
     @CrossOrigin
     public @ResponseBody Iterable<Tag> getAllTags(){
@@ -75,32 +85,14 @@ public class TagController
         return tagRepository.findAll();
     }
     
-    @GetMapping(path="/exists")
-    public @ResponseBody boolean exists(String name)
-    {
-    	return tagExists(name);
-    }
+
     
     @GetMapping(path="/hasSkill")
-    public @ResponseBody boolean allowsSkill(String name)
+    public @ResponseBody boolean allowsSkill(@RequestBody @Valid RequestExistentTag tagChoice)
     {
-    	Optional<Tag> tag = tagRepository.findByName(name);
-    	if(!tag.isPresent())
-    	{
-    		return false;
-    	}
+    	Optional<Tag> tag = tagRepository.findByName(tagChoice.getName());
     	return tag.get().getAllowskill();
     }
     
-    private boolean tagExists(String name)
-    {
-    	Optional<Tag> member = tagRepository.findByName(name);
-    	return member.isPresent();
-    }
     
-    private class TagNotFoundException extends IllegalArgumentException
-    {
-    	public TagNotFoundException() {super();}
-    	public TagNotFoundException(String message) {super(message);}
-    }
 }

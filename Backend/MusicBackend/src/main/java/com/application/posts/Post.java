@@ -1,36 +1,54 @@
 package com.application.posts;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import javax.persistence.*;
+
+import com.application.View;
+import com.application.skill_level.AppliedSkillLevel;
+import com.application.skill_level.AppliedSkillLevelRepository;
+import com.application.skill_level.SkillLevel;
 import com.application.tagging.*;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 @Table(name="POSTS")
 public class Post 
 {
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
 	
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@Column(name="owner_id")
 	private Long ownerId;
 	
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@Column(name="title", nullable=false)
 	private String title;
 	
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@Column(name="content_type", nullable=false)
 	private String contentType;
 	
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@Column(name="text_content")
 	private String textContent;
 	
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@OneToOne(cascade=CascadeType.ALL, orphanRemoval=true)
 	@JoinColumn(name="content_id")
 	private Content content;
 	
-	@OneToMany(cascade=CascadeType.PERSIST, mappedBy="post")
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
+	@Column(name="is_search", nullable=false)
+	private Integer isSearch;
+	
+	@JsonView(View.PostView.class)
+	@OneToMany(mappedBy="post")
 	@MapKey(name="id")
 	private Map<TagSkillLevelKey, AppliedSkillLevel> tags;
 	
@@ -48,6 +66,34 @@ public class Post
 		}
 		title = givenTitle;
 		contentType = type;
+		this.isSearch = 0;
+		this.tags = new HashMap<TagSkillLevelKey, AppliedSkillLevel>();
+	}
+	
+	public Post(String givenTitle, String type, boolean isSearch)
+	{
+		if(givenTitle == null)
+		{
+			throw new NullPointerException("Tag initialized with a null name.");
+		}
+		else if(type == null)
+		{
+			throw new NullPointerException("Tag initialized with a null name.");
+		}
+		title = givenTitle;
+		contentType = type;
+		this.isSearch = (isSearch ? 1 : 0);
+		this.tags = new HashMap<TagSkillLevelKey, AppliedSkillLevel>();
+	}
+	
+	public Boolean getIsSearch()
+	{
+		return (isSearch==0? false : true);
+	}
+	
+	public void setIsSearch(boolean isSearch)
+	{
+		this.isSearch = (isSearch ? 1 : 0);
 	}
 	
 	public Long getId()
@@ -55,9 +101,19 @@ public class Post
 		return id;
 	}
 	
+	public void setId(long id)
+	{
+		this.id = id;
+	}
+	
 	public Long getOwnerId()
 	{
 		return ownerId;
+	}
+	
+	public void setOwnerId(long id)
+	{
+		this.ownerId = id;
 	}
 	
 	public String getTitle()
@@ -68,6 +124,11 @@ public class Post
 	public String getContentType()
 	{
 		return contentType;
+	}
+	
+	public void setContentType(String type)
+	{
+		this.contentType = type;
 	}
 	
 	public String getTextContent()
@@ -92,11 +153,17 @@ public class Post
 	
 	public boolean addTag(AppliedSkillLevelRepository rep, Tag tag, SkillLevel level)
 	{
+		return addTag(rep, tag, level, false, false);
+	}
+	
+	public boolean addTag(AppliedSkillLevelRepository rep, Tag tag, SkillLevel level, 
+			boolean bounded, boolean lowerbounded)
+	{
 		if(tags.containsKey(new TagSkillLevelKey(this.id,tag.getId())))
 		{
 			return false;
 		}
-		AppliedSkillLevel app = new AppliedSkillLevel(this, tag, level);
+		AppliedSkillLevel app = new AppliedSkillLevel(this, tag, level, bounded, lowerbounded);
 		rep.save(app);
 		return true;
 	}
@@ -120,7 +187,8 @@ public class Post
 	
 	public void remove(AppliedSkillLevelRepository rep, PostRepository myRep)
 	{
-		for(AppliedSkillLevel tag : tags.values())
+		ArrayList<AppliedSkillLevel> vals = new ArrayList<AppliedSkillLevel>(tags.values());
+		for(AppliedSkillLevel tag :vals)
 		{
 			tag.remove(rep);
 		}
@@ -130,14 +198,18 @@ public class Post
 		}
 	}
 	
-	public boolean setTagSkill(Tag tag, SkillLevel level)
+	public boolean updateTag(AppliedSkillLevelRepository rep, Tag tag, SkillLevel level, boolean isbounded, boolean lowerbounded)
 	{
 		TagSkillLevelKey key = new TagSkillLevelKey(this.id,tag.getId());
 		if(!tags.containsKey(key))
 		{
 			return false;
 		}
-		tags.get(key).setSkillLevel(level);
+		AppliedSkillLevel app = tags.get(key);
+		app.setSkillLevel(level);
+		app.setIsBounded(isbounded);
+		app.setIsLowerBound(lowerbounded);
+		rep.save(app);
 		return true;
 	}
 }
