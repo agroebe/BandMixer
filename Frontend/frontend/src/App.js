@@ -28,7 +28,7 @@ export default function App() {
         <Route path='/washington' exact component={withProps(Home, { loc: 'washington' })}/>
 
       </BrowserRouter>
-      {/* <Footer/> */}
+      <Footer/>
     </div>
   );
 }
