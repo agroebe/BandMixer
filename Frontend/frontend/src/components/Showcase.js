@@ -75,7 +75,7 @@ export default class Showcase extends React.Component {
                             }
                         }}><Button type="submit">Search</Button></Link>
                     </Form>
-                    <h5 className="d-inline">Confused? Try out <a onClick={ () => this.setState({ showBeginnerTutorial: true }) } href="#">our beginner tutorial</a>!</h5>
+                    <h5 className="d-inline">Confused? Try out <a onClick={ () => this.setState({ showBeginnerTutorial: true }) } href="https://www.#.com">our beginner tutorial</a>!</h5>
                 </Jumbotron>
             </>
         )
