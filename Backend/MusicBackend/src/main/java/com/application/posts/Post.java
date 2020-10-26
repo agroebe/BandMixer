@@ -39,9 +39,8 @@ public class Post
 	private String textContent;
 	
 	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
-	@OneToOne(cascade=CascadeType.ALL, orphanRemoval=true)
-	@JoinColumn(name="content_id")
-	private Content content;
+	@Column(name="content_path")
+	private String contentPath;
 	
 	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
 	@Column(name="is_search", nullable=false)
@@ -155,6 +154,10 @@ public class Post
 	{
 		return addTag(rep, tag, level, false, false);
 	}
+	
+	public String getContentPath() {return contentPath;}
+	
+	public void setContentPath(String contentPath) {this.contentPath = contentPath;}
 	
 	public boolean addTag(AppliedSkillLevelRepository rep, Tag tag, SkillLevel level, 
 			boolean bounded, boolean lowerbounded)

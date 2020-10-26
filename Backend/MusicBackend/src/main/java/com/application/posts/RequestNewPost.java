@@ -33,7 +33,7 @@ public class RequestNewPost
 	
 	private String textContent;
 	
-	//private long contentId;
+	private String contentPath;
 	
 	private boolean isSearch;
 	
@@ -76,6 +76,14 @@ public class RequestNewPost
 
 	public void setApplications(List<@Valid RequestTagApplication> applications) {
 		this.applications = (applications == null ? new ArrayList<RequestTagApplication>() : applications);
+	}
+
+	public String getContentPath() {
+		return contentPath;
+	}
+
+	public void setContentPath(String contentPath) {
+		this.contentPath = contentPath;
 	}
 	
 
