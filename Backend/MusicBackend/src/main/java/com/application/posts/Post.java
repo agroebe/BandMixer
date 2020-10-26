@@ -14,6 +14,7 @@ import com.application.skill_level.SkillLevel;
 import com.application.tagging.*;
 import com.fasterxml.jackson.annotation.JsonView;
 
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
 @Table(name="POSTS")
 public class Post 
@@ -55,7 +56,7 @@ public class Post
 	@MapKey(name="id")
 	private Map<TagSkillLevelKey, AppliedSkillLevel> tags;
 	
-	Post(){}
+	public Post(){}
 	
 	public Post(String givenTitle, String type)
 	{

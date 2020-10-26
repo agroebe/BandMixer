@@ -2,11 +2,13 @@ package com.application.people;
 
 //TODO Attach profiles to users
 
+import com.application.posts.Post;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name="PROFILES")
-public class Profile {
+public class Profile extends Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
