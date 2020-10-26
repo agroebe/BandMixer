@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 
 import com.application.View;
 import com.application.people.User;
+import com.application.people.UserRepository;
 import com.application.skill_level.AppliedSkillLevel;
 import com.application.skill_level.AppliedSkillLevelRepository;
 import com.application.skill_level.SkillLevel;
@@ -199,6 +200,8 @@ public class Post
 		{
 			tag.remove(rep);
 		}
+		owner.getPosts().remove(id);
+		
 		if(rep != null)
 		{
 			myRep.delete(this);
