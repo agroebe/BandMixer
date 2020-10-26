@@ -26,6 +26,7 @@ public class Profile extends Post {
         phoneNumber = null;
         profilePicture=null;
         userId = null;
+        super.setContentType("Profile");
     }
 
     public Profile(String username,String location, String phoneNumber, String profilePicture, Long userId){
@@ -54,5 +55,8 @@ public class Profile extends Post {
     public void setLocation(String location){this.location = location;}
     public void setPhoneNumber(String phoneNumber){this.phoneNumber = phoneNumber;}
     public void setProfilePicture(String profilePicture){this.profilePicture = profilePicture;}
+    
+    @Override
+    public void setContentType(String type){}
 
 }
