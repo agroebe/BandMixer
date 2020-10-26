@@ -4,8 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import com.application.View;
+import com.application.people.User;
 import com.application.skill_level.AppliedSkillLevel;
 import com.application.skill_level.AppliedSkillLevelRepository;
 import com.application.skill_level.SkillLevel;
@@ -16,37 +18,39 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Table(name="POSTS")
 public class Post 
 {
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
 	
 	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
-	@Column(name="owner_id")
-	private Long ownerId;
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User owner;
 	
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
 	@Column(name="title", nullable=false)
 	private String title;
 	
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
 	@Column(name="content_type", nullable=false)
 	private String contentType;
 	
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
 	@Column(name="text_content")
 	private String textContent;
 	
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
 	@Column(name="content_path")
 	private String contentPath;
 	
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
 	@Column(name="is_search", nullable=false)
 	private Integer isSearch;
 	
-	@JsonView(View.PostView.class)
+	@JsonView({View.PostView.class, View.UserView.class})
 	@OneToMany(mappedBy="post")
 	@MapKey(name="id")
 	private Map<TagSkillLevelKey, AppliedSkillLevel> tags;
@@ -105,14 +109,14 @@ public class Post
 		this.id = id;
 	}
 	
-	public Long getOwnerId()
+	public User getOwner()
 	{
-		return ownerId;
+		return owner;
 	}
 	
-	public void setOwnerId(long id)
+	public void setOwner(User owner)
 	{
-		this.ownerId = id;
+		this.owner = owner;
 	}
 	
 	public String getTitle()

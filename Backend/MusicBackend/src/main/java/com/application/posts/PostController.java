@@ -81,43 +81,6 @@ public class PostController
     }
 	
 	
-	@PostMapping(path="/add")
-	public @ResponseBody ResponseEntity<ResponseMessage> addPost(@RequestParam @Valid RequestNewPost post, @RequestParam(name="file", required=false) MultipartFile file)
-	{
-		String fpath = null;
-		String message = "";
-		if(file != null)
-		{
-	        try {
-	           FileDB stored = storageService.store(file);
-	           fpath = stored.getId();
-	            message = "Uploaded the file successfully: " + file.getOriginalFilename() + "; ";
-	            
-	        } catch (Exception e) {
-	            message = "Could not upload the file: " + file.getOriginalFilename() + "!";
-	            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
-	        }
-		}
-		else if(post.getContentPath() != null && post.getContentType().contains("External"))
-		{
-			fpath = post.getContentPath();
-		}
-		Post p = new Post(post.getTitle(), post.getContentType(), post.getIsSearch());
-		p.setTextContent(((post.getTextContent() == null || post.getTextContent().equals(""))? null : post.getTextContent()));
-		p.setOwnerId(post.getOwnerId());
-		p.setContentPath(fpath);
-		postRepository.save(p);
-		for(RequestTagApplication tag : post.getApplications())
-		{
-			Tag tg = tagRepository.findByName(tag.getTag().getName()).get();
-			SkillLevel level = skillLevelRepository.findByName(tag.getSkill().getName()).get();
-			p.addTag(applicationRepository, tg, level, tag.getBounded(), tag.getLowerBounded());
-		}
-		message += "Post saved.";
-		return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
-	}
-	
-	
 	@PostMapping(path="/update")
     public @ResponseBody String updatePost(@RequestBody @Valid RequestUpdatePost updatePost)
     {

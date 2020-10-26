@@ -34,7 +34,14 @@ public class ExistentPostValidator implements ConstraintValidator<ExistentPost, 
 			context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
 			return false;
 		}
+//		System.out.println("Validating");
+//		for(Post p : repo.findAll())
+//		{
+//			System.out.println(p.getId());
+//		}
+//		repo.findAll();
 		Optional<Post> find = repo.findById(value);
+		System.out.println(find.isPresent());
 		if(!find.isPresent())
 		{
 			String msg = "Post with id '" + value + "' does not exist.";

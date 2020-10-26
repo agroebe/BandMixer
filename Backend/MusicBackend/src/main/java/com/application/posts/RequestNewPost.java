@@ -22,7 +22,7 @@ import javax.validation.groups.ConvertGroup;
 @NullChecks(fields= {"title", "contentType", "applications"}, groups=First.class)
 public class RequestNewPost 
 {
-	//@ExistentOwner(groups=Second.class)
+	@ExistentOwner(groups=Second.class)
 	private long ownerid;
 	
 	@ValidTitle(groups=Second.class)
