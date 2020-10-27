@@ -22,7 +22,7 @@ public class User
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Long ID;
+    private Long id;
 
 	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
     private String email;
@@ -45,11 +45,11 @@ public class User
     public User() {}
 
     public Long getId(){
-        return ID;
+        return id;
     }
 
     public void setId(Long id){
-        this.ID = id;
+        this.id = id;
     }
 
     public void setPassword(String password){this.password = password;}
