@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link, Router } from 'react-router-dom';
 import { Navbar, Button, Dropdown, DropdownButton, Container, Row, Col } from 'react-bootstrap';
 import { Map } from 'react-bootstrap-icons';
 import SignInModal from './modals/SignInModal'
@@ -9,8 +8,6 @@ import EditProfileModal from './modals/EditProfileModal'
 
 const CustomMenu = React.forwardRef(
   ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
-    const [value, setValue] = useState('');
-
     return (
       <div
         ref={ref}
