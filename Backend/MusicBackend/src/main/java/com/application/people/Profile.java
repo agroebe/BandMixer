@@ -9,23 +9,20 @@ import javax.persistence.*;
 @Entity
 @Table(name="PROFILES")
 public class Profile extends Post {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long ID;
+    
 
     private String username;
     private String location;
     private String phoneNumber;
     private String profilePicture;
-    private Long userId;
+    //private Long userId;
 
     public Profile(){
         username = null;
         location = null;
         phoneNumber = null;
         profilePicture=null;
-        userId = null;
+       // userId = null;
         super.setContentType("Profile");
     }
 
@@ -34,7 +31,7 @@ public class Profile extends Post {
         this.location = location;
         this.phoneNumber = phoneNumber;
         this.profilePicture = profilePicture;
-        this.userId = userId;
+        //this.userId = userId;
     }
 
     public Profile(Profile profile){
@@ -42,16 +39,16 @@ public class Profile extends Post {
         this.location = profile.location;
         this.profilePicture = profile.profilePicture;
         this.phoneNumber = profile.phoneNumber;
-        this.userId = profile.userId;
+        //this.userId = profile.userId;
     }
 
-    public Long getUserId(){return userId;}
+   // public Long getUserId(){return userId;}
     public String getLocation(){ return location;}
     public String getPhoneNumber(){return phoneNumber;}
     public String getProfilePicture(){return profilePicture;}
     public String getUsername(){return username;}
     public void setUsername(String username){this.username = username;}
-    public void setUserId(Long userId){this.userId = userId;}
+    //public void setUserId(Long userId){this.userId = userId;}
     public void setLocation(String location){this.location = location;}
     public void setPhoneNumber(String phoneNumber){this.phoneNumber = phoneNumber;}
     public void setProfilePicture(String profilePicture){this.profilePicture = profilePicture;}
