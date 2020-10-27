@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Navbar, Button, Dropdown, DropdownButton, Container, Row, Col } from 'react-bootstrap';
 import { Map } from 'react-bootstrap-icons';
 import SignInModal from './modals/SignInModal'
