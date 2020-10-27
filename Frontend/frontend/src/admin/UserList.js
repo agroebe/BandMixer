@@ -7,11 +7,11 @@ const UserList = (props) => {
             <List {...props}>
                 <Datagrid>
                     <TextField source='id'/>
-                    <TextField source='name'/>
+                    <TextField source='username'/>
                     <TextField source='email'/>
                     <TextField source='password'/>
                     <EditButton/>
-                    <DeleteWithConfirmButton basePath="users/remove"/>
+                    <DeleteWithConfirmButton/>
                 </Datagrid>
             </List> 
             <CreateButton/>
