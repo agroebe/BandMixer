@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProfileRepository extends CrudRepository<Profile,Long> {
     public Profile findByUsername(String username);
-    public Profile findByUserId(Long id);
+    public Profile findByOwner(User owner);
 }

@@ -174,7 +174,7 @@ public class MainController {
     @CrossOrigin
     public @ResponseBody User updateUser(@PathVariable Long userId, @RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam Boolean stayLoggedIn, @RequestParam Long newId){
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
-        User toUpdate = userRepository.findByID(userId);
+        User toUpdate = userRepository.findByid(userId);
         if(toUpdate != null){
             toUpdate.setStaySignedIn(stayLoggedIn);
             password = passwordEncryptor.encryptPassword(password);
