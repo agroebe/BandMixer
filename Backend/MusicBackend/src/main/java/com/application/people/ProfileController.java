@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@Controller
+@RestController
 @CrossOrigin
 @RequestMapping(path="/profiles")
 public class ProfileController {
@@ -20,7 +20,7 @@ public class ProfileController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping(path="/")
+    @GetMapping(path="")
     @CrossOrigin
     public @ResponseBody Iterable<Profile> getAllProfiles(){
         return profileRepository.findAll();
@@ -36,9 +36,9 @@ public class ProfileController {
         throw new ProfileController.ProfileNotFoundException("userId not valid");
     }
 
-    @PostMapping(path="/{userId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(path="/{userId}")
     @CrossOrigin
-    public @ResponseBody String createProfileForUser(@PathVariable Long userId, @RequestBody Profile profile){
+    public String createProfileForUser(@PathVariable Long userId, @RequestBody Profile profile){
         User user = userRepository.findByid(userId);
         if(profileRepository.findByOwner(user) == null){
             Profile toAdd = new Profile(profile);
