@@ -3,11 +3,8 @@ package com.application.testing;
 
 
 
-import com.application.MainController;
 import com.application.people.User;
 import com.application.people.UserRepository;
-import javafx.beans.value.ObservableBooleanValue;
-import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -19,7 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static javafx.beans.binding.Bindings.when;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
