@@ -9,4 +9,3 @@ Aidan ran a hello world program and a sql server that took http requests and add
 Groebe showed the front end inculding the current state of the website and its domains
 Sandor ran a hellow world react program and created simple sql tables
 Meeting ended shortly after demos
-/
