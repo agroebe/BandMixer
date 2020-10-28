@@ -1,10 +1,11 @@
 import React from 'react';
 import { Navbar, Button, Dropdown, DropdownButton, Container, Row, Col } from 'react-bootstrap';
-import { Map } from 'react-bootstrap-icons';
+import { Map, Plus } from 'react-bootstrap-icons';
 import SignInModal from './modals/SignInModal'
 import RegisterModal from './modals/RegisterModal'
 import ProfileModal from './modals/ProfileModal'
 import EditProfileModal from './modals/EditProfileModal'
+import NewPostModal from './modals/NewPostModal'
 
 const CustomMenu = React.forwardRef(
   ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
@@ -100,14 +101,17 @@ export default class NavBar extends React.Component {
                 </Dropdown>
                 <Navbar.Collapse className="justify-content-end">
                     { this.state.loggedIn ? (
-                      <DropdownButton alignRight id="dropdown-basic-button" title={ this.state.userId }>
-                      <Dropdown.Item onClick={ () => this.profileModal.open() }>View Profile</Dropdown.Item>
-                      <Dropdown.Item onClick={ () => this.editProfileModal.open() }>Edit Profile</Dropdown.Item>
-                      <Dropdown.Item onClick={ () => {
-                        this.setLoggedIn(false)
-                        this.setUserId('')
-                      } }>Logout</Dropdown.Item>
-                    </DropdownButton>
+                      <>
+                        <DropdownButton alignRight id="dropdown-basic-button" title={ this.state.userId }>
+                          <Dropdown.Item onClick={ () => this.profileModal.open() }>View Profile</Dropdown.Item>
+                          <Dropdown.Item onClick={ () => this.editProfileModal.open() }>Edit Profile</Dropdown.Item>
+                          <Dropdown.Item onClick={ () => {
+                            this.setLoggedIn(false)
+                            this.setUserId('')
+                          } }>Logout</Dropdown.Item>
+                        </DropdownButton>
+                        <Button variant="secondary" className="ml-2" onClick={ () => this.newPostModal.open() }><Plus></Plus></Button>
+                      </>
                     ) : (
                       <div>
                         <Button variant="primary" className="mr-2" onClick={ this.openSignInModal }>Sign In</Button>
@@ -122,6 +126,7 @@ export default class NavBar extends React.Component {
                 <SignInModal ref={ (modal) => { this.signInModal = modal } } openRegisterModal={ this.openRegisterModal } setLoggedIn={ this.setLoggedIn } setUserId={ this.setUserId }/>
                 <ProfileModal ref={ (modal) => { this.profileModal = modal } }/>
                 <EditProfileModal ref={ (modal) => { this.editProfileModal = modal } }/>
+                <NewPostModal ref={ (modal) => {this.newPostModal = modal }}></NewPostModal>
             </Navbar>
         )
     }
