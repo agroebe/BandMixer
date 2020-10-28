@@ -22,7 +22,7 @@ import javax.validation.groups.ConvertGroup;
 @NullChecks(fields= {"title", "contentType", "applications"}, groups=First.class)
 public class RequestNewPost 
 {
-	//@ExistentOwner(groups=Second.class)
+	@ExistentOwner(groups=Second.class)
 	private long ownerid;
 	
 	@ValidTitle(groups=Second.class)
@@ -33,7 +33,7 @@ public class RequestNewPost
 	
 	private String textContent;
 	
-	//private long contentId;
+	private String contentPath;
 	
 	private boolean isSearch;
 	
@@ -76,6 +76,14 @@ public class RequestNewPost
 
 	public void setApplications(List<@Valid RequestTagApplication> applications) {
 		this.applications = (applications == null ? new ArrayList<RequestTagApplication>() : applications);
+	}
+
+	public String getContentPath() {
+		return contentPath;
+	}
+
+	public void setContentPath(String contentPath) {
+		this.contentPath = contentPath;
 	}
 	
 

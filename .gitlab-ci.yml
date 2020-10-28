@@ -30,7 +30,7 @@ autoDeploy:
  script:
  - cd Backend/MusicBackend
  - mvn package
- - sudo mv target/*.jar target/web-demo.jar
+ - sudo mv target/*.jar /target/web-demo.jar
  - sudo systemctl stop system-web-demo
  - sudo systemctl start system-web-demo
 
@@ -43,3 +43,4 @@ frontend-build:
    - npm install
    - npm run build
    - sudo cp -r build/* /var/www/html/
+   - sudo systemctl restart httpd.service

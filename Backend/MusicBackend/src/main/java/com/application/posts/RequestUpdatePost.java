@@ -14,7 +14,7 @@ import validation.ordergroups.Third;
 @GroupSequence({First.class,RequestUpdatePost.class,Second.class,Third.class})
 @NullChecks(fields= {}, groups=First.class)
 @UpdatedPost(groups=Third.class, idfield = "id", searchField = "isSearch", 
-	textContentField = "textContent", titlefield = "title", typefield = "contentType")
+	textContentField = "textContent", titlefield = "title", typefield = "contentType", contentPathField="contentPath")
 public class RequestUpdatePost 
 {
 	@ExistentPost(groups=Second.class)
@@ -28,7 +28,7 @@ public class RequestUpdatePost
 	
 	private String textContent;
 	
-	//private long contentId;
+	private String contentPath;
 	
 	private boolean isSearch;
 	
@@ -79,5 +79,13 @@ public class RequestUpdatePost
 
 	public void setIsSearch(boolean isSearch) {
 		this.isSearch = isSearch;
+	}
+
+	public String getContentPath() {
+		return contentPath;
+	}
+
+	public void setContentPath(String contentPath) {
+		this.contentPath = contentPath;
 	}
 }

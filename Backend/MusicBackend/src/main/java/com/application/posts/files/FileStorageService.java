@@ -28,4 +28,9 @@ public class FileStorageService {
     public Stream<FileDB> getAllFiles() {
         return fileDBRepository.findAll().stream();
     }
+    
+    public void removeFile(String id)
+    {
+    	fileDBRepository.delete(getFile(id));
+    }
 }

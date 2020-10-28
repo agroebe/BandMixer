@@ -30,6 +30,7 @@ public class UpdatedPostValidator implements ConstraintValidator<UpdatedPost, Ob
 	private String typefield;
 	private String textContentField;
 	private String searchField;
+	private String contentPathField;
 	
 	public void initialize(UpdatedPost constraint)
 	{
@@ -39,6 +40,7 @@ public class UpdatedPostValidator implements ConstraintValidator<UpdatedPost, Ob
 		typefield = constraint.typefield();
 		textContentField = constraint.textContentField();
 		searchField = constraint.searchField();
+		contentPathField = constraint.contentPathField();
 	}
 	
 	@Override
@@ -49,6 +51,7 @@ public class UpdatedPostValidator implements ConstraintValidator<UpdatedPost, Ob
 		String newType = (String)new BeanWrapperImpl(value).getPropertyValue(typefield);
 		String newText = (String)new BeanWrapperImpl(value).getPropertyValue(textContentField);
 		boolean newSearch = (boolean)new BeanWrapperImpl(value).getPropertyValue(searchField);
+		String newPath = (String)new BeanWrapperImpl(value).getPropertyValue(contentPathField);
 		Optional<Post> find = repo.findById(idvalue);
 		
 		Post found = find.get();
@@ -58,14 +61,17 @@ public class UpdatedPostValidator implements ConstraintValidator<UpdatedPost, Ob
 		boolean notextchange = newText == null || (newText.equals(found.getTextContent()) && !newText.equals("")) 
 				|| (found.getTextContent() == null && newText.equals(""));
 		boolean nosearchChange = newSearch == found.getIsSearch();
+		boolean nopathchange = newPath == null || (newPath.equals(found.getContentPath()) && !newPath.equals("")) 
+				|| (found.getContentPath() == null && newPath.equals(""));
 		
-		if(notitlechange && notypechange && notextchange && nosearchChange)
+		if(notitlechange && notypechange && notextchange && nosearchChange && nopathchange)
 		{
 			String msg = "Nothing given to update with.";
 			context.disableDefaultConstraintViolation();
 			context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
 			return false;
 		}
+		//TODO add some validation to paths and types	
 		return true;
 	}
 

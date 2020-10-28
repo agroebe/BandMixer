@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Navbar, Button, Dropdown, DropdownButton, Container, Row, Col } from 'react-bootstrap';
 import { Map, Plus } from 'react-bootstrap-icons';
 import SignInModal from './modals/SignInModal'
@@ -9,8 +9,6 @@ import NewPostModal from './modals/NewPostModal'
 
 const CustomMenu = React.forwardRef(
   ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
-    const [value, setValue] = useState('');
-
     return (
       <div
         ref={ref}

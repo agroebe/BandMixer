@@ -19,23 +19,23 @@ public class AppliedSkillLevel
 	@JoinColumn(name = "post_id")
 	Post post;
 	
-	@JsonView({View.PostView.class,View.SkillLevelView.class})
+	@JsonView({View.PostView.class,View.SkillLevelView.class, View.UserView.class})
 	@ManyToOne
 	@MapsId("tag_id")
 	@JoinColumn(name = "tag_id")
 	Tag tag;
 	
 	
-	@JsonView({View.TagView.class,View.PostView.class})
+	@JsonView({View.TagView.class,View.PostView.class, View.UserView.class})
 	@ManyToOne
 	@JoinColumn(name = "skill_id")
 	SkillLevel level;
 	
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
 	@Column(name="is_bounded", nullable=false)
 	private Integer isBounded;
 	
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
 	@Column(name="is_lower_bound", nullable=false)
 	private Integer isLowerBound;
 	
