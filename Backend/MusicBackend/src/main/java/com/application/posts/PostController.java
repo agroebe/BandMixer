@@ -75,6 +75,7 @@ public class PostController
 	
 	@JsonView(View.PostView.class)
 	@GetMapping(path="/fetch")
+	@CrossOrigin
     public @ResponseBody Post getById(@RequestBody @Valid RequestPost post)
     {
 		long id = post.getId();
