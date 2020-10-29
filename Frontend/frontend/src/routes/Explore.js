@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios'
-import { Container, Row, Col, Form, CardDeck, Card, Badge, Button } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 
 export default class Explore extends React.Component {
     state = {
@@ -17,7 +17,7 @@ export default class Explore extends React.Component {
     }
 
     render() {
-        if (this.state.posts.length == 0) {
+        if (this.state.posts.length === 0) {
             return <div>No posts found...</div>
         }
 
@@ -28,6 +28,7 @@ export default class Explore extends React.Component {
             <h1 className="text-center">{ posts.length } total posts found...</h1>
             { posts.map(post => (
                 <>
+                { console.log(post) }
                 <Card style={{ width: '60rem', marginLeft: 'auto', marginRight: 'auto', marginBottom: '10px', marginTop: '10px' }}>
                     <Card.Body>
                     <Card.Title>{ post.title }</Card.Title>
