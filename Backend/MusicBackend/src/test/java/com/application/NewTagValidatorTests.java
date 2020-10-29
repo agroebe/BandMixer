@@ -44,13 +44,21 @@ class NewTagValidatorTests {
 	
 	RequestNewTag toTest;
 	
+	MockedStatic<BeanUtil> mocked;
+	
 	Set<ConstraintViolation<RequestNewTag>> cvs;
 	
 	@BeforeEach
 	public void setUp()
 	{
-		try (MockedStatic<BeanUtil> mocked = mockStatic(BeanUtil.class)){
+		try {
+			mocked = mockStatic(BeanUtil.class);
 			mocked.when(()->BeanUtil.getBean(TagRepository.class)).thenReturn(tagRepo);
+		}
+		catch(Exception e)
+		{
+			if(mocked != null) {mocked.close();}
+			throw e;
 		}
 		Tag testTag = new Tag("test-value");
 		Tag othertestTag = new Tag("test-value3",false);
@@ -65,6 +73,8 @@ class NewTagValidatorTests {
 	public void cleanUp()
 	{
 		Mockito.reset(tagRepo);
+		mocked.reset();
+		mocked.close();
 	}
 	
 	@Test

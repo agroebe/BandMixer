@@ -43,13 +43,21 @@ class NewSkillLevelValidatorTests {
 	
 	RequestNewSkillLevel toTest;
 	
+	MockedStatic<BeanUtil> mocked;
+	
 	Set<ConstraintViolation<RequestNewSkillLevel>> cvs;
 	
 	@BeforeEach
 	public void setUp()
 	{
-		try (MockedStatic<BeanUtil> mocked = mockStatic(BeanUtil.class)){
+		try{
+			mocked = mockStatic(BeanUtil.class);
 			mocked.when(()->BeanUtil.getBean(SkillLevelRepository.class)).thenReturn(skillRepo);
+		}
+		catch(Exception e)
+		{
+			if(mocked != null) {mocked.close();}
+			throw e;
 		}
 		SkillLevel testSkill = new SkillLevel("test-value",3);
 		SkillLevel othertestSkill = new SkillLevel("test-value3",4);
@@ -60,10 +68,13 @@ class NewSkillLevelValidatorTests {
         validator = factory.getValidator();
 	}
 	
+	
 	@AfterEach
 	public void cleanUp()
 	{
 		Mockito.reset(skillRepo);
+		mocked.reset();
+		mocked.close();
 	}
 	
 	@Test

@@ -41,12 +41,19 @@ class UpdateTagValidatorTests {
 	
 	
 	Validator validator;
+	MockedStatic<BeanUtil> mocked;
 	
 	@BeforeEach
 	public void setUp()
 	{
-		try (MockedStatic<BeanUtil> mocked = mockStatic(BeanUtil.class)){
+		try {
+			mocked = mockStatic(BeanUtil.class);
 			mocked.when(()->BeanUtil.getBean(TagRepository.class)).thenReturn(tagRepo);
+		}
+		catch(Exception e)
+		{
+			if(mocked != null) {mocked.close();}
+			throw e;
 		}
 		Tag testTag = new Tag("test-tag",false);
 		Tag othertestTag = new Tag("test-tag3",false);
@@ -61,6 +68,8 @@ class UpdateTagValidatorTests {
 	public void cleanUp()
 	{
 		Mockito.reset(tagRepo);
+		mocked.reset();
+		mocked.close();
 	}
 	
 	@Test
