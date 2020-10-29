@@ -3,6 +3,7 @@ import NavBar from './components/NavBar'
 import Home from './routes/Home'
 import Results from './routes/Results'
 import Explore from './routes/Explore'
+import Post from './routes/Post'
 import AdminPanel from './admin/AdminPanel'
 import NotFoundPage from './routes/NotFoundPage'
 import Footer from './components/Footer'
@@ -18,6 +19,7 @@ export default function App() {
           <Route path='/results' exact component={ Results }/>
           <Route path='/explore' exact component={ Explore }/>
           <Route path='/admin' exact component={ AdminPanel }/>
+          <Route path='/post/:postId' exact component={ Post }/>
 
           <Route path='/california' exact component={withProps(Home, { loc: 'california' })}/>
           <Route path='/florida' exact component={withProps(Home, { loc: 'florida' })}/>
