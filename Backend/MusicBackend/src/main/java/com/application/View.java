@@ -5,4 +5,5 @@ public class View {
 	public interface SkillLevelView{}
 	public interface PostView{}
 	public interface UserView{}
+	public interface StateView{}
 }

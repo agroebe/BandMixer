@@ -90,6 +90,7 @@ public class Post
 		this.isSearch = (isSearch ? 1 : 0);
 		this.tags = new HashMap<TagSkillLevelKey, AppliedSkillLevel>();
 	}
+
 	
 	public Boolean getIsSearch()
 	{
