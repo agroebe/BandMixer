@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom'
 import renderer from 'react-test-renderer'
 import Home from '../routes/Home'
 import Showcase from '../components/Showcase'
-import { CardDeck, Card, Button } from 'react-bootstrap';
+import { CardDeck } from 'react-bootstrap';
 
 it('renders without crashing', () => {
     const home = renderer.create(
