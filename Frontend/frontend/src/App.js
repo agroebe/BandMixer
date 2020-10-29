@@ -2,6 +2,7 @@ import React from 'react';
 import NavBar from './components/NavBar'
 import Home from './routes/Home'
 import Results from './routes/Results'
+import Explore from './routes/Explore'
 import AdminPanel from './admin/AdminPanel'
 import NotFoundPage from './routes/NotFoundPage'
 import Footer from './components/Footer'
@@ -14,6 +15,7 @@ export default function App() {
       <BrowserRouter>
         <Route path='/' exact component={ Home }/>
         <Route path='/results' exact component={ Results }/>
+        <Route path='/explore' exact component={ Explore }/>
         <Route path='/admin' exact component={ AdminPanel }/>
 
         <Route path='/california' exact component={withProps(Home, { loc: 'california' })}/>
