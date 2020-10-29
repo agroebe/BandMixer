@@ -10,7 +10,6 @@ public class BeanUtil implements ApplicationContextAware {
 
    private static ApplicationContext context;
    
-   private static Object mockbean = null;
 
    @Override
 
@@ -20,20 +19,9 @@ public class BeanUtil implements ApplicationContextAware {
 
    }
    
-   public static void setMock(Object o)
-   {
-	   mockbean = o;
-   }
-   
-   public static Object getMock() {return mockbean;}
 
    public static <T> T getBean(Class<T> beanClass) {
 
-//	   if(isJUnitTest())
-//	   {
-//		   
-//		   return Mockito.mock(beanClass);
-//	   }
        return context.getBean(beanClass);
 
    }

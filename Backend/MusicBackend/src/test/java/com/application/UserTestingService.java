@@ -1,4 +1,4 @@
-package com.application.testing;
+package com.application;
 
 import com.application.people.User;
 import com.application.people.UserRepository;

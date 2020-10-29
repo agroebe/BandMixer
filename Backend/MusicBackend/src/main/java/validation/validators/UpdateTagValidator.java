@@ -41,7 +41,6 @@ public class UpdateTagValidator implements ConstraintValidator<UpdateTag, Object
 			context.buildConstraintViolationWithTemplate(msg).addConstraintViolation();
 			return false;
 		}
-		System.out.println("made it here.");
 		Optional<Tag> find = repo.findByName(name);
 		if(!find.isPresent())
 		{

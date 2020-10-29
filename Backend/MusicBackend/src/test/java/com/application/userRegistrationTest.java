@@ -1,11 +1,12 @@
-package com.application.testing;
+package com.application;
 
 
 
 
 import com.application.people.User;
 import com.application.people.UserRepository;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class userRegistrationTesting {
+public class userRegistrationTest {
 
     @Autowired
     private UserTestingService service;
