@@ -24,7 +24,7 @@ export default class NewPostModal extends React.Component {
 
     submit() {
         const poster = {
-            ownerId: 72,
+            ownerId: 104,
             title: "Hey",
             contentType: 'hi',
             textContent: 'testing',
