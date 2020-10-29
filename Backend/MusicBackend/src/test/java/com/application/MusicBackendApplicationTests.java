@@ -71,12 +71,12 @@ class MusicBackendApplicationTests {
 		Assert.assertTrue("Must not be constraint violations.", cvs.isEmpty());
 	}
 	
-	@Test
-	public void basicValidatorTest2()
-	{
-		RequestUpdateTag toTest = new RequestUpdateTag("test-tag2", "test-tag2", true);
-		Set<ConstraintViolation<RequestUpdateTag>> cvs = validator.validate(toTest);
-		Assert.assertTrue("Must not be constraint violations.", cvs.isEmpty());
-	}
+//	@Test
+//	public void basicValidatorTest2()
+//	{
+//		RequestUpdateTag toTest = new RequestUpdateTag("test-tag2", "test-tag2", true);
+//		Set<ConstraintViolation<RequestUpdateTag>> cvs = validator.validate(toTest);
+//		Assert.assertTrue("Must not be constraint violations.", cvs.isEmpty());
+//	}
 
 }

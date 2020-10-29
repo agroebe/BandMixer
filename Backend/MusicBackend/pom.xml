@@ -66,7 +66,6 @@
 		    <groupId>org.projectlombok</groupId>
 		    <artifactId>lombok</artifactId>
 		</dependency>
-<<<<<<< HEAD
 		
 		<dependency>
 		    <groupId>org.mockito</groupId>
@@ -74,25 +73,6 @@
 		    <version>3.4.6</version>
 		    <scope>test</scope>
 		</dependency>
-		
-=======
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-test</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-		</dependency>
->>>>>>> branch 'master' of https://git.linux.iastate.edu/cs309/fall2020/cy_01.git
 	</dependencies>
 
 	<build>
