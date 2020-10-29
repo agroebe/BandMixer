@@ -125,9 +125,9 @@ public class MainController {
     @CrossOrigin
     public @ResponseBody Optional<User> getByUsername(@PathVariable String username){
         if (username != null) {
-            return userRepository.findByUsername(username);
+            return Optional.of(userRepository.findByUsername(username));
         }
-        return null;
+        return Optional.empty();
     }
 
     //Deletes a specific user
