@@ -5,7 +5,6 @@ import { Card } from 'react-bootstrap'
 
 it('renders without crashing', () => {
     const home = renderer.create(
-
         <Explore/>
     )
 
