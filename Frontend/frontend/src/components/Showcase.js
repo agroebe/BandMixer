@@ -75,9 +75,9 @@ export default class Showcase extends React.Component {
                                     location: this.props.loc,
                                     instrument: this.state.instrument
                                 }
-                            }}><Button type="submit">Search</Button></Link>
+                            }}><Button>Search</Button></Link>
                         ) : (
-                            <Button type="submit" onClick={ () => alert('Please double check your search terms, ensuring both and instrument and location are selected.')}>Search</Button>
+                            <Button onClick={ () => alert('Please double check your search terms, ensuring both and instrument and location are selected.')}>Search</Button>
                         )}
                     </Form>
                     <h5 className="d-inline">Confused? Try out <a onClick={ () => this.setState({ showBeginnerTutorial: true }) } href="https://www.#.com">our beginner tutorial</a>!</h5>

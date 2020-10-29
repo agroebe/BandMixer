@@ -23,19 +23,27 @@ export default class NewPostModal extends React.Component {
     }
 
     submit() {
-        const post = {
+        const poster = {
             ownerId: 72,
-            title: 'hey',
+            title: "Hey",
             contentType: 'hi',
             textContent: 'testing',
             isSearch: true,
-            applications: ['Rock', 'Metal', 'Vocalist', 'Expert']
+            applications:  [ { tag: "guitar", skill: "expert" } ]
         }
 
         const formData = new FormData()
-        formData.append('post', JSON.stringify(post))
+        formData.append('post', JSON.stringify(poster))
 
-        axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users/addPost', formData)
+        axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users/addPost', formData).then(r => {
+            console.log(r)
+        })
+
+        // axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users/addPost', {
+        //     post: poster
+        // }).then(r => {
+        //     console.log(r)
+        // })
     }
 
     render() {

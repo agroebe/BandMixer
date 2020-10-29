@@ -95,9 +95,7 @@ export default class NavBar extends React.Component {
                     <Map></Map>
                   </Dropdown.Toggle>
 
-                  <Dropdown.Menu as={CustomMenu}>
-                    <Dropdown.Item>Geogi</Dropdown.Item>
-                  </Dropdown.Menu>
+                  <Dropdown.Menu as={CustomMenu}></Dropdown.Menu>
                 </Dropdown>
                 <Navbar.Collapse className="justify-content-end">
                     { this.state.loggedIn ? (
