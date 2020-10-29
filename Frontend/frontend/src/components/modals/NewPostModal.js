@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React from 'react';
 import { Modal, Form, Badge, Button } from 'react-bootstrap';
+import { toast, Zoom } from 'react-toastify';
 
 export default class NewPostModal extends React.Component {
     constructor(props) {
@@ -12,6 +13,7 @@ export default class NewPostModal extends React.Component {
         };
 
         this.close = this.close.bind(this);
+        this.submit = this.submit.bind(this);
     }
 
     open() {
@@ -19,31 +21,52 @@ export default class NewPostModal extends React.Component {
     }
 
     close() {
-        this.setState({ responseExists: false, response: '', show: false })
+        this.setState({ show: false })
     }
 
     submit() {
-        const poster = {
-            ownerId: 104,
-            title: "Hey",
-            contentType: 'hi',
-            textContent: 'testing',
-            isSearch: true,
-            applications:  [ { tag: "guitar", skill: "expert" } ]
-        }
 
-        const formData = new FormData()
-        formData.append('post', JSON.stringify(poster))
+        axios.get('http://coms-309-cy-01.cs.iastate.edu:8080/users/username/' + this.props.userId).then(r => {
+            const userId = r.data.id
+            const newPost = {
+                ownerId: userId,
+                title: this.state.title,
+                contentType: 'hi',
+                textContent: this.state.text,
+                isSearch: false,
+                applications:  [ { tag: "guitar" } ]
+            }
 
-        axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users/addPost', formData).then(r => {
-            console.log(r)
+            const formData = new FormData()
+            formData.append('post', JSON.stringify(newPost))
+
+            axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users/addPost', formData).then(r => {
+                if (r.data.message.includes('saved')) {
+                    toast.success('Successfuly submitted post!', {
+                        position: "top-center",
+                        autoClose: 2500,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        transition: Zoom
+                    });
+                    this.close()
+                }
+            }).catch (function(response) {
+                toast.error('Error submitting post due to one or more violations; please try again.', {
+                    position: "top-center",
+                    autoClose: 2500,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    transition: Zoom
+                });
+            })
         })
-
-        // axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users/addPost', {
-        //     post: poster
-        // }).then(r => {
-        //     console.log(r)
-        // })
     }
 
     render() {
@@ -56,12 +79,12 @@ export default class NewPostModal extends React.Component {
                 <Modal.Body>
                     <Form.Group>
                         <Form.Label>Title</Form.Label>
-                        <Form.Control type="text" onChange={ e => this.setState({ loginId: e.target.value }) }/>
+                        <Form.Control type="text" onChange={ e => this.setState({ title: e.target.value }) }/>
                     </Form.Group>
 
                     <Form.Group>
                         <Form.Label>Text</Form.Label>
-                        <Form.Control as="textarea" rows={5} onChange={ e => this.setState({ password: e.target.value }) }/>
+                        <Form.Control as="textarea" rows={5} onChange={ e => this.setState({ text: e.target.value }) }/>
                     </Form.Group>
 
                     <Form.Group>

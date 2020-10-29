@@ -124,7 +124,7 @@ export default class NavBar extends React.Component {
                 <SignInModal ref={ (modal) => { this.signInModal = modal } } openRegisterModal={ this.openRegisterModal } setLoggedIn={ this.setLoggedIn } setUserId={ this.setUserId }/>
                 <ProfileModal ref={ (modal) => { this.profileModal = modal } }/>
                 <EditProfileModal ref={ (modal) => { this.editProfileModal = modal } }/>
-                <NewPostModal ref={ (modal) => {this.newPostModal = modal }}/>
+                <NewPostModal ref={ (modal) => {this.newPostModal = modal }} userId={ this.state.userId }/>
             </Navbar>
         )
     }
