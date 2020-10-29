@@ -77,6 +77,7 @@ public class StateController {
         }
     }
 
+//TODO
 //    @DeleteMapping(path = "/city/{cityName}")
 //    public @ResponseBody String removeCity(@PathVariable String cityName){
 //        City city = cityRepository.findByCityName(cityName);
