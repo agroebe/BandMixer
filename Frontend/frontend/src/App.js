@@ -5,7 +5,7 @@ import Results from './routes/Results'
 import AdminPanel from './admin/AdminPanel'
 import NotFoundPage from './routes/NotFoundPage'
 import Footer from './components/Footer'
-import { BrowserRouter, Route, Redirect } from 'react-router-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
 
 export default function App() {
   return (
