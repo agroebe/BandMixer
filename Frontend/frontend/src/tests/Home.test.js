@@ -23,4 +23,5 @@ it('properly renders subcomponents', () => {
 
     expect(homeInstance.findByType(Showcase)).not.toEqual(null) // Showcase is a sub-component of home
     expect(homeInstance.findByType(CardDeck)).not.toEqual(null) // Home contains several CardDeck components
+    expect(homeInstance.findByType(CardDeck)).not.toEqual(null) // Home contains several CardDeck components
 })

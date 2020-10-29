@@ -7,14 +7,13 @@ export default class Explore extends React.Component {
         posts: []
     }
 
-    componentWillMount() {
+    componentDidMount() {
         axios.get('http://coms-309-cy-01.cs.iastate.edu:8080/posts/all').then(r => {
             r.data.forEach(post => {
                 var joined = this.state.posts.concat(post)
                 this.setState( { posts: joined })
             })
         })
-
     }
 
     render() {
