@@ -125,7 +125,7 @@ public class MainController {
     @CrossOrigin
     public @ResponseBody Optional<User> getByUsername(@PathVariable String username){
         if (username != null) {
-            return userRepository.findByUsername(userId);
+            return userRepository.findByUsername(username);
         }
         return null;
     }
