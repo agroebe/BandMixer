@@ -72,7 +72,7 @@ export default class NewPostModal extends React.Component {
 
     addTag(tag) {
         const index = this.state.tags.indexOf(tag)
-        if (index != -1) {
+        if (index !== -1) {
             const newArr = this.state.tags.filter(item => item !== tag)
             this.setState({ tags: newArr })
             return

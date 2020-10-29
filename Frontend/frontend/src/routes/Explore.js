@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios'
-import { Card, Badge } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 
 export default class Explore extends React.Component {
     state = {
