@@ -38,12 +38,20 @@ public class ProfileController {
 
     @PostMapping(path="/{userId}")
     @CrossOrigin
-    public String createProfileForUser(@PathVariable Long userId, @RequestBody Profile profile){
+    public String createProfileForUser(@PathVariable Long userId, @RequestBody RequestProfile profile){
         User user = userRepository.findByid(userId);
         if(profileRepository.findByOwner(user) == null){
-            Profile toAdd = new Profile(profile);
+            Profile toAdd = new Profile();
             toAdd.setTitle(profile.getTitle());
             toAdd.setIsSearch(profile.getIsSearch());
+            toAdd.setProfilePicture(profile.getProfilePicture());
+            toAdd.setPhoneNumber(profile.getPhoneNumber());
+            toAdd.setLocation(profile.getLocation());
+            toAdd.setContentType(profile.getContentType());
+            toAdd.setUsername(profile.getUsername());
+            toAdd.setContentPath(profile.getContentPath());
+            toAdd.setTextContent(profile.getTextContent());
+            toAdd.setOwner(profile.getOwner());
             profileRepository.save(toAdd);
             return "User profile for user ID number:" + profile.getOwner().getId() + " has been created";
         }else{
