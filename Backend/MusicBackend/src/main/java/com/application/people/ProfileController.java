@@ -20,6 +20,7 @@ public class ProfileController {
     @Autowired
     private UserRepository userRepository;
 
+    @JsonView({View.UserView.class})
     @GetMapping(path="")
     @CrossOrigin
     public @ResponseBody Iterable<Profile> getAllProfiles(){
@@ -27,6 +28,7 @@ public class ProfileController {
     }
 
     @GetMapping(path= {"/{userId}"})
+    @JsonView({View.UserView.class})
     @CrossOrigin
     public @ResponseBody Profile getByUserId(@PathVariable Long userId){
         User user = userRepository.findByid(userId);
@@ -43,17 +45,17 @@ public class ProfileController {
         if(profileRepository.findByOwner(user) == null){
             Profile toAdd = new Profile();
             toAdd.setTitle(profile.getTitle());
-            toAdd.setIsSearch(profile.getIsSearch());
             toAdd.setProfilePicture(profile.getProfilePicture());
             toAdd.setPhoneNumber(profile.getPhoneNumber());
             toAdd.setLocation(profile.getLocation());
-            toAdd.setContentType(profile.getContentType());
             toAdd.setUsername(profile.getUsername());
             toAdd.setContentPath(profile.getContentPath());
             toAdd.setTextContent(profile.getTextContent());
-            toAdd.setOwner(profile.getOwner());
+            toAdd.setOwner(user);
+            
             profileRepository.save(toAdd);
-            return "User profile for user ID number:" + profile.getOwner().getId() + " has been created";
+            user.getPosts().put(toAdd.getId(),toAdd);
+            return "User profile for user ID number:" + userId + " has been created";
         }else{
             return "User already has a profile";
         }

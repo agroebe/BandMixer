@@ -1,6 +1,5 @@
 package com.application.people;
 
-//TODO Attach profiles to users
 
 import com.application.View;
 import com.application.posts.Post;
@@ -24,15 +23,14 @@ public class Profile extends Post {
     @JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
     @Column(name="profilePicture")
     private String profilePicture;
-    //private Long userId;
 
     public Profile(){
         username = null;
         location = null;
         phoneNumber = null;
         profilePicture=null;
-       // userId = null;
         super.setContentType("Profile");
+        super.setIsSearch(false);
     }
 
     public Profile(String username,String location, String phoneNumber, String profilePicture, Long userId, String title, Boolean isSearch){
@@ -43,7 +41,6 @@ public class Profile extends Post {
         super.setTitle(title);
         super.setIsSearch(isSearch);
         super.setContentType("Profile");
-        //this.userId = userId;
     }
 
     public Profile(Profile profile){
@@ -54,21 +51,21 @@ public class Profile extends Post {
         super.setTitle(profile.getTitle());
         super.setIsSearch(profile.getIsSearch());
         super.setContentType("Profile");
-        //this.userId = profile.userId;
     }
 
-   // public Long getUserId(){return userId;}
     public String getLocation(){ return location;}
     public String getPhoneNumber(){return phoneNumber;}
     public String getProfilePicture(){return profilePicture;}
     public String getUsername(){return username;}
     public void setUsername(String username){this.username = username;}
-    //public void setUserId(Long userId){this.userId = userId;}
     public void setLocation(String location){this.location = location;}
     public void setPhoneNumber(String phoneNumber){this.phoneNumber = phoneNumber;}
     public void setProfilePicture(String profilePicture){this.profilePicture = profilePicture;}
     
     @Override
     public void setContentType(String type){}
+    
+    @Override
+    public void setIsSearch(boolean isSearch){}
 
 }
