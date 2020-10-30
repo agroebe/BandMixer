@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom'
 import renderer from 'react-test-renderer'
 import Home from '../routes/Home'
 import Showcase from '../components/Showcase'
-import { CardDeck, Card, Button } from 'react-bootstrap';
+import { CardDeck } from 'react-bootstrap';
 
 it('renders without crashing', () => {
     const home = renderer.create(
@@ -22,5 +22,5 @@ it('properly renders subcomponents', () => {
     const homeInstance = home.root
 
     expect(homeInstance.findByType(Showcase)).not.toEqual(null) // Showcase is a sub-component of home
-    expect(homeInstance.findByType(CardDeck)).not.toEqual(null) // Home contains several CardDeck components
+    expect(homeInstance.findAllByType(CardDeck)).not.toEqual(null)
 })

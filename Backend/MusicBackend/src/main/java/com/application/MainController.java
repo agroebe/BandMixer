@@ -119,6 +119,17 @@ public class MainController {
         return null;
     }
 
+        //Returns a specific user
+    @JsonView(View.UserView.class)
+    @GetMapping(path= {"username/{username}"})
+    @CrossOrigin
+    public @ResponseBody Optional<User> getByUsername(@PathVariable String username){
+        if (username != null) {
+            return Optional.of(userRepository.findByUsername(username));
+        }
+        return Optional.empty();
+    }
+
     //Deletes a specific user
     @DeleteMapping(path="/{userId}")
     @CrossOrigin
