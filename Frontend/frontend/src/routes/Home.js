@@ -1,13 +1,27 @@
 import React from 'react';
 import Showcase from '../components/Showcase'
+import axios from 'axios'
 import { CardDeck, Card, Button } from 'react-bootstrap';
 
 export default class Home extends React.Component {
+    state = {
+        posts: []
+    }
+
+    componentDidMount() {
+        axios.get('http://coms-309-cy-01.cs.iastate.edu:8080/posts/all').then(r => {
+            r.data.forEach(post => {
+                var joined = this.state.posts.concat(post)
+                this.setState( { posts: joined })
+            })
+        })
+    }
+
     render() {
         return(
             <>
                 <Showcase loc={this.props.loc}/>
-                <CardDeck className="mx-auto w-75">
+                <CardDeck className="mx-auto w-75 pb-10">
                 <Card>
                     <Card.Img variant="top" src="https://www.superprof.co.uk/blog/wp-content/uploads/2017/07/guitar-guitar-player-musician-instrument-guitarist-1060x707.jpg" height="275px"/>
                     <Card.Body>
@@ -57,7 +71,27 @@ export default class Home extends React.Component {
                     </Card.Footer>
                 </Card>
                 </CardDeck>
+
+                <br></br><br></br>
+                <h1 className="text-center">Featured posts:</h1>
+                <p className="text-center">Click <a href="/explore">here</a> to see more.</p>
+                <CardDeck className="mx-auto w-75">
+                { this.state.posts.slice(0, 5).map(post => (
+                    <Card style={{  marginLeft: '5px', marginRight: '5px', marginBottom: '10px', marginTop: '10px' }}>
+                        <Card.Body>
+                        <Card.Title>{ post.title }</Card.Title>
+                        <Card.Subtitle className="mb-2 text-muted">Posted by { post.owner.username }</Card.Subtitle>
+                        <Card.Text>
+                            { post.textContent }
+                        </Card.Text>
+                        <Card.Link href="#">View Post</Card.Link>
+                        </Card.Body>
+                    </Card>
+                ))}
+                </CardDeck>
+                <br></br><br></br>
             </>
+
         )
     }
 }
