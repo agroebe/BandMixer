@@ -13,7 +13,5 @@ import com.application.tagging.Tag;
 
 public abstract class SearchCriteria 
 {
-	public abstract Predicate getPredicate(Root<User> user, CriteriaQuery<?> query, CriteriaBuilder builder);
-	
-	public abstract Predicate getPredicate2(Root<Post> post, CriteriaQuery<?> query, CriteriaBuilder builder);
+	public abstract Predicate getPredicate(RootHandler root);
 }
