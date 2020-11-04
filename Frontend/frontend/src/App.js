@@ -16,21 +16,12 @@ export default function App() {
     <div className="App">
       <NavBar/>
       <BrowserRouter>
-<<<<<<< HEAD
-        <Route path='/' exact component={ Home }/>
-        <Route path='/results' exact component={ Results }/>
-        <Route path='/explore' exact component={ Explore }/>
-        <Route path='/profile' exact component={ Profile }/>
-        <Route path='/editprofile' exact component={ EditProfile }/>
-        <Route path='/admin' exact component={ AdminPanel }/>
-=======
         <Switch>
           <Route path='/' exact component={ Home }/>
           <Route path='/results' exact component={ Results }/>
           <Route path='/explore' exact component={ Explore }/>
           <Route path='/admin' exact component={ AdminPanel }/>
           <Route path='/post/:postId' exact component={ Post }/>
->>>>>>> 1f6e4e8f74d242c45aefdc1c8f8dd4250c282976
 
           <Route path='/california' exact component={withProps(Home, { loc: 'california' })}/>
           <Route path='/florida' exact component={withProps(Home, { loc: 'florida' })}/>
@@ -45,12 +36,8 @@ export default function App() {
           <Route path='/texas' exact component={withProps(Home, { loc: 'texas' })}/>
           <Route path='/washington' exact component={withProps(Home, { loc: 'washington' })}/>
 
-<<<<<<< HEAD
-        <Route path="/n" component={ NotFoundPage } />
-=======
           <Route path="" component={ NotFoundPage } />
         </Switch>
->>>>>>> 1f6e4e8f74d242c45aefdc1c8f8dd4250c282976
 
       </BrowserRouter>
       <Footer/>
