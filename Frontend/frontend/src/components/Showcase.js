@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 import { Jumbotron, Form, Button, Modal } from 'react-bootstrap';
 import './Showcase.css'
@@ -13,8 +14,8 @@ export default class Showcase extends React.Component {
         showBeginnerTutorial: false
     }
 
-    search = () => {
-        alert(this.state.instrument + ' ' + this.state.location)
+
+    search() {
     }
 
     render() {
@@ -66,14 +67,18 @@ export default class Showcase extends React.Component {
                                 return <option value={ index + 1} key={index }>{value}</option>
                             }) }
                         </Form.Control>
-                        <Form.Control type="text" placeholder="ZIP code or location" className="mr-2" onChange={ e => this.setState({ location: e.target.value }) }></Form.Control>
-                        <Link to={{
-                            pathname: '/results',
-                            state: {
-                                location: this.state.location,
-                                instrument: this.state.instrument
-                            }
-                        }}><Button type="submit">Search</Button></Link>
+                        <Form.Control type="text" placeholder={ toTitleCase(this.props.loc) } readOnly className="mr-2" onChange={ e => this.setState({ location: e.target.value }) }></Form.Control>
+                        { this.props.loc && this.state.instrument ? (
+                            <Link to={{
+                                pathname: '/results',
+                                state: {
+                                    location: this.props.loc,
+                                    instrument: this.state.instrument
+                                }
+                            }}><Button>Search</Button></Link>
+                        ) : (
+                            <Button onClick={ () => alert('Please double check your search terms, ensuring both and instrument and location are selected.')}>Search</Button>
+                        )}
                     </Form>
                     <h5 className="d-inline">Confused? Try out <a onClick={ () => this.setState({ showBeginnerTutorial: true }) } href="#">our beginner tutorial</a>!</h5>
                 </Jumbotron>
@@ -81,3 +86,17 @@ export default class Showcase extends React.Component {
         )
     }
 }
+
+withRouter(Showcase)
+
+function toTitleCase(str) {
+    if (str == null) {
+        return "Select a location..."
+    }
+    return str.replace(
+      /\w\S*/g,
+      function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }
+    );
+  }

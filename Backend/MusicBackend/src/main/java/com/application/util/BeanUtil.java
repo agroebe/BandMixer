@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 public class BeanUtil implements ApplicationContextAware {
 
    private static ApplicationContext context;
+   
 
    @Override
 
@@ -17,11 +18,21 @@ public class BeanUtil implements ApplicationContextAware {
        context = applicationContext;
 
    }
+   
 
    public static <T> T getBean(Class<T> beanClass) {
 
        return context.getBean(beanClass);
 
    }
+   
+   public static boolean isJUnitTest() {  
+	   for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+	     if (element.getClassName().startsWith("org.junit.")) {
+	       return true;
+	     }           
+	   }
+	   return false;
+	 }
 
 }

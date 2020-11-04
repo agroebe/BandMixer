@@ -23,4 +23,5 @@ public @interface UpdatedPost
 	String typefield();
 	String textContentField();
 	String searchField();
+	String contentPathField();
 }

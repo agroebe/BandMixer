@@ -39,7 +39,7 @@ export default class RegisterModal extends React.Component {
 
         this.setState({ responseExists: false })
 
-        axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users/add?name=' + this.state.username + '&email=' + this.state.email + '&password=' + this.state.password).then(r => {
+        axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users?name=' + this.state.username + '&email=' + this.state.email + '&password=' + this.state.password).then(r => {
             if (r.data.includes('Saved')) {
                 this.close();
 

@@ -4,55 +4,60 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import com.application.View;
+import com.application.people.User;
+import com.application.people.UserRepository;
 import com.application.skill_level.AppliedSkillLevel;
 import com.application.skill_level.AppliedSkillLevelRepository;
 import com.application.skill_level.SkillLevel;
 import com.application.tagging.*;
 import com.fasterxml.jackson.annotation.JsonView;
 
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
 @Table(name="POSTS")
 public class Post 
 {
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
 	
 	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
-	@Column(name="owner_id")
-	private Long ownerId;
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User owner;
 	
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
 	@Column(name="title", nullable=false)
 	private String title;
 	
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
 	@Column(name="content_type", nullable=false)
 	private String contentType;
 	
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
 	@Column(name="text_content")
 	private String textContent;
 	
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
-	@OneToOne(cascade=CascadeType.ALL, orphanRemoval=true)
-	@JoinColumn(name="content_id")
-	private Content content;
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
+	@Column(name="content_path")
+	private String contentPath;
 	
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
 	@Column(name="is_search", nullable=false)
 	private Integer isSearch;
 	
-	@JsonView(View.PostView.class)
+	@JsonView({View.PostView.class, View.UserView.class})
 	@OneToMany(mappedBy="post")
 	@MapKey(name="id")
 	private Map<TagSkillLevelKey, AppliedSkillLevel> tags;
 	
-	Post(){}
+	public Post(){}
 	
 	public Post(String givenTitle, String type)
 	{
@@ -85,6 +90,7 @@ public class Post
 		this.isSearch = (isSearch ? 1 : 0);
 		this.tags = new HashMap<TagSkillLevelKey, AppliedSkillLevel>();
 	}
+
 	
 	public Boolean getIsSearch()
 	{
@@ -106,14 +112,14 @@ public class Post
 		this.id = id;
 	}
 	
-	public Long getOwnerId()
+	public User getOwner()
 	{
-		return ownerId;
+		return owner;
 	}
 	
-	public void setOwnerId(long id)
+	public void setOwner(User owner)
 	{
-		this.ownerId = id;
+		this.owner = owner;
 	}
 	
 	public String getTitle()
@@ -156,6 +162,10 @@ public class Post
 		return addTag(rep, tag, level, false, false);
 	}
 	
+	public String getContentPath() {return contentPath;}
+	
+	public void setContentPath(String contentPath) {this.contentPath = contentPath;}
+	
 	public boolean addTag(AppliedSkillLevelRepository rep, Tag tag, SkillLevel level, 
 			boolean bounded, boolean lowerbounded)
 	{
@@ -192,6 +202,8 @@ public class Post
 		{
 			tag.remove(rep);
 		}
+		owner.getPosts().remove(id);
+		
 		if(rep != null)
 		{
 			myRep.delete(this);
