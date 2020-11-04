@@ -5,6 +5,8 @@ import Results from './routes/Results'
 import Explore from './routes/Explore'
 import AdminPanel from './admin/AdminPanel'
 import NotFoundPage from './routes/NotFoundPage'
+import Profile from './routes/Profile.js'
+import EditProfile from './routes/EditProfile.js'
 import Footer from './components/Footer'
 import { BrowserRouter, Route } from 'react-router-dom'
 
@@ -16,6 +18,8 @@ export default function App() {
         <Route path='/' exact component={ Home }/>
         <Route path='/results' exact component={ Results }/>
         <Route path='/explore' exact component={ Explore }/>
+        <Route path='/profile' exact component={ Profile }/>
+        <Route path='/editprofile' exact component={ EditProfile }/>
         <Route path='/admin' exact component={ AdminPanel }/>
 
         <Route path='/california' exact component={withProps(Home, { loc: 'california' })}/>
@@ -31,7 +35,7 @@ export default function App() {
         <Route path='/texas' exact component={withProps(Home, { loc: 'texas' })}/>
         <Route path='/washington' exact component={withProps(Home, { loc: 'washington' })}/>
 
-        <Route path="*" component={ NotFoundPage } />
+        <Route path="/n" component={ NotFoundPage } />
 
       </BrowserRouter>
       <Footer/>
