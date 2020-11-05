@@ -164,17 +164,38 @@ public class RootHandler
 		return ret;
 	}
 	
-	public CriteriaQuery<?> getQuery(QueryType type)
+	@SuppressWarnings("unchecked")
+	public <T> CriteriaQuery<T> getQuery(Class<T> clazz)
 	{
-		if(fullType == type)
+		if(User.class == clazz && fullType != QueryType.User)
 		{
-			return query;
+			return (CriteriaQuery<T>) subquery;
 		}
-		return (CriteriaQuery<?>)subquery;
+		return (CriteriaQuery<T>) query;
 	}
 	
 	public CriteriaBuilder getBuilder()
 	{
 		return cb;
+	}
+	
+	public EntityManager getManager()
+	{
+		return em;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public <T> Root<T> getRoot(Class<T> clazz)
+	{
+		Root<T> ret = null;
+		if(User.class == clazz)
+		{
+			ret = (Root<T>) userRoot;
+		}
+		else
+		{
+			ret = (Root<T>) postRoot;
+		}
+		return ret;
 	}
 }
