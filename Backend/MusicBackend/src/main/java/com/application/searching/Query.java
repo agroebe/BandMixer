@@ -1,34 +1,46 @@
 package com.application.searching;
 
-import java.util.EnumSet;
-
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Subquery;
 
-public abstract class Query<T,F extends QueryPart> extends MappingQuery<T>
+public abstract class Query<T> extends MappingQuery<T>
 {
-	protected F child;
+	protected QueryPart<T> child;
 	
-	protected Query(QueryType t)
+	protected Query(RootHandler<T> handler)
 	{
-		super(t);
+		super(handler);
 	}
 	
-	protected <T> CriteriaQuery<T> generate(RootHandler handler, Class<T> clazz)
+	public CriteriaQuery<T> generate()
 	{
-		CriteriaQuery<T> cq = handler.getQuery(clazz);
+		CriteriaQuery<T> cq = (CriteriaQuery<T>) handler.getQuery();
 		if(child != null)
 		{
-			cq.select(handler.getRoot(clazz)).distinct(true).where(child.generate(handler).getPredicate(handler));
+			cq.select(handler.getRoot()).distinct(true).where(child.generate().getPredicate());
 		}
 		else
 		{
-			cq.select(handler.getRoot(clazz)).distinct(true);
+			cq.select(handler.getRoot()).distinct(true);
 		}
 		return cq;
 	}
-	public abstract EnumSet<QueryClass> getDependencies();
 	
-	public void setChild(F c)
+	public Subquery<T> formulate()
+	{
+		Subquery<T> cq =  (Subquery<T>) handler.getQuery();
+		if(child != null)
+		{
+			cq.select(handler.getRoot()).distinct(true).where(child.generate().getPredicate());
+		}
+		else
+		{
+			cq.select(handler.getRoot()).distinct(true);
+		}
+		return cq;
+	}
+	
+	public void setChild(QueryPart<T> c)
 	{
 		child = c;
 	}

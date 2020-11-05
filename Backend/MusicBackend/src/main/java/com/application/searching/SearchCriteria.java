@@ -1,17 +1,14 @@
 package com.application.searching;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
-import com.application.people.User;
-import com.application.posts.Post;
-import com.application.skill_level.AppliedSkillLevel;
-import com.application.tagging.Tag;
-
-public abstract class SearchCriteria 
+public abstract class SearchCriteria<T>
 {
-	public abstract Predicate getPredicate(RootHandler root);
+	protected RootHandler<T> handler;
+	
+	protected SearchCriteria(RootHandler<T> handler)
+	{
+		this.handler = handler;
+	}
+	public abstract Predicate getPredicate();
 }

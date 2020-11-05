@@ -1,22 +1,24 @@
 package com.application.searching;
 
-public class Subquery extends QueryPart 
+import com.application.posts.Post;
+
+public class Subquery extends QueryPart<Post>
 {
+	
 	private UserQuery child;
 	
-	public Subquery(Query parent) {
-		super(parent);
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public SearchCriteria generate(RootHandler handler) {
-		return new BasicSearchCriteria("owner",child.generate(handler),SearchOperation.IN,type,QueryClass.ePost);
+	public Subquery(RootHandler<Post> handler) {
+		super(handler);
 	}
 	
 	public void setChild(UserQuery c)
 	{
 		child = c;
+	}
+
+	@Override
+	public SearchCriteria<Post> generate() {
+		return new BasicSearchCriteria<Post>("owner",child.formulate(),SearchOperation.IN,QueryClass.ePost, handler);
 	}
 
 }

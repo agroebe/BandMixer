@@ -1,11 +1,11 @@
 package com.application.searching;
 
-import java.util.EnumSet;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.stereotype.Service;
+
+import com.application.people.User;
+import com.application.posts.Post;
 
 @Service
 public class RootService 
@@ -19,8 +19,13 @@ public class RootService
 		entityManagerFactory = b;
 	}
 	
-	public RootHandler getHandler(QueryType type, EnumSet<QueryDependency> dependencies)
+	public RootHandler<User> getUserHandler()
 	{
-		return new RootHandler(entityManagerFactory.getObject().createEntityManager(),type,dependencies);
+		return new UserRootHandler(entityManagerFactory.getObject().createEntityManager());
+	}
+	
+	public RootHandler<Post> getPostHandler()
+	{
+		return new PostRootHandler(entityManagerFactory.getObject().createEntityManager());
 	}
 }

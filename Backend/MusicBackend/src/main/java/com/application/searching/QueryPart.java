@@ -1,12 +1,12 @@
 package com.application.searching;
 
-public abstract class QueryPart 
+public abstract class QueryPart<T> 
 {
-	protected QueryType type;
+	protected RootHandler<T> handler;
 	
-	public QueryPart(Query parent)
+	protected QueryPart(RootHandler<T> handler)
 	{
-		type = parent.getType();
+		this.handler = handler;
 	}
-	public abstract SearchCriteria generate(RootHandler handler);
+	public abstract SearchCriteria<T> generate();
 }

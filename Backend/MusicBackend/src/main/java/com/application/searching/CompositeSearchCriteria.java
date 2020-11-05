@@ -5,40 +5,42 @@ import java.util.ArrayList;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 
-public class CompositeSearchCriteria extends SearchCriteria 
+public class CompositeSearchCriteria<T> extends SearchCriteria<T> 
 {
 	private SearchOperator operator;
-	private ArrayList<SearchCriteria> children;
+	private ArrayList<SearchCriteria<T>> children;
 	
-	public CompositeSearchCriteria(SearchOperator op) 
+	public CompositeSearchCriteria(SearchOperator op, RootHandler<T> handler) 
 	{
+		super(handler);
 		operator = op;
 		children = new ArrayList<>();
 	}
 	
-	public CompositeSearchCriteria(SearchOperator op, SearchCriteria ...criterias) 
+	public CompositeSearchCriteria(SearchOperator op, RootHandler<T> handler, SearchCriteria<T> criterias[]) 
 	{
+		super(handler);
 		operator = op;
 		children = new ArrayList<>();
-		for(SearchCriteria c : criterias)
+		for(SearchCriteria<T> c : criterias)
 		{
 			children.add(c);
 		}
 	}
 	
-	public void addChild(SearchCriteria c)
+	public void addChild(SearchCriteria<T> c)
 	{
 		children.add(c);
 	}
 	
 	@Override
-	public Predicate getPredicate(RootHandler root) {
-		CriteriaBuilder cb = root.getBuilder();
+	public Predicate getPredicate() {
+		CriteriaBuilder cb = handler.getBuilder();
 		Predicate[] preds = new Predicate[children.size()];
 		int i = 0;
-		for(SearchCriteria c : children)
+		for(SearchCriteria<T> c : children)
 		{
-			preds[i++] = c.getPredicate(root);
+			preds[i++] = c.getPredicate();
 		}
 		switch(operator)
 		{

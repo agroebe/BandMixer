@@ -1,27 +1,13 @@
 package com.application.searching;
 
-import java.util.EnumSet;
-
-import javax.persistence.criteria.CriteriaQuery;
 
 import com.application.people.User;
 
-public class UserQuery extends Query<BasicQueryPart> 
+public class UserQuery extends Query<User> 
 {
-	public UserQuery()
-	{
-		super(QueryType.User);
-	}
-	
-	
-	public CriteriaQuery<User> generate(RootHandler handler) {
-		return super.generate(handler, User.class);
+	protected UserQuery(RootHandler<User> handler) {
+		super(handler);
 	}
 
-	@Override
-	public EnumSet<QueryClass> getDependencies() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

@@ -1,10 +1,11 @@
 package com.application.searching;
 
-public abstract class BasicQueryPart extends QueryPart{
+public abstract class BasicQueryPart<T> extends QueryPart<T>
+{
 
-	public BasicQueryPart(Query parent) {
-		super(parent);
-		// TODO Auto-generated constructor stub
+	protected BasicQueryPart(RootHandler<T> handler) {
+		super(handler);
 	}
+
 
 }

@@ -1,41 +1,33 @@
 package com.application.searching;
 
-import java.util.ArrayList;
 
 import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.From;
 import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
-import com.application.people.User;
-import com.application.posts.Post;
-
-public class BasicSearchCriteria extends SearchCriteria {
+public class BasicSearchCriteria<T> extends SearchCriteria<T> {
 
 	private String key;
     private Object value;
     private SearchOperation operation;
-    private QueryType myType;
     private QueryClass myCls;
     
-    public BasicSearchCriteria() {}
     
-    public BasicSearchCriteria(String key, Object value, SearchOperation operation, QueryType type, QueryClass cls)
+    public BasicSearchCriteria(String key, Object value, SearchOperation operation, QueryClass cls, RootHandler<T> handler)
     {
+    	super(handler);
     	this.key = key;
     	this.value = value;
     	this.operation = operation;
-    	myType = type;
     	myCls = cls;
     }
     
-	@SuppressWarnings("unchecked")
+    
 	@Override
-	public Predicate getPredicate(RootHandler root) 
+	public Predicate getPredicate() 
 	{
-		CriteriaBuilder cb = root.getBuilder();
-		From actualRoot = root.getFrom(myType, myCls);
+		CriteriaBuilder cb = handler.getBuilder();
+		From<?,?> actualRoot = handler.getFrom(myCls);
 		switch(operation)
 		{
 			case GREATER_THAN:

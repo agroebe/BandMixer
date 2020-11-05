@@ -1,17 +1,18 @@
 package com.application.searching;
 
+import javax.persistence.criteria.Subquery;
 import javax.persistence.criteria.CriteriaQuery;
 
 public abstract class MappingQuery<T>
 {
-	protected QueryType type;
+	protected RootHandler<T> handler;
 	
-	protected MappingQuery(QueryType t)
+	protected MappingQuery(RootHandler<T> handler)
 	{
-		type = t;
+		this.handler = handler;
 	}
 	
-	public QueryType getType() {return type;}
+	public abstract CriteriaQuery<T> generate();
 	
-	protected abstract CriteriaQuery<T> generate(RootHandler handler);
+	public abstract Subquery<T> formulate();
 }
