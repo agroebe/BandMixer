@@ -1,6 +1,7 @@
 import React from 'react';
 import Showcase from '../components/Showcase'
 import axios from 'axios'
+import './Home.css'
 import { CardDeck, Card, Button } from 'react-bootstrap';
 
 export default class Home extends React.Component {
