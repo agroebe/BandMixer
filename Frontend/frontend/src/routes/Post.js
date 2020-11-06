@@ -6,14 +6,13 @@ export default class Post extends React.Component {
         post: null
     }
 
-    componentDidMount() {
-        console.log(this.props.match.params.postId)
+    componentDidMount() {// this.props.match.params.postId
 
-        const formData = new FormData()
-        formData.append('post', this.props.match.params.postId)
-        axios.get('http://coms-309-cy-01.cs.iastate.edu:8080/posts/fetch', formData).then(r => {
-            console.log(r.data)
-        })
+        axios.get("http://coms-309-cy-01.cs.iastate.edu:8080/posts/fetch", {
+            id: 144
+        }).then(res => {
+          console.log("my call", res)
+        });
     }
 
     render() {

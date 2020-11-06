@@ -36,7 +36,7 @@ export default class Explore extends React.Component {
                     <Card.Text>
                         { post.textContent }
                     </Card.Text>
-                    <Card.Link href="#">View Post</Card.Link>
+                    <Card.Link href={'/post/' + post.id }>View Post</Card.Link>
                     </Card.Body>
               </Card>
               </>
