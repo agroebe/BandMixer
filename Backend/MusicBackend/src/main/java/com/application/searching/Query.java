@@ -3,13 +3,14 @@ package com.application.searching;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Subquery;
 
-public abstract class Query<T> extends MappingQuery<T>
+public abstract class Query<T>
 {
 	protected QueryPart<T> child;
+	protected RootHandler<T> handler;
 	
 	protected Query(RootHandler<T> handler)
 	{
-		super(handler);
+		this.handler = handler;
 	}
 	
 	public CriteriaQuery<T> generate()
@@ -43,5 +44,10 @@ public abstract class Query<T> extends MappingQuery<T>
 	public void setChild(QueryPart<T> c)
 	{
 		child = c;
+	}
+	
+	public RootHandler<T> getHandler()
+	{
+		return handler;
 	}
 }

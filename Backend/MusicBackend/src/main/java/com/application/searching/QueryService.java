@@ -37,7 +37,7 @@ public class QueryService
 	
 	public <T> List<T> executeQuery(MappedQuery<T> query)
 	{
-		MappingQuery<T> q = query.map();
+		Query<T> q = query.map();
 		List<T> results = q.getHandler().getManager().createQuery(q.generate()).getResultList();
 		return results;
 	}
