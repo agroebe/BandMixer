@@ -72,7 +72,8 @@ export default class Home extends React.Component {
                 </Card>
                 </CardDeck>
 
-                <br></br><br></br>
+                <br></br><hr className="w-75" style={{ color: "black"}}></hr><br></br>
+
                 <h1 className="text-center">Featured posts:</h1>
                 <p className="text-center">Click <a href="/explore">here</a> to see more.</p>
                 <CardDeck className="mx-auto w-75">
@@ -84,11 +85,13 @@ export default class Home extends React.Component {
                         <Card.Text>
                             { post.textContent }
                         </Card.Text>
-                        <Card.Link href="#">View Post</Card.Link>
+                        <Card.Link href={'/post/' + post.id }>View Post</Card.Link>
                         </Card.Body>
                     </Card>
                 ))}
                 </CardDeck>
+
+                <br></br><hr className="w-75"></hr><br></br>
                 <br></br><br></br>
             </>
 
