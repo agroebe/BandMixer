@@ -9,4 +9,6 @@ public abstract class QueryPart<T>
 		this.handler = handler;
 	}
 	public abstract SearchCriteria<T> generate();
+	
+	public RootHandler<T> getHandler(){return handler;}
 }

@@ -15,4 +15,6 @@ public abstract class MappingQuery<T>
 	public abstract CriteriaQuery<T> generate();
 	
 	public abstract Subquery<T> formulate();
+	
+	public RootHandler<T> getHandler(){return handler;}
 }

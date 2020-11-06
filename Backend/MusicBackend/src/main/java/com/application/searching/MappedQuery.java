@@ -1,6 +1,6 @@
 package com.application.searching;
 
-public interface MappedQuery
+public interface MappedQuery<T>
 {
-	public MappingQuery map();
+	public MappingQuery<T> map();
 }
