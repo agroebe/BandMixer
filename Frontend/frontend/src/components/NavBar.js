@@ -89,7 +89,7 @@ export default class NavBar extends React.Component {
     render() {
         return(
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand>BandMixer</Navbar.Brand>
+                <Navbar.Brand href="/">BandMixer</Navbar.Brand>
                 <Dropdown>
                   <Dropdown.Toggle variant="link">
                     <Map></Map>
