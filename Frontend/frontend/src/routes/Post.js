@@ -7,20 +7,12 @@ export default class Post extends React.Component {
     }
 
     componentDidMount() {// this.props.match.params.postId
-        axios.get('http://coms-309-cy-01.cs.iastate.edu:8080/posts/fetch', {
-            post: {
-                id: 144
-            }
-        }, {
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "*/*",
-                "Accept-Encoding": "gzip, deflate, br",
-                "Connection": "keep-alive"
-            }
-        }).then(r => {
-            console.log(r.data)
-        })
+
+        axios.get("http://coms-309-cy-01.cs.iastate.edu:8080/posts/fetch", {
+            id: 144
+        }).then(res => {
+          console.log("my call", res)
+        });
     }
 
     render() {
