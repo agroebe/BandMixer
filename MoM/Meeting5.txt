@@ -2,6 +2,6 @@ Minutes
 0 10/1/2020
 1 Andrew Sandor, Andrew Groebe, Timothy Schommer, and Aidan Webster
 2 Updated the profile page to work with variables. Near completion of YAML file on both frontend and backend.
-3 Discussed current proggres on project and plans for next meeting.
+3 Discussed current progress on project and plans for next meeting.
 4 Plan to get profile page working together with backend and saving user information. Also, a working search
 feature based on tags.

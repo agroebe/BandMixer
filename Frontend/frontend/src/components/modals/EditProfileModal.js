@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Modal, Button, ButtonGroup, Container, Row, Col, Form, InputGroup, FormControl } from 'react-bootstrap';
+import { toast, Zoom } from 'react-toastify';
 import './Modal.css'
 
 export default class EditProfileModal extends Component {
@@ -42,17 +43,18 @@ export default class EditProfileModal extends Component {
                 this.close();
             }
         })*/
-       this.fill();
+        this.fill();
 
         this.setState({ show: true })
     }
 
    fill(){
         axios.get('http://coms-309-cy-01.cs.iastate.edu:8080/profiles/14').then(r => {
-            //console.log(r.data)
-            this.setState({ username: r.data.username, location: r.data.location, phone: r.data.phoneNumber })
-        }
-        )   
+
+            this.setState({ username: r.data.username, userID: r.data.userID, location: r.data.location, phone: r.data.phoneNumber })
+           
+        })
+        
     }
 
     close() {
@@ -64,7 +66,21 @@ export default class EditProfileModal extends Component {
     }
 
     save(){
-        this.close();
+        axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/profiles/' + this.state.userID + '&=username' + this.state.username + '&location=' + this.state.location, '&phone=' + this.state.phone).then(r => {
+            if (r.data.includes('Saved')) {
+
+                toast.success(this.state.username + ' your profile was updated!', {
+                    position: "top-center",
+                    autoClose: 2500,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    transition: Zoom
+                });
+            }
+        })
     }
 
     guitarVisible() {
@@ -106,13 +122,13 @@ export default class EditProfileModal extends Component {
                             <Form>
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Label>{this.state.username}</Form.Label>
-                                    <Form.Control type="username" placeholder="enter new username" />
+                                    <Form.Control type="username" placeholder={this.state.username} />
                                     
                                 </Form.Group>
 
                                 <Form.Group controlId="formBasicBio">
                                     <Form.Label>{this.state.bio}</Form.Label>
-                                    <Form.Control type="bio" placeholder="Bio" />
+                                    <Form.Control type="bio" placeholder={this.state.bio} />
                                 </Form.Group>
                             
 

@@ -89,15 +89,13 @@ export default class NavBar extends React.Component {
     render() {
         return(
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand>BandMixer</Navbar.Brand>
+                <Navbar.Brand href="/">BandMixer</Navbar.Brand>
                 <Dropdown>
                   <Dropdown.Toggle variant="link">
                     <Map></Map>
                   </Dropdown.Toggle>
 
-                  <Dropdown.Menu as={CustomMenu}>
-                    <Dropdown.Item>Geogi</Dropdown.Item>
-                  </Dropdown.Menu>
+                  <Dropdown.Menu as={CustomMenu}></Dropdown.Menu>
                 </Dropdown>
                 <Navbar.Collapse className="justify-content-end">
                     { this.state.loggedIn ? (
@@ -126,7 +124,7 @@ export default class NavBar extends React.Component {
                 <SignInModal ref={ (modal) => { this.signInModal = modal } } openRegisterModal={ this.openRegisterModal } setLoggedIn={ this.setLoggedIn } setUserId={ this.setUserId }/>
                 <ProfileModal ref={ (modal) => { this.profileModal = modal } }/>
                 <EditProfileModal ref={ (modal) => { this.editProfileModal = modal } }/>
-                <NewPostModal ref={ (modal) => {this.newPostModal = modal }}></NewPostModal>
+                <NewPostModal ref={ (modal) => {this.newPostModal = modal }} userId={ this.state.userId }/>
             </Navbar>
         )
     }
