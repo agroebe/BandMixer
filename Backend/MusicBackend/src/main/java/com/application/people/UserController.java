@@ -35,6 +35,9 @@ import javax.validation.Valid;
 
 import java.util.Optional;
 
+/**
+ * Controller for managing the list of users
+ */
 @Controller
 @CrossOrigin
 @RequestMapping(path="/users") // This means the URLs will start with /experiment
@@ -70,7 +73,15 @@ public class UserController {
 		binder.registerCustomEditor(RequestNewPost.class, new RequestNewPostEditor(mapper, validator));
 		binder.registerCustomEditor(RequestPostType.class, new RequestPostTypeEditor(mapper, validator));
 	}
-    
+
+    /**
+     * Adds a new user to the user database
+     * @param name
+     * @param email
+     * @param password
+     * @param stayLoggedIn
+     * @return a notification if the user was added successfully or not
+     */
     @PostMapping(path="") //Map only POST requests
     @CrossOrigin
     public @ResponseBody String addNewUser(@RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam(required = false) Boolean stayLoggedIn){
@@ -99,6 +110,11 @@ public class UserController {
         return "Saved";
     }
 
+    /**
+     *
+     * @param response
+     * @return a list of all users in the database
+     */
     //Returns all users
     @JsonView(View.UserView.class)
     @GetMapping(path="")
@@ -110,6 +126,11 @@ public class UserController {
         return userRepository.findAll();
     }
 
+    /**
+     *
+     * @param userId
+     * @return a specific user fetched by their userId
+     */
     //Returns a specific user
     @JsonView(View.UserView.class)
     @GetMapping(path= {"/{userId}"})
@@ -121,6 +142,11 @@ public class UserController {
         return null;
     }
 
+    /**
+     *
+     * @param username
+     * @return a specific user fetched by their username
+     */
         //Returns a specific user
     @JsonView(View.UserView.class)
     @GetMapping(path= {"username/{username}"})
@@ -132,6 +158,11 @@ public class UserController {
         return Optional.empty();
     }
 
+    /**
+     * Deletes a specific user from the database
+     * @param userId
+     * @return a notification if the user was deleted successfully or not
+     */
     //Deletes a specific user
     @DeleteMapping(path="/{userId}")
     @CrossOrigin
@@ -155,6 +186,10 @@ public class UserController {
         }
     }
 
+    /**
+     * Deletes all the users from the database
+     * @return a notification if all the users were deleted successfully or not
+     */
     //Deletes all users
     @DeleteMapping(path="")
     @CrossOrigin
@@ -174,6 +209,10 @@ public class UserController {
        return "all users have been deleted";
     }
 
+    /**
+     * Bulk update of all users, not yet implemented
+     * @return null for now
+     */
     //Updates all users method stub(not sure what we want this to do yet
     @PutMapping(path="")
     @CrossOrigin
@@ -181,6 +220,16 @@ public class UserController {
         return null;
     }
 
+    /**
+     * Updates the information of a specific user
+     * @param userId
+     * @param name
+     * @param email
+     * @param password
+     * @param stayLoggedIn
+     * @param newId
+     * @return a notification if the user was updated successfully or not
+     */
     //Updates specific user
     @JsonView(View.UserView.class)
     @PutMapping(path="/{userId}")
@@ -202,6 +251,13 @@ public class UserController {
         }
     }
 
+    /**
+     * Endpoint for the frontend to use to log the user in. Checks if the user's password matches, and if their loginId(either their email or username) matches.
+     * @param loginID
+     * @param password
+     * @param stayLoggedIn
+     * @return a notification if the user was successfully logged in or not
+     */
     @PostMapping(path="/login")
     @CrossOrigin
     public @ResponseBody String userLogin(@RequestParam String loginID, @RequestParam String password, @RequestParam Boolean stayLoggedIn){
@@ -229,6 +285,12 @@ public class UserController {
         }
     }
 
+    /**
+     * A method to toggle whether the user wants to remain logged in or not
+     * @param loginID
+     * @param stayLoggedIn
+     * @return true if the toggle was successful, false otherwise
+     */
     @PostMapping(path="/changeRememberMe")
     @CrossOrigin
     public @ResponseBody Boolean changeRememberMe(@RequestParam String loginID, @RequestParam Boolean stayLoggedIn){
@@ -246,6 +308,12 @@ public class UserController {
         return false;
     }
 
+    /**
+     * Creates a new post for the given user
+     * @param post
+     * @param file
+     * @return a success or failure message for creating the post
+     */
     @PostMapping(path="/addPost")
 	public @ResponseBody ResponseEntity<ResponseMessage> addPost(@RequestParam @Valid RequestNewPost post, @RequestParam(name="file", required=false) MultipartFile file)
 	{

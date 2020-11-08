@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+/**
+ * Controller for managing the list of profiles
+ */
 @RestController
 @CrossOrigin
 @RequestMapping(path="/profiles")
@@ -26,6 +29,11 @@ public class ProfileController {
         return profileRepository.findAll();
     }
 
+    /**
+     * Returns the profile of the user associated with the userId
+     * @param userId
+     * @return the profile of the user associated with the userId
+     */
     @GetMapping(path= {"/{userId}"})
     @CrossOrigin
     public @ResponseBody Profile getByUserId(@PathVariable Long userId){
@@ -36,6 +44,12 @@ public class ProfileController {
         throw new ProfileController.ProfileNotFoundException("userId not valid");
     }
 
+    /**
+     * Creates a profile for the given userId
+     * @param userId
+     * @param profile
+     * @return a notification if the profile was created successfully or not
+     */
     @PostMapping(path="/{userId}")
     @CrossOrigin
     public String createProfileForUser(@PathVariable Long userId, @RequestBody RequestProfile profile){
@@ -59,6 +73,12 @@ public class ProfileController {
         }
     }
 
+    /**
+     * Updates the profile of the given userId with new profile data
+     * @param userId
+     * @param profile
+     * @return a notification if the profile was updated successfully or not
+     */
     @PostMapping(path="/{userId}/update")
     @CrossOrigin
     public @ResponseBody String updateProfileForUser(@PathVariable Long userId, @RequestBody Profile profile){
