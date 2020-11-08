@@ -33,6 +33,9 @@ import com.application.tagging.TagRepository;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Controller that manages posts in the post database
+ */
 @Controller
 @RequestMapping(path="/posts") 
 public class PostController 
@@ -57,7 +60,11 @@ public class PostController
 	
 	@Autowired
 	private ProgramaticValidator validator;
-	
+
+	/**
+	 *
+	 * @return a list of all posts
+	 */
 	@JsonView(View.PostView.class)
 	@GetMapping(path="/all")
 	@CrossOrigin
@@ -72,7 +79,12 @@ public class PostController
 		binder.registerCustomEditor(RequestNewPost.class, new RequestNewPostEditor(mapper, validator));
 		binder.registerCustomEditor(RequestPostType.class, new RequestPostTypeEditor(mapper, validator));
 	}
-	
+
+	/**
+	 *
+	 * @param post
+	 * @return a post fetches by its given id
+	 */
 	@JsonView(View.PostView.class)
 	@GetMapping(path="/fetch")
 	@CrossOrigin
@@ -82,8 +94,12 @@ public class PostController
     	Optional<Post> foundpost = postRepository.findById(id);
     	return foundpost.get();
     }
-	
-	
+
+	/**
+	 * Updates the post itself
+	 * @param updatePost
+	 * @return a notification if the post was updated or not
+	 */
 	@PostMapping(path="/update")
     public @ResponseBody String updatePost(@RequestBody @Valid RequestUpdatePost updatePost)
     {
@@ -140,7 +156,13 @@ public class PostController
     	postRepository.save(found);
     	return "Updated";
     }
-	
+
+	/**
+	 * Updates the content of the post
+	 * @param updatePost
+	 * @param file
+	 * @return a notification if the contents were updated or not
+	 */
 	@PostMapping(path="/updateContent")
     public @ResponseBody ResponseEntity<ResponseMessage> updateContent(@RequestParam @Valid RequestPostType updatePost, @RequestParam(name="file", required=false) MultipartFile file)
     {
@@ -168,7 +190,12 @@ public class PostController
 		postRepository.save(p);
 		return null;
     }
-	
+
+	/**
+	 * Removes a given post
+	 * @param requestPost
+	 * @return a notification if the post was removed or not
+	 */
 	@PostMapping(path="/remove")
 	public @ResponseBody String removePost(@RequestBody @Valid RequestPost requestPost)
 	{
@@ -181,7 +208,12 @@ public class PostController
     	p.remove(applicationRepository, postRepository);
     	return "Post removed.";
 	}
-    
+
+	/**
+	 * Removes a tag from this post
+	 * @param requestPost
+	 * @return a notification if the tag was removed
+	 */
 	@PostMapping(path="/removetag")
 	public @ResponseBody String removeTag(@RequestBody @Valid RequestExistentPostExistentTag requestPost)
 	{
@@ -190,7 +222,12 @@ public class PostController
     	post.get().removeTag(applicationRepository, tg);
     	return "Tag removed.";
 	}
-	
+
+	/**
+	 * Adds a tag to this post
+	 * @param requestPost
+	 * @return a notification if the tag was added
+	 */
 	@PostMapping(path="/addtag")
 	public @ResponseBody String addTag(@RequestBody @Valid RequestExistentPostNewTag requestPost)
 	{
@@ -201,7 +238,12 @@ public class PostController
 		post.get().addTag(applicationRepository, tg, level, tag.getBounded(), tag.getLowerBounded());
     	return "Tag added.";
 	}
-	
+
+	/**
+	 * Updates the tag on this post
+	 * @param requestPost
+	 * @return a notification if the update was successful
+	 */
 	@PostMapping(path="/updatetag")
 	public @ResponseBody String updateTag(@RequestBody @Valid RequestExistentPostUpdateTag requestPost)
 	{
