@@ -83,7 +83,8 @@ public class PostController
     	Optional<Post> foundpost = postRepository.findById(id);
     	return foundpost.get();
     }
-
+	
+	@JsonView(View.PostView.class)
 	@CrossOrigin
 	@GetMapping(path="/fetch/{id}")
 	public @ResponseBody Post getById(@PathVariable("id") long id)
