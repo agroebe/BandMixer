@@ -15,6 +15,9 @@ import com.application.skill_level.SkillLevel;
 import com.application.tagging.*;
 import com.fasterxml.jackson.annotation.JsonView;
 
+/**
+ * Post class
+ */
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
 @Table(name="POSTS")
@@ -56,9 +59,17 @@ public class Post
 	@OneToMany(mappedBy="post")
 	@MapKey(name="id")
 	private Map<TagSkillLevelKey, AppliedSkillLevel> tags;
-	
+
+	/**
+	 * Default constructor
+	 */
 	public Post(){}
-	
+
+	/**
+	 * Constructor that accepts a title and the type of post it is.
+	 * @param givenTitle
+	 * @param type
+	 */
 	public Post(String givenTitle, String type)
 	{
 		if(givenTitle == null)
@@ -74,7 +85,13 @@ public class Post
 		this.isSearch = 0;
 		this.tags = new HashMap<TagSkillLevelKey, AppliedSkillLevel>();
 	}
-	
+
+	/**
+	 * Constructor that accepts a title and type as well as the isSearch parameter.
+	 * @param givenTitle
+	 * @param type
+	 * @param isSearch
+	 */
 	public Post(String givenTitle, String type, boolean isSearch)
 	{
 		if(givenTitle == null)
@@ -91,81 +108,156 @@ public class Post
 		this.tags = new HashMap<TagSkillLevelKey, AppliedSkillLevel>();
 	}
 
-	
+	/**
+	 *
+	 * @return the status of the isSearch variable
+	 */
 	public Boolean getIsSearch()
 	{
 		return (isSearch==0? false : true);
 	}
-	
+
+	/**
+	 * Toggles the isSearch variable
+	 * @param isSearch
+	 */
 	public void setIsSearch(boolean isSearch)
 	{
 		this.isSearch = (isSearch ? 1 : 0);
 	}
-	
+
+	/**
+	 *
+	 * @return the Post id
+	 */
 	public Long getId()
 	{
 		return id;
 	}
-	
+
+	/**
+	 *
+	 * @param id
+	 */
 	public void setId(long id)
 	{
 		this.id = id;
 	}
-	
+
+	/**
+	 *
+	 * @return the owner of the Post
+	 */
 	public User getOwner()
 	{
 		return owner;
 	}
-	
+
+	/**
+	 *
+	 * @param owner
+	 */
 	public void setOwner(User owner)
 	{
 		this.owner = owner;
 	}
-	
+
+	/**
+	 *
+	 * @return the title of the Post
+	 */
 	public String getTitle()
 	{
 		return title;
 	}
-	
+
+	/**
+	 *
+	 * @return the content type of the Post
+	 */
 	public String getContentType()
 	{
 		return contentType;
 	}
-	
+
+	/**
+	 *
+	 * @param type
+	 */
 	public void setContentType(String type)
 	{
 		this.contentType = type;
 	}
-	
+
+	/**
+	 *
+	 * @return the text content of the Post
+	 */
 	public String getTextContent()
 	{
 		return textContent;
 	}
-	
+
+	/**
+	 *
+	 * @return a list of the tags that have been applied to this Post
+	 */
 	public Map<TagSkillLevelKey, AppliedSkillLevel> getAppliedTags()
 	{
 		return tags;
 	}
-	
+
+	/**
+	 *
+	 * @param text
+	 */
 	public void setTextContent(String text)
 	{
 		textContent = text;
 	}
-	
+
+	/**
+	 *
+	 * @param newTitle
+	 */
 	public void setTitle(String newTitle)
 	{
 		title = newTitle;
 	}
-	
+
+	/**
+	 * Adds a tag to this post that is unbounded.
+	 * @param rep
+	 * @param tag
+	 * @param level
+	 * @return true if the tag was added, false otherwise
+	 */
 	public boolean addTag(AppliedSkillLevelRepository rep, Tag tag, SkillLevel level)
 	{
 		return addTag(rep, tag, level, false, false);
 	}
-	
+
+	/**
+	 *
+	 * @return the file path to the content of the post
+	 */
 	public String getContentPath() {return contentPath;}
-	
+
+	/**
+	 *
+	 * @param contentPath
+	 */
 	public void setContentPath(String contentPath) {this.contentPath = contentPath;}
-	
+
+	/**
+	 * Adds a bounded tag to this post.
+	 * @param rep
+	 * @param tag
+	 * @param level
+	 * @param bounded
+	 * @param lowerbounded
+	 * @return true if the tag was added, false otherwise
+	 */
 	public boolean addTag(AppliedSkillLevelRepository rep, Tag tag, SkillLevel level, 
 			boolean bounded, boolean lowerbounded)
 	{
@@ -177,12 +269,24 @@ public class Post
 		rep.save(app);
 		return true;
 	}
-	
+
+	/**
+	 * Adds a default tag
+	 * @param rep
+	 * @param tag
+	 * @return true if the tag was added, false otherwise
+	 */
 	public boolean addTag(AppliedSkillLevelRepository rep, Tag tag)
 	{
 		return addTag(rep, tag, null);
 	}
-	
+
+	/**
+	 * Removes a tag from this post
+	 * @param rep
+	 * @param tag
+	 * @return true if the tag was removed, false otherwise
+	 */
 	public boolean removeTag(AppliedSkillLevelRepository rep, Tag tag)
 	{
 		TagSkillLevelKey key = new TagSkillLevelKey(this.id,tag.getId());
@@ -194,7 +298,8 @@ public class Post
 		level.remove(rep);
 		return true;
 	}
-	
+
+
 	public void remove(AppliedSkillLevelRepository rep, PostRepository myRep)
 	{
 		ArrayList<AppliedSkillLevel> vals = new ArrayList<AppliedSkillLevel>(tags.values());
@@ -209,7 +314,16 @@ public class Post
 			myRep.delete(this);
 		}
 	}
-	
+
+	/**
+	 * Updates a given tag on this post
+	 * @param rep
+	 * @param tag
+	 * @param level
+	 * @param isbounded
+	 * @param lowerbounded
+	 * @return true if the tag was updated, false otherwise
+	 */
 	public boolean updateTag(AppliedSkillLevelRepository rep, Tag tag, SkillLevel level, boolean isbounded, boolean lowerbounded)
 	{
 		TagSkillLevelKey key = new TagSkillLevelKey(this.id,tag.getId());

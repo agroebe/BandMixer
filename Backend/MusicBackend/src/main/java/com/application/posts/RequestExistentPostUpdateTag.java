@@ -13,6 +13,9 @@ import validation.ordergroups.Fourth;
 import validation.ordergroups.Second;
 import validation.ordergroups.Third;
 
+/**
+ * Data wrapper for updating an existent tag on an existent post
+ */
 @GroupSequence({First.class, Second.class, RequestExistentPostUpdateTag.class,Third.class, Fourth.class})
 @NullChecks(fields= {"application"}, groups=First.class)
 @MatchedTag(idfield = "id", tagfield = "application", version = 2, groups=Third.class)
@@ -23,16 +26,27 @@ public class RequestExistentPostUpdateTag
 	private long id;
 	
 	private RequestTagApplication application;
-	
+
+	/**
+	 * Default constructor
+	 */
 	public RequestExistentPostUpdateTag() 
 	{
 		id = -3;
 	}
 
+	/**
+	 *
+	 * @return the Id of the tag
+	 */
 	public long getId() {
 		return id;
 	}
 
+	/**
+	 *
+	 * @param id
+	 */
 	public void setId(long id) {
 		this.id = id;
 	}

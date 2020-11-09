@@ -6,6 +6,8 @@ import Explore from './routes/Explore'
 import Post from './routes/Post'
 import AdminPanel from './admin/AdminPanel'
 import NotFoundPage from './routes/NotFoundPage'
+import Profile from './routes/Profile.js'
+import EditProfile from './routes/EditProfile.js'
 import Footer from './components/Footer'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
