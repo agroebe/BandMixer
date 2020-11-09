@@ -18,7 +18,7 @@ export default class Explore extends React.Component {
 
     render() {
         if (this.state.posts.length === 0) {
-            return <div>No posts found...</div>
+            return <div className="text-center">No posts found...</div>
         }
 
         var posts = this.state.posts
