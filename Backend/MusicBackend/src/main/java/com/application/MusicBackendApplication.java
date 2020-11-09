@@ -7,6 +7,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
+/**
+ * This class is the entrypoint for the Spring Boot application
+ * @author Tim Schommer
+ *
+ */
 @SpringBootApplication
 @EnableAutoConfiguration
 @EnableEncryptableProperties
