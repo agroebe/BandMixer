@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios'
-import { Container, Row, Col, Card, CardDeck, Image } from 'react-bootstrap'
+import { Container, Row, Col, Card, Tab, Tabs, Table } from 'react-bootstrap'
 import '../Global.css'
 
 export default class User extends React.Component {
@@ -32,10 +32,30 @@ export default class User extends React.Component {
                                     </Col>
                                     <Col xs={9}>
                                         <Card>
-                                            <Card.Text>
-                                                <Card.Title>Posts from { this.state.user.username } ({ Object.keys(this.state.user.posts).length })</Card.Title>
+                                        <Card.Header>
+                                            <Tabs defaultActiveKey="info" transition={false}>
+                                                <Tab eventKey="info" title="Info">
+                                                    <Table className="mt-4" striped bordered hover>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>Username</td>
+                                                                <td>{ this.state.user.username }</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>User-ID</td>
+                                                                <td>{ this.state.user.id }</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Email</td>
+                                                                <td>{ this.state.user.email }</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </Table>
+                                                </Tab>
+                                                <Tab eventKey="posts" title={ "Posts (" + (Object.keys(this.state.user.posts).length) + ")" }>
+                                                    <br></br>
                                                     { Object.entries(this.state.user.posts).map(([key, value]) => (
-                                                        <Card style={{  marginLeft: '5px', marginRight: '5px', marginBottom: '10px', marginTop: '10px' }}>
+                                                        <Card style={{  marginLeft: '5px', marginRight: '5px', marginBottom: '20px', marginTop: '10px' }}>
                                                             <Card.Body>
                                                             <Card.Title>{ value.title }</Card.Title>
                                                             <Card.Subtitle className="mb-2 text-muted">Posted by { this.state.user.username }</Card.Subtitle>
@@ -48,7 +68,9 @@ export default class User extends React.Component {
                                                             </Card.Footer>
                                                         </Card>
                                                     ))}
-                                            </Card.Text>
+                                                </Tab>
+                                            </Tabs>
+                                        </Card.Header>
                                         </Card>
                                     </Col>
                                 </Row>
