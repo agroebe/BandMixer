@@ -73,15 +73,14 @@ public class Profile extends Post {
         super.setContentType("Profile");
     }
 
-<<<<<<< HEAD
+
    // public Long getUserId(){return userId;}
 
     /**
      *
      * @return the location of the profile
      */
-=======
->>>>>>> 6a3b621ae0c0be195f8c3518a58248a343b1d661
+
     public String getLocation(){ return location;}
 
     /**
@@ -107,15 +106,12 @@ public class Profile extends Post {
      * @param username
      */
     public void setUsername(String username){this.username = username;}
-<<<<<<< HEAD
-    //public void setUserId(Long userId){this.userId = userId;}
 
+    //public void setUserId(Long userId){this.userId = userId;}
     /**
      *
      * @param location
      */
-=======
->>>>>>> 6a3b621ae0c0be195f8c3518a58248a343b1d661
     public void setLocation(String location){this.location = location;}
 
     /**
