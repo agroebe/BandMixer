@@ -10,7 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@Controller
+/**
+ * Controller for managing the list of profiles
+ */
+@RestController
 @CrossOrigin
 @RequestMapping(path="/profiles")
 public class ProfileController {
@@ -20,13 +23,20 @@ public class ProfileController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping(path="/")
+    @JsonView({View.UserView.class})
+    @GetMapping(path="")
     @CrossOrigin
     public @ResponseBody Iterable<Profile> getAllProfiles(){
         return profileRepository.findAll();
     }
 
+    /**
+     * Returns the profile of the user associated with the userId
+     * @param userId
+     * @return the profile of the user associated with the userId
+     */
     @GetMapping(path= {"/{userId}"})
+    @JsonView({View.UserView.class})
     @CrossOrigin
     public @ResponseBody Profile getByUserId(@PathVariable Long userId){
         User user = userRepository.findByid(userId);
@@ -36,21 +46,41 @@ public class ProfileController {
         throw new ProfileController.ProfileNotFoundException("userId not valid");
     }
 
-    @PostMapping(path="/{userId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    /**
+     * Creates a profile for the given userId
+     * @param userId
+     * @param profile
+     * @return a notification if the profile was created successfully or not
+     */
+    @PostMapping(path="/{userId}")
     @CrossOrigin
-    public @ResponseBody String createProfileForUser(@PathVariable Long userId, @RequestBody Profile profile){
+    public String createProfileForUser(@PathVariable Long userId, @RequestBody RequestProfile profile){
         User user = userRepository.findByid(userId);
         if(profileRepository.findByOwner(user) == null){
-            Profile toAdd = new Profile(profile);
+            Profile toAdd = new Profile();
             toAdd.setTitle(profile.getTitle());
-            toAdd.setIsSearch(profile.getIsSearch());
+            toAdd.setProfilePicture(profile.getProfilePicture());
+            toAdd.setPhoneNumber(profile.getPhoneNumber());
+            toAdd.setLocation(profile.getLocation());
+            toAdd.setUsername(profile.getUsername());
+            toAdd.setContentPath(profile.getContentPath());
+            toAdd.setTextContent(profile.getTextContent());
+            toAdd.setOwner(user);
+            
             profileRepository.save(toAdd);
-            return "User profile for user ID number:" + profile.getOwner().getId() + " has been created";
+            user.getPosts().put(toAdd.getId(),toAdd);
+            return "User profile for user ID number:" + userId + " has been created";
         }else{
             return "User already has a profile";
         }
     }
 
+    /**
+     * Updates the profile of the given userId with new profile data
+     * @param userId
+     * @param profile
+     * @return a notification if the profile was updated successfully or not
+     */
     @PostMapping(path="/{userId}/update")
     @CrossOrigin
     public @ResponseBody String updateProfileForUser(@PathVariable Long userId, @RequestBody Profile profile){

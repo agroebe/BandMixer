@@ -14,6 +14,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Controller for managing the list of files stored on the server
+ */
 @Controller
 @CrossOrigin
 @RequestMapping(path="/files")

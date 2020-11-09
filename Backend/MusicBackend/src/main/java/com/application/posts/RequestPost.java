@@ -7,6 +7,7 @@ import validation.annotations.ExistentPost;
 import validation.ordergroups.First;
 import validation.ordergroups.Second;
 
+
 @GroupSequence({RequestPost.class, First.class,Second.class})
 @NotNull(groups= {First.class})
 public class RequestPost 
