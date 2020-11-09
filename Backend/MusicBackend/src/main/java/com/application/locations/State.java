@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 /**
- * State entity
+ * State entity that contains a list of cities associated with it.
  */
 @Entity
 @Table(name = "STATES")

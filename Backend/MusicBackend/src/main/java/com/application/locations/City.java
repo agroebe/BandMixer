@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.persistence.*;
 
 /**
- * City entity
+ * City entity, each city has a state associated with it. A city must have a state attached to it, a city cannot be independent.
  */
 @Entity
 @Table(name = "CITIES")
