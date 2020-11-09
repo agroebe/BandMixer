@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.application.ProgramaticValidator;
 import com.application.View;
@@ -82,6 +83,15 @@ public class PostController
     	Optional<Post> foundpost = postRepository.findById(id);
     	return foundpost.get();
     }
+
+	@CrossOrigin
+	@GetMapping(path="/fetch/{id}")
+	public Post getById(@PathVariable("id") id)
+	{
+		long id = post.getId();
+    	Optional<Post> foundpost = postRepository.findById(id);
+    	return foundpost.get();
+	}
 	
 	
 	@PostMapping(path="/update")
