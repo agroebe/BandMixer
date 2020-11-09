@@ -35,7 +35,7 @@ public class ProfileController {
      * @param userId
      * @return the profile of the user associated with the userId
      */
-    @GetMapping(path= {"/{userId}"})
+    @GetMapping(path="/{userId}")
     @JsonView({View.UserView.class})
     @CrossOrigin
     public @ResponseBody Profile getByUserId(@PathVariable("userId") Long userId){
