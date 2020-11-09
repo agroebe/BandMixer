@@ -86,9 +86,8 @@ public class PostController
 
 	@CrossOrigin
 	@GetMapping(path="/fetch/{id}")
-	public Post getById(@PathVariable("id") id)
+	public @ResponseBody Post getById(@PathVariable("id") long id)
 	{
-		long id = post.getId();
     	Optional<Post> foundpost = postRepository.findById(id);
     	return foundpost.get();
 	}
