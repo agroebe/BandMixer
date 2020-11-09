@@ -11,6 +11,11 @@ import javax.validation.Payload;
 
 import validation.validators.NewSkillLevelValidator;
 
+/**
+ * Annotation indicating that a class contains information for the creation of a new SkillLevel and should be validated as such.
+ * @author Tim Schommer
+ *
+ */
 @Constraint(validatedBy = NewSkillLevelValidator.class)
 @Retention(RUNTIME)
 @Target(TYPE)

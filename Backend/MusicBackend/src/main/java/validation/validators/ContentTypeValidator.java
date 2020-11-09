@@ -5,6 +5,11 @@ import javax.validation.ConstraintValidatorContext;
 
 import validation.annotations.ContentType;
 
+/**
+ * Validates a String field used to indicate a content type of a Post to ensure that it is a valid content type String.
+ * @author Tim Schommer
+ *
+ */
 public class ContentTypeValidator implements ConstraintValidator<ContentType, String>
 {	
 	public void initialize(ContentType constraint)

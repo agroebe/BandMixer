@@ -20,6 +20,13 @@ import com.application.util.BeanUtil;
 
 import validation.annotations.UpdatedPost;
 
+/**
+ * Class to validate a data wrapper for updating a Post. 
+ * Ensures that Post being updated exists, the new values are valid, the changes being made are valid, 
+ * and something is actually being changed.
+ * @author Tim Schommer
+ *
+ */
 public class UpdatedPostValidator implements ConstraintValidator<UpdatedPost, Object>
 {
 	@Autowired

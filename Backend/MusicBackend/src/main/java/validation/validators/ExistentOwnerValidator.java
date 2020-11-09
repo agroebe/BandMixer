@@ -14,6 +14,11 @@ import com.application.util.BeanUtil;
 
 import validation.annotations.ExistentOwner;
 
+/**
+ * Validates a Long representing the id of a User that should already exist. Ensure that a User with that id exists.
+ * @author Tim Schommer
+ *
+ */
 public class ExistentOwnerValidator implements ConstraintValidator<ExistentOwner, Long>
 {
 	@Autowired

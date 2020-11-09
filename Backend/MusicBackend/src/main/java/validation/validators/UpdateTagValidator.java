@@ -14,6 +14,12 @@ import com.application.util.BeanUtil;
 
 import validation.annotations.UpdateTag;
 
+/**
+ * Class to validate a data wrapper for updating a Tag. 
+ * Ensures that Tag being updated exists, the new values are valid, and something is actually being changed.
+ * @author Tim Schommer
+ *
+ */
 public class UpdateTagValidator implements ConstraintValidator<UpdateTag, Object>
 {
 	@Autowired
@@ -31,6 +37,10 @@ public class UpdateTagValidator implements ConstraintValidator<UpdateTag, Object
 		allowSkillField = constraint.allowSkillField();
 	}
 	
+	/**
+	 * Ensures that Tag being updated exists, the new values are valid (not the name of an already existing Tag),
+	 * and something is actually being changed.
+	 */
 	@Override
 	public boolean isValid(Object value, ConstraintValidatorContext context) {
 		String name = (String)new BeanWrapperImpl(value).getPropertyValue(namefield);

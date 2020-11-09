@@ -9,6 +9,11 @@ import javax.validation.*;
 
 import validation.validators.NewTagValidator;
 
+/**
+ * Annotation indicating that a class contains information for creating a new Tag and should be validated as such
+ * @author Tim Schommer
+ *
+ */
 @Constraint(validatedBy = NewTagValidator.class)
 @Retention(RUNTIME)
 @Target(TYPE)

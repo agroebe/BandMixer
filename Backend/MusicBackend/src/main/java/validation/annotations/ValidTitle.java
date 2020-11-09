@@ -9,6 +9,11 @@ import javax.validation.*;
 
 import validation.validators.TitleValidator;
 
+/**
+ * Annotation indicating that a field should be considered a Post title and checked for validity.
+ * @author Tim Schommer
+ *
+ */
 @Constraint(validatedBy = TitleValidator.class)
 @Retention(RUNTIME)
 @Target(FIELD)

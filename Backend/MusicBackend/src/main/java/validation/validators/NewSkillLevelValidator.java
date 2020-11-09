@@ -14,6 +14,12 @@ import com.application.util.BeanUtil;
 
 import validation.annotations.NewSkillLevel;
 
+/**
+ * Validates a data wrapper for creating a new SkillLevel. Ensures that the name and value are valid and that a SkillLevel with that name 
+ * does not already exist.
+ * @author Tim Schommer
+ *
+ */
 public class NewSkillLevelValidator implements ConstraintValidator<NewSkillLevel, Object>
 {
 	@Autowired

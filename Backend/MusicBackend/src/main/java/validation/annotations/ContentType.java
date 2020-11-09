@@ -9,6 +9,11 @@ import javax.validation.*;
 
 import validation.validators.ContentTypeValidator;
 
+/**
+ * Annotation indicating that a field is a String indicating a content type and the validity of said String should be checked.
+ * @author Tim Schommer
+ *
+ */
 @Constraint(validatedBy = ContentTypeValidator.class)
 @Retention(RUNTIME)
 @Target(FIELD)

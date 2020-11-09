@@ -14,6 +14,11 @@ import com.application.util.BeanUtil;
 
 import validation.annotations.ExistentPost;
 
+/**
+ * Validates a Long representing the id of a Post that should already exist. Ensure that a Post with that id exists.
+ * @author Tim Schommer
+ *
+ */
 public class ExistentPostValidator implements ConstraintValidator<ExistentPost, Long>
 {
 	@Autowired

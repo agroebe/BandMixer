@@ -9,6 +9,11 @@ import javax.validation.*;
 
 import validation.validators.UpdatedPostValidator;
 
+/**
+ * Annotation indicating that a class contains information pertaining to the update of a Post.
+ * @author Tim Schommer
+ *
+ */
 @Constraint(validatedBy = UpdatedPostValidator.class)
 @Retention(RUNTIME)
 @Target(TYPE)

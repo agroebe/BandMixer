@@ -13,6 +13,12 @@ import com.application.tagging.RequestTagApplication;
 
 import validation.annotations.UniqueList;
 
+/**
+ * Class to validate a list of TagApplications. Uses ProgrammaticValidator to ensure that each entry is valid, 
+ * and ensures that there are no duplicate Tags in the list.
+ * @author Tim Schommer
+ *
+ */
 public class UniqueListValidator implements ConstraintValidator<UniqueList, List<RequestTagApplication>>
 {	
 	@Autowired

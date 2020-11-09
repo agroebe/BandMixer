@@ -9,6 +9,11 @@ import javax.validation.*;
 
 import validation.validators.ExistentOwnerValidator;
 
+/**
+ * Annotation indicating that a field is the id of a User that already exists and should be validated as such.
+ * @author Tim Schommer
+ *
+ */
 @Constraint(validatedBy = ExistentOwnerValidator.class)
 @Retention(RUNTIME)
 @Target(FIELD)

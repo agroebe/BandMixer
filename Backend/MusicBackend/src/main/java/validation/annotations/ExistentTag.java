@@ -9,6 +9,11 @@ import javax.validation.*;
 
 import validation.validators.ExistentTagValidator;
 
+/**
+ * Annotation indicating that a class contains information to identify at Tag that already exists and should be validated as such.
+ * @author Tim Schommer
+ *
+ */
 @Constraint(validatedBy = ExistentTagValidator.class)
 @Retention(RUNTIME)
 @Target(TYPE)

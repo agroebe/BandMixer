@@ -18,7 +18,11 @@ import com.application.View;
 import com.application.skill_level.AppliedSkillLevelRepository;
 import com.fasterxml.jackson.annotation.JsonView;
 
-
+/**
+ * Controller for performing operations on tags
+ * @author Tim Schommer
+ *
+ */
 @Controller
 @RequestMapping(path="/tags") 
 public class TagController 
@@ -29,7 +33,13 @@ public class TagController
 	@Autowired 
 	private AppliedSkillLevelRepository applicationsRepository;
 
-    
+    /**
+     * Adds a new Tag to the database.
+     * @param newTag
+     * 		An object wrapping the information needed to create a new Tag
+     * @return
+     * 		Returns a confirmation message.
+     */
     @PostMapping(path="/add") //Map only POST requests
     public @ResponseBody String addNewTag(@RequestBody @Valid RequestNewTag newTag)
     {
@@ -38,6 +48,13 @@ public class TagController
 		return "Saved";
     }
     
+    /**
+     * Updates an existing tag.
+     * @param updateTag
+     * 		An object wrapping the information needed to determine which Tag to update and how to update it.
+     * @return
+     * 		Returns a confirmation message.
+     */
     @PostMapping(path="/update")
     public @ResponseBody String updateTag(@RequestBody @Valid RequestUpdateTag updateTag)
     {
@@ -61,6 +78,13 @@ public class TagController
     	return "Updated";
     }
     
+    /**
+     * Removes the indicated Tag from the database.
+     * @param tag
+     * 		An object wrapping the information on which tag to remove.
+     * @return
+     * 		Returns a confirmation message.
+     */
     @PostMapping(path="/remove")
     public @ResponseBody String removeTag(@RequestBody @Valid RequestExistentTag tag)
     {
@@ -69,6 +93,13 @@ public class TagController
     	return "Tag: " + tag.getName() + " removed.";
     }
     
+    /**
+     * Returns a Tag with the given name.
+     * @param name
+     * 		The name of the Tag to get.
+     * @return
+     * 		Returns the Tag with the given name.
+     */
     @JsonView(View.TagView.class)
     @GetMapping(path="/fetch")
     public @ResponseBody Tag getByName(@RequestParam @Valid String name)
@@ -77,6 +108,10 @@ public class TagController
     	return tag.get();
     }
 
+    /**
+     * Returns a list of all Tags in the database.
+     * @return
+     */
     @JsonView(View.TagView.class)
     @GetMapping(path="/all")
     @CrossOrigin
@@ -86,7 +121,13 @@ public class TagController
     }
     
 
-    
+    /**
+     * Returns whether or not the indicated Tag will work with a SkillLevel
+     * @param tagChoice
+     * 		An object wrapping the data indicating which Tag to check
+     * @return
+     * 		A boolean indicating whether or not the indicated Tag will work with a SkillLevel.
+     */
     @GetMapping(path="/hasSkill")
     public @ResponseBody boolean allowsSkill(@RequestBody @Valid RequestExistentTag tagChoice)
     {

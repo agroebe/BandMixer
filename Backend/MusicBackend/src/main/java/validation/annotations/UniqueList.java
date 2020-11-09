@@ -9,6 +9,11 @@ import javax.validation.*;
 
 import validation.validators.UniqueListValidator;
 
+/**
+ * Annotation indicating that a field is a list of Tags that should all be unique.
+ * @author Tim Schommer
+ *
+ */
 @Constraint(validatedBy = UniqueListValidator.class)
 @Retention(RUNTIME)
 @Target(FIELD)
