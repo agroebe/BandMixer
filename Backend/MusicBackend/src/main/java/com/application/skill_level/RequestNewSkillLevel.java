@@ -2,6 +2,11 @@ package com.application.skill_level;
 
 import validation.annotations.NewSkillLevel;
 
+/**
+ * Wrapper class on information needed to create a new SkillLevel. Contains name and value of new SkillLevel.
+ * @author Tim Schommer
+ *
+ */
 @NewSkillLevel(nameField="name", valueField="value")
 public class RequestNewSkillLevel 
 {

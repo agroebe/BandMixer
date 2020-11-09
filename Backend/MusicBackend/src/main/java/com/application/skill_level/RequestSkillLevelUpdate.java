@@ -2,6 +2,12 @@ package com.application.skill_level;
 
 import validation.annotations.UpdateExistentSkillLevel;
 
+/**
+ * Wrapper class on information needed to update a SkillLevel. Contains information on which SkillLevel to update
+ * and how it should be updated.
+ * @author Tim Schommer
+ *
+ */
 @UpdateExistentSkillLevel(nameField="name", valueField="value", newNameField="newName")
 public class RequestSkillLevelUpdate 
 {

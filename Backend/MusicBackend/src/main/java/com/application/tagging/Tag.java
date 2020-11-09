@@ -10,7 +10,11 @@ import com.application.skill_level.AppliedSkillLevel;
 import com.application.skill_level.AppliedSkillLevelRepository;
 
 
-
+/**
+ * 
+ * @author Tim Schommer
+ *
+ */
 @Entity
 @Table(name="TAGS")
 public class Tag 
