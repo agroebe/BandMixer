@@ -22,8 +22,6 @@ public class RequestProfile {
 
     private String contentType;
 
-    private User owner;
-
     private Integer isSearch;
 
     /**
@@ -74,12 +72,6 @@ public class RequestProfile {
 
     /**
      *
-     * @return the owner of the profile
-     */
-    public User getOwner(){return owner;}
-
-    /**
-     *
      * @return the title of the profile "post"
      */
     public String getTitle(){return title;}
@@ -121,14 +113,6 @@ public class RequestProfile {
         this.profilePicture = profilePicture;
     }
 
-
-    /**
-     *
-     * @param owner
-     */
-    public void setOwner(User owner){
-        this.owner = owner;
-    }
 
     /**
      *
