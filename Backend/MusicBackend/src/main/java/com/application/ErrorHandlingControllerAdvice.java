@@ -14,9 +14,24 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import validation.ValidationErrorResponse;
 import validation.Violation;
 
+/**
+ * This Class is used by the application when the validators indicate constraint violations.
+ * It ensures an object with useful error messages is returned, rather than a generic BadRequest.
+ * @author Tim Schommer
+ *
+ */
 @ControllerAdvice
 public class ErrorHandlingControllerAdvice 
 {
+	/**
+	 * Handles the case where the constraint violation is indicated by a
+	 * ConstraintViolationException.
+	 * 
+	 * @param e
+	 * 		The exception that caused the violation.
+	 * @return
+	 * 		An object containing a list of violations.
+	 */
 	@ExceptionHandler(ConstraintViolationException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody ValidationErrorResponse onConstraintValidationException(ConstraintViolationException e)
@@ -29,6 +44,15 @@ public class ErrorHandlingControllerAdvice
 		return err;
 	}
 	
+	/**
+	 * Handles the case where the constraint violation is indicated by a
+	 * MethodArgumentNotValidException.
+	 * 
+	 * @param e
+	 * 		The exception that caused the violation.
+	 * @return
+	 * 		An object containing a list of violations.
+	 */
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody ValidationErrorResponse onMethodArgumentNotValidException(MethodArgumentNotValidException e)

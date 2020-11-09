@@ -8,6 +8,7 @@ import com.application.ProgramaticValidator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
 public class RequestNewPostEditor extends PropertyEditorSupport 
 {
 	private ObjectMapper objectMapper;
