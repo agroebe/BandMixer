@@ -7,7 +7,6 @@ import { Button, Container, Row, Col, Image, Form, FormControl, InputGroup } fro
 export default class EditProfile extends React.Component {
     constructor() {
         //super(props);
-        //console.log(props)
         super();
         this.state = {
           username: 'user',

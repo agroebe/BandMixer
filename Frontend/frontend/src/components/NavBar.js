@@ -18,28 +18,28 @@ const CustomMenu = React.forwardRef(
       >
         <Container>
           <Row>
-          <Col onClick={ () => console.log('hi') }><a href="/california">California</a></Col>
-            <Col onClick={ () => console.log('hi') }><a href="/florida">Florida</a></Col>
+          <Col><a href="/california">California</a></Col>
+            <Col><a href="/florida">Florida</a></Col>
           </Row>
           <Row>
-            <Col onClick={ () => console.log('hi') }><a href="/georgia">Georgia</a></Col>
-            <Col onClick={ () => console.log('hi') }><a href="/illinois">Illinois</a></Col>
+            <Col><a href="/georgia">Georgia</a></Col>
+            <Col><a href="/illinois">Illinois</a></Col>
           </Row>
           <Row>
-            <Col onClick={ () => console.log('hi') }><a href="/iowa">Iowa</a></Col>
-            <Col onClick={ () => console.log('hi') }><a href="/michigan">Michigan</a></Col>
+            <Col><a href="/iowa">Iowa</a></Col>
+            <Col><a href="/michigan">Michigan</a></Col>
           </Row>
           <Row>
-            <Col onClick={ () => console.log('hi') }><a href="/minnesota">Minnesota</a></Col>
-            <Col onClick={ () => console.log('hi') }><a href="/new-jersey">New Jersey</a></Col>
+            <Col><a href="/minnesota">Minnesota</a></Col>
+            <Col><a href="/new-jersey">New Jersey</a></Col>
           </Row>
           <Row>
-            <Col onClick={ () => console.log('hi') }><a href="/new-york">New York</a></Col>
-            <Col onClick={ () => console.log('hi') }><a href="/pennsylvania">Pennsylvania</a></Col>
+            <Col><a href="/new-york">New York</a></Col>
+            <Col><a href="/pennsylvania">Pennsylvania</a></Col>
           </Row>
           <Row>
-            <Col onClick={ () => console.log('hi') }><a href="/texas">Texas</a></Col>
-            <Col onClick={ () => console.log('hi') }><a href="/washington">Washington</a></Col>
+            <Col><a href="/texas">Texas</a></Col>
+            <Col><a href="/washington">Washington</a></Col>
           </Row>
         </Container>
       </div>
