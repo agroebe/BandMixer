@@ -38,7 +38,7 @@ public class ProfileController {
     @GetMapping(path= {"/{userId}"})
     @JsonView({View.UserView.class})
     @CrossOrigin
-    public @ResponseBody Profile getByUserId(@PathVariable Long userId){
+    public @ResponseBody Profile getByUserId(@PathVariable("userId") Long userId){
         User user = userRepository.findByid(userId);
         if(user != null){
             return profileRepository.findByOwner(user);

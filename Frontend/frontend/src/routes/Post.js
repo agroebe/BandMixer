@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios'
-import { Card, Image, CardDeck } from 'react-bootstrap'
+import { Card, Image, CardDeck, Badge } from 'react-bootstrap'
 import '../Global.css'
 
 export default class Post extends React.Component {
@@ -33,10 +33,20 @@ export default class Post extends React.Component {
                             <Card.Title>{ this.state.post.title }</Card.Title>
                             <Image style={{width: 100, height: 'auto', display: "inline-block"}} src="https://support.hubstaff.com/wp-content/uploads/2019/08/good-pic.png" roundedCircle />
                             <Card.Subtitle className="mb-2 text-muted">Posted by { this.state.post.owner.username }</Card.Subtitle>
-                            <Card.Text>
-                                { this.state.post.textContent }
-                            </Card.Text>
+                            <Card.Text>{ this.state.post.textContent }</Card.Text>
                             </Card.Body>
+                            { Object.keys(this.state.post.tags).length !== 0 ? (
+                                    <Card.Footer>
+                                        <>
+                                            <p style={{ margin: '0' }}>This post is tagged with: </p>
+                                            { Object.entries(this.state.post.tags).map(([key, value]) => (
+                                                <Badge variant="secondary">{ value.tag.name }</Badge>
+                                            ))}
+                                        </>
+                                    </Card.Footer>
+                            ) : (
+                                <></> // No tags, so nothing to render here.
+                            )}
                         </Card>
                         <hr className="w-50" style={{ color: "black"}}></hr>
                         <h6 className="text-center">More from { this.state.post.owner.username }:</h6>
