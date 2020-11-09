@@ -18,7 +18,7 @@ import com.application.View;
 import com.fasterxml.jackson.annotation.JsonView;
 
 /**
- * 
+ * Controller for operations related to SkillLevels.
  * @author Tim Schommer
  *
  */
@@ -33,6 +33,12 @@ public class SkillLevelController
 	@Autowired
 	private AppliedSkillLevelRepository applicationRepo;
 
+	/**
+	 * Adds a new SkillLevel to the database.
+	 * @param newLevel
+	 * 		An object containing the data 
+	 * @return
+	 */
 	@PostMapping(path="/add", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@CrossOrigin
 	public @ResponseBody String add(@RequestBody @Valid RequestNewSkillLevel newLevel)
@@ -72,6 +78,11 @@ public class SkillLevelController
 		return message;
 	}
 
+	/**
+	 * 
+	 * @param level
+	 * @return
+	 */
 	@PostMapping(path="/remove")
 	@CrossOrigin
 	public @ResponseBody String remove(@RequestBody @Valid RequestSkillLevel level)
@@ -116,6 +127,10 @@ public class SkillLevelController
 		}
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	@PostMapping(path="/reorder")
 	@CrossOrigin
 	public @ResponseBody String reorder()
@@ -131,6 +146,11 @@ public class SkillLevelController
 		return "Successfully reordered.";
 	}
 
+	/**
+	 * 
+	 * @param level
+	 * @return
+	 */
 	@PostMapping(path="/update")
 	@CrossOrigin
 	public @ResponseBody String update(@RequestBody @Valid RequestSkillLevelUpdate level)
@@ -190,6 +210,11 @@ public class SkillLevelController
 		return "Skill level " + level.getName() + " successfully updated.";
 	}
 
+	/**
+	 * 
+	 * @param level
+	 * @return
+	 */
 	@JsonView(View.SkillLevelView.class)
 	@GetMapping(path="/get")
 	@CrossOrigin
@@ -198,6 +223,10 @@ public class SkillLevelController
 		return repo.findByName(level.getName()).get();
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	@JsonView(View.SkillLevelView.class)
 	@GetMapping(path="/all")
 	@CrossOrigin
