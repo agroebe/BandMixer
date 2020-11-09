@@ -1,13 +1,5 @@
 package com.application.people;
 
-import com.application.View;
-import com.application.skill_level.AppliedSkillLevel;
-import com.application.tagging.TagSkillLevelKey;
-import com.fasterxml.jackson.annotation.JsonView;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import javax.persistence.Column;
-import java.util.Map;
 
 /**
  * Profile wrapper for the proper construction of a profile
@@ -22,21 +14,20 @@ public class RequestProfile {
 
     private String profilePicture;
 
-    private User owner;
-
     private String title;
-
-    private String contentType;
 
     private String textContent;
 
     private String contentPath;
 
+<<<<<<< HEAD
     private Integer isSearch;
 
     /**
      *Default constructor
      */
+=======
+>>>>>>> 6a3b621ae0c0be195f8c3518a58248a343b1d661
     public RequestProfile(){}
 
     /**
@@ -44,16 +35,14 @@ public class RequestProfile {
      * @param profile
      */
     public RequestProfile(RequestProfile profile){
+    	
         this.username = profile.username;
         this.location = profile.location;
         this.phoneNumber = profile.phoneNumber;
         this.profilePicture = profile.profilePicture;
-        this.owner = profile.owner;
         this.title = profile.title;
         this.contentPath = profile.contentPath;
-        this.contentType = profile.contentType;
         this.textContent = profile.textContent;
-        this.isSearch = profile.isSearch;
     }
 
     /**
@@ -79,6 +68,7 @@ public class RequestProfile {
      * @return the profile picture file location of the profile
      */
     public String getProfilePicture(){return profilePicture;}
+<<<<<<< HEAD
 
     /**
      *
@@ -97,9 +87,11 @@ public class RequestProfile {
      * @return the content type of the profile, it will always return profile
      */
     public String getContentType(){return contentType;}
+=======
+    public String getTitle(){return title;}
+>>>>>>> 6a3b621ae0c0be195f8c3518a58248a343b1d661
     public String getTextContent(){return textContent;}
     public String getContentPath(){return contentPath;}
-    public Boolean getIsSearch(){return isSearch == 1;}
     public void setUsername(String username){
         this.username = username;
     }
@@ -128,6 +120,7 @@ public class RequestProfile {
     public void setProfilePicture(String profilePicture){
         this.profilePicture = profilePicture;
     }
+<<<<<<< HEAD
 
     /**
      *
@@ -141,10 +134,14 @@ public class RequestProfile {
      *
      * @param title
      */
+=======
+    
+>>>>>>> 6a3b621ae0c0be195f8c3518a58248a343b1d661
     public void setTitle(String title){
         this.title = title;
 
     }
+<<<<<<< HEAD
 
     /**
      *
@@ -158,6 +155,9 @@ public class RequestProfile {
      *
      * @param textContent
      */
+=======
+    
+>>>>>>> 6a3b621ae0c0be195f8c3518a58248a343b1d661
     public void setTextContent(String textContent){
         this.textContent = textContent;
     }
@@ -170,6 +170,7 @@ public class RequestProfile {
         this.contentPath = contentPath;
     }
 
+<<<<<<< HEAD
     /**
      *
      * @param isSearch
@@ -177,4 +178,6 @@ public class RequestProfile {
     public void setIsSearch(Integer isSearch){
         this.isSearch = isSearch;
     }
+=======
+>>>>>>> 6a3b621ae0c0be195f8c3518a58248a343b1d661
 }

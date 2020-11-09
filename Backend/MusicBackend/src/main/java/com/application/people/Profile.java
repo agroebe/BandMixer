@@ -1,6 +1,5 @@
 package com.application.people;
 
-//TODO Attach profiles to users
 
 import com.application.View;
 import com.application.posts.Post;
@@ -27,7 +26,6 @@ public class Profile extends Post {
     @JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
     @Column(name="profilePicture")
     private String profilePicture;
-    //private Long userId;
 
     /**
      * Default constructor
@@ -37,8 +35,8 @@ public class Profile extends Post {
         location = null;
         phoneNumber = null;
         profilePicture=null;
-       // userId = null;
         super.setContentType("Profile");
+        super.setIsSearch(false);
     }
 
     /**
@@ -59,7 +57,6 @@ public class Profile extends Post {
         super.setTitle(title);
         super.setIsSearch(isSearch);
         super.setContentType("Profile");
-        //this.userId = userId;
     }
 
     /**
@@ -74,15 +71,17 @@ public class Profile extends Post {
         super.setTitle(profile.getTitle());
         super.setIsSearch(profile.getIsSearch());
         super.setContentType("Profile");
-        //this.userId = profile.userId;
     }
 
+<<<<<<< HEAD
    // public Long getUserId(){return userId;}
 
     /**
      *
      * @return the location of the profile
      */
+=======
+>>>>>>> 6a3b621ae0c0be195f8c3518a58248a343b1d661
     public String getLocation(){ return location;}
 
     /**
@@ -108,12 +107,15 @@ public class Profile extends Post {
      * @param username
      */
     public void setUsername(String username){this.username = username;}
+<<<<<<< HEAD
     //public void setUserId(Long userId){this.userId = userId;}
 
     /**
      *
      * @param location
      */
+=======
+>>>>>>> 6a3b621ae0c0be195f8c3518a58248a343b1d661
     public void setLocation(String location){this.location = location;}
 
     /**
@@ -130,5 +132,8 @@ public class Profile extends Post {
     
     @Override
     public void setContentType(String type){}
+    
+    @Override
+    public void setIsSearch(boolean isSearch){}
 
 }
