@@ -31,7 +31,7 @@ export default class Explore extends React.Component {
                 <Card style={{ width: '60rem', marginLeft: 'auto', marginRight: 'auto', marginBottom: '10px', marginTop: '10px' }}>
                     <Card.Body>
                     <Card.Title>{ post.title }</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">Posted by { post.owner.username }</Card.Subtitle>
+                    <Card.Subtitle className="mb-2 text-muted">Posted by <a href={ '/user/' + post.owner.id }>{ post.owner.username }</a></Card.Subtitle>
                     <Card.Text>
                         { post.textContent }
                     </Card.Text>
