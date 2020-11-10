@@ -111,8 +111,14 @@ export default class NavBar extends React.Component {
                           <Dropdown.Item onClick={ () => this.profileModal.open() }>View Profile</Dropdown.Item>
                           <Dropdown.Item onClick={ () => this.editProfileModal.open() }>Edit Profile</Dropdown.Item>
                           <Dropdown.Item onClick={ () => {
+                            cookie.remove('stayLoggedIn')
+                            cookie.remove('userId')
+                          } }>Clear Cookies</Dropdown.Item>
+                          <Dropdown.Item onClick={ () => {
                             this.setLoggedIn(false)
                             this.setUserId('')
+                            cookie.remove('stayLoggedIn')
+                            cookie.remove('userId')
                           } }>Logout</Dropdown.Item>
                         </DropdownButton>
                         <Button variant="secondary" className="ml-2" onClick={ () => this.newPostModal.open() }><Plus></Plus></Button>
