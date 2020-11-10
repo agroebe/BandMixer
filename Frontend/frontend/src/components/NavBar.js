@@ -6,6 +6,7 @@ import RegisterModal from './modals/RegisterModal'
 import ProfileModal from './modals/ProfileModal'
 import EditProfileModal from './modals/EditProfileModal'
 import NewPostModal from './modals/NewPostModal'
+import cookie from 'react-cookies'
 
 const CustomMenu = React.forwardRef(
   ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
@@ -62,6 +63,12 @@ export default class NavBar extends React.Component {
         this.setUserId = this.setUserId.bind(this);
     }
 
+    componentWillMount() {
+      if (cookie.load('stayLoggedIn')) {
+        this.setState({ loggedIn: true, userId: cookie.load('userId')})
+      }
+    }
+
     /* This function will be passed in as a prop so it can be opened from the RegisterModal. */
     openSignInModal() {
         this.registerModal.close();
@@ -115,7 +122,7 @@ export default class NavBar extends React.Component {
                         <Button variant="primary" className="mr-2" onClick={ this.openSignInModal }>Sign In</Button>
                         <Button variant="secondary" onClick={ this.openRegisterModal }>Register</Button>
                       </div>
-                    ) }
+                    )}
                     
                 </Navbar.Collapse>
 
