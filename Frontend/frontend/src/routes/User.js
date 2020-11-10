@@ -58,7 +58,7 @@ export default class User extends React.Component {
                                                         <Card style={{  marginLeft: '5px', marginRight: '5px', marginBottom: '20px', marginTop: '10px' }}>
                                                             <Card.Body>
                                                             <Card.Title>{ value.title }</Card.Title>
-                                                            <Card.Subtitle className="mb-2 text-muted">Posted by { this.state.user.username }</Card.Subtitle>
+                                                            <Card.Subtitle className="mb-2 text-muted">Posted by <a href={ '/user/' + this.props.match.params.userId }>{ this.state.user.username }</a></Card.Subtitle>
                                                             <Card.Text>
                                                                 { value.textContent }
                                                             </Card.Text>

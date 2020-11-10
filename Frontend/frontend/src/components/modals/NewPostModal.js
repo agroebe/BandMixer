@@ -29,13 +29,20 @@ export default class NewPostModal extends React.Component {
 
         axios.get('http://coms-309-cy-01.cs.iastate.edu:8080/users/username/' + this.props.userId).then(r => {
             const userId = r.data.id
+
+            const tagApplications = []
+            this.state.tags.forEach(tagName => {
+                console.log('adding tag name ' + String(tagName))
+                tagApplications.push({ tag: tagName })
+            })
+
             const newPost = {
                 ownerId: userId,
                 title: this.state.title,
                 contentType: 'hi',
                 textContent: this.state.text,
                 isSearch: false,
-                applications:  [ { tag: "guitar" } ]
+                applications:  tagApplications
             }
 
             const formData = new FormData()
@@ -77,6 +84,8 @@ export default class NewPostModal extends React.Component {
             this.setState({ tags: newArr })
             return
         }
+
+        console.log('in add method, tag = ' + tag)
         
         var joined = this.state.tags.concat(tag)
         this.setState({ tags: joined })
@@ -103,26 +112,26 @@ export default class NewPostModal extends React.Component {
                     <Form.Group>
                         <Form.Label>Tag(s)</Form.Label>
                         <p className="mb-0">Instruments:</p>
-                        <Badge pill variant="primary" onClick={ () => this.addTag('Guitar') } style={{ cursor: 'pointer' }}>Guitar</Badge>{' '}
-                        <Badge pill variant="primary" onClick={ () => this.addTag('Bass') } style={{ cursor: 'pointer' }}>Bass</Badge>{' '}
-                        <Badge pill variant="primary" onClick={ () => this.addTag('Drums') }  style={{ cursor: 'pointer' }}>Drums</Badge>{' '}
-                        <Badge pill variant="primary" onClick={ () => this.addTag('Piano') }  style={{ cursor: 'pointer' }}>Piano</Badge>{' '}
+                        <Badge pill variant="primary" onClick={ () => this.addTag('guitar') } style={{ cursor: 'pointer' }}>Guitar</Badge>{' '}
+                        <Badge pill variant="primary" onClick={ () => this.addTag('bass') } style={{ cursor: 'pointer' }}>Bass</Badge>{' '}
+                        <Badge pill variant="primary" onClick={ () => this.addTag('drums') }  style={{ cursor: 'pointer' }}>Drums</Badge>{' '}
+                        <Badge pill variant="primary" onClick={ () => this.addTag('piano') }  style={{ cursor: 'pointer' }}>Piano</Badge>{' '}
 
                         <p className="mb-0">Skill Levels:</p>
-                        <Badge pill variant="warning" onClick={ () => this.addTag('Novice') }  style={{ cursor: 'pointer' }}>Novice</Badge>{' '}
-                        <Badge pill variant="warning" onClick={ () => this.addTag('Beginner') }  style={{ cursor: 'pointer' }}>Beginner</Badge>{' '}
-                        <Badge pill variant="warning" onClick={ () => this.addTag('Intermediate') }  style={{ cursor: 'pointer' }}>Intermediate</Badge>{' '}
-                        <Badge pill variant="warning" onClick={ () => this.addTag('Expert') }  style={{ cursor: 'pointer' }}>Expert</Badge>{' '}
-                        <Badge pill variant="warning" onClick={ () => this.addTag('Master') }  style={{ cursor: 'pointer' }}>Master</Badge>{' '}
-                        <Badge pill variant="warning" onClick={ () => this.addTag('Professional') }  style={{ cursor: 'pointer' }}>Professional</Badge>{' '}
+                        <Badge pill variant="warning" onClick={ () => this.addTag('novice') }  style={{ cursor: 'pointer' }}>Novice</Badge>{' '}
+                        <Badge pill variant="warning" onClick={ () => this.addTag('beginner') }  style={{ cursor: 'pointer' }}>Beginner</Badge>{' '}
+                        <Badge pill variant="warning" onClick={ () => this.addTag('intermediate') }  style={{ cursor: 'pointer' }}>Intermediate</Badge>{' '}
+                        <Badge pill variant="warning" onClick={ () => this.addTag('expert') }  style={{ cursor: 'pointer' }}>Expert</Badge>{' '}
+                        <Badge pill variant="warning" onClick={ () => this.addTag('master') }  style={{ cursor: 'pointer' }}>Master</Badge>{' '}
+                        <Badge pill variant="warning" onClick={ () => this.addTag('professional') }  style={{ cursor: 'pointer' }}>Professional</Badge>{' '}
 
                         <p className="mb-0">Genre Preferences:</p>
-                        <Badge pill variant="info" onClick={ () => this.addTag('Jazz') }  style={{ cursor: 'pointer' }}>Jazz</Badge>{' '}
-                        <Badge pill variant="info" onClick={ () => this.addTag('Blues') }  style={{ cursor: 'pointer' }}>Blues</Badge>{' '}
-                        <Badge pill variant="info" onClick={ () => this.addTag('Rock') }  style={{ cursor: 'pointer' }}>Rock</Badge>{' '}
-                        <Badge pill variant="info" onClick={ () => this.addTag('Hard Rock') }  style={{ cursor: 'pointer' }}>Hard Rock</Badge>{' '}
-                        <Badge pill variant="info" onClick={ () => this.addTag('Metal') }  style={{ cursor: 'pointer' }}>Metal</Badge>{' '}
-                        <Badge pill variant="info" onClick={ () => this.addTag('Heavy Metal') }  style={{ cursor: 'pointer' }}>Heavy Metal</Badge>{' '}
+                        <Badge pill variant="info" onClick={ () => this.addTag('jazz') }  style={{ cursor: 'pointer' }}>Jazz</Badge>{' '}
+                        <Badge pill variant="info" onClick={ () => this.addTag('blues') }  style={{ cursor: 'pointer' }}>Blues</Badge>{' '}
+                        <Badge pill variant="info" onClick={ () => this.addTag('rock') }  style={{ cursor: 'pointer' }}>Rock</Badge>{' '}
+                        <Badge pill variant="info" onClick={ () => this.addTag('hardrock') }  style={{ cursor: 'pointer' }}>Hard Rock</Badge>{' '}
+                        <Badge pill variant="info" onClick={ () => this.addTag('metal') }  style={{ cursor: 'pointer' }}>Metal</Badge>{' '}
+                        <Badge pill variant="info" onClick={ () => this.addTag('heavymetal') }  style={{ cursor: 'pointer' }}>Heavy Metal</Badge>{' '}
                     </Form.Group>
 
                     <h5>Applied tags: { this.state.tags.length <= 0 ? "N/A" : this.state.tags.toString() }</h5>
