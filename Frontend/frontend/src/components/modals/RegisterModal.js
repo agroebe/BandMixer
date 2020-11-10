@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { toast, Zoom } from 'react-toastify';
 import './Modal.css'
+import cookie from 'react-cookies'
 
 export default class RegisterModal extends React.Component {
     constructor(props) {
@@ -41,8 +42,6 @@ export default class RegisterModal extends React.Component {
 
         axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users?name=' + this.state.username + '&email=' + this.state.email + '&password=' + this.state.password).then(r => {
             if (r.data.includes('Saved')) {
-                this.close();
-
                 toast.success('Welcome to BandMixer, ' + this.state.username + '!', {
                     position: "top-center",
                     autoClose: 2500,
@@ -56,7 +55,11 @@ export default class RegisterModal extends React.Component {
 
                 this.props.setLoggedIn(true)
                 this.props.setUserId(this.state.username)
-                
+
+                cookie.save('stayLoggedIn', true, { path: '/'})
+                cookie.save('userId', this.state.loginId, { path: '/'})
+
+                this.close();
             } else {
                 this.setState({ response: r.data, responseExists: true })
             }
