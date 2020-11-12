@@ -52,7 +52,8 @@ export default class Home extends React.Component {
                         </Card.Text>
                     </Card.Body>
                     <Card.Footer className="text-center">
-                        <Button href="#">Start searching</Button>
+                        <Button className="mr-2" href="/explore/">Explore posts</Button>
+                        <Button href="/users/">Explore users</Button>
                     </Card.Footer>
                 </Card>
                 <Card>
