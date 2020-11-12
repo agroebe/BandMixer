@@ -25,7 +25,7 @@ export default class User extends React.Component {
                                         <Card className="text-center">
                                             <Card.Img style={{ width: "100%", height: 'auto', display: "inline-block" }} variant="top" src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"></Card.Img>                                        
                                             <Card.Body>
-                                                <Card.Title>{ this.state.user.username }</Card.Title>
+                                                <Card.Title>{ toTitleCase(this.state.user.username) }</Card.Title>
                                                 <Card.Text>User-ID: { this.state.user.id }</Card.Text>
                                             </Card.Body>
                                         </Card>
@@ -39,7 +39,7 @@ export default class User extends React.Component {
                                                         <tbody>
                                                             <tr>
                                                                 <td>Username</td>
-                                                                <td>{ this.state.user.username }</td>
+                                                                <td>{ toTitleCase(this.state.user.username) }</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>User-ID</td>
@@ -58,7 +58,7 @@ export default class User extends React.Component {
                                                         <Card style={{  marginLeft: '5px', marginRight: '5px', marginBottom: '20px', marginTop: '10px' }}>
                                                             <Card.Body>
                                                             <Card.Title>{ value.title }</Card.Title>
-                                                            <Card.Subtitle className="mb-2 text-muted">Posted by <a href={ '/user/' + this.props.match.params.userId }>{ this.state.user.username }</a></Card.Subtitle>
+                                                            <Card.Subtitle className="mb-2 text-muted">Posted by <a href={ '/user/' + this.props.match.params.userId }>{ toTitleCase(this.state.user.username) }</a></Card.Subtitle>
                                                             <Card.Text>
                                                                 { value.textContent }
                                                             </Card.Text>
@@ -82,4 +82,16 @@ export default class User extends React.Component {
             </>
         )
     }
+}
+
+function toTitleCase(str) {
+    if (str == null) {
+        return "Select a location..."
+    }
+    return str.replace(
+      /\w\S*/g,
+      function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }
+    );
 }

@@ -32,7 +32,7 @@ export default class Post extends React.Component {
                             <Card.Body>
                             <Card.Title>{ this.state.post.title }</Card.Title>
                             <Image style={{width: 100, height: 'auto', display: "inline-block"}} src="https://support.hubstaff.com/wp-content/uploads/2019/08/good-pic.png" roundedCircle />
-                            <Card.Subtitle className="mb-2 text-muted">Posted by <a href={ '/user/' + this.state.post.owner.id }>{ this.state.post.owner.username }</a></Card.Subtitle>
+                            <Card.Subtitle className="mb-2 text-muted">Posted by <a href={ '/user/' + this.state.post.owner.id }>{ toTitleCase(this.state.post.owner.username) }</a></Card.Subtitle>
                             <Card.Text>{ this.state.post.textContent }</Card.Text>
                             { this.state.post.contentPath ? (
                                 <Card.Img src={'http://coms-309-cy-01.cs.iastate.edu:8080/files/' + this.state.post.contentPath}></Card.Img>
@@ -60,7 +60,7 @@ export default class Post extends React.Component {
                                 <Card style={{  marginLeft: '5px', marginRight: '5px', marginBottom: '10px', marginTop: '10px' }}>
                                     <Card.Body>
                                     <Card.Title>{ post.title }</Card.Title>
-                                    <Card.Subtitle className="mb-2 text-muted">Posted by <a href={ '/user/' + post.owner.id }>{ post.owner.username }</a></Card.Subtitle>
+                                    <Card.Subtitle className="mb-2 text-muted">Posted by <a href={ '/user/' + post.owner.id }>{ toTitleCase(post.owner.username) }</a></Card.Subtitle>
                                     <Card.Text>
                                         { post.textContent }
                                     </Card.Text>
@@ -76,4 +76,16 @@ export default class Post extends React.Component {
             </>
         )
     }
+}
+
+function toTitleCase(str) {
+    if (str == null) {
+        return "Select a location..."
+    }
+    return str.replace(
+      /\w\S*/g,
+      function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }
+    );
 }

@@ -9,6 +9,7 @@ import AdminPanel from './admin/AdminPanel'
 import NotFoundPage from './routes/NotFoundPage'
 import Footer from './components/Footer'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import Users from './routes/Users';
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
           <Route path='/' exact component={ Home }/>
           <Route path='/results' exact component={ Results }/>
           <Route path='/explore' exact component={ Explore }/>
+          <Route path='/users' exact component={ Users }/>
           <Route path='/admin' exact component={ AdminPanel }/>
           <Route path='/post/:postId' exact component={ Post }/>
           <Route path='/user/:userId' exact component={ User }/>
