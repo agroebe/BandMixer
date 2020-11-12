@@ -1,11 +1,12 @@
 import React from 'react';
 import { Navbar, Button, Dropdown, DropdownButton, Container, Row, Col } from 'react-bootstrap';
-import { Map, Plus } from 'react-bootstrap-icons';
+import { Map, Plus, Search } from 'react-bootstrap-icons';
 import SignInModal from './modals/SignInModal'
 import RegisterModal from './modals/RegisterModal'
 import ProfileModal from './modals/ProfileModal'
 import EditProfileModal from './modals/EditProfileModal'
 import NewPostModal from './modals/NewPostModal'
+import SearchModal from './modals/SearchModal'
 import cookie from 'react-cookies'
 
 const CustomMenu = React.forwardRef(
@@ -59,6 +60,7 @@ export default class NavBar extends React.Component {
 
         this.openSignInModal = this.openSignInModal.bind(this);
         this.openRegisterModal = this.openRegisterModal.bind(this);
+        this.openSearchModal = this.openSearchModal.bind(this);
         this.setLoggedIn = this.setLoggedIn.bind(this);
         this.setUserId = this.setUserId.bind(this);
     }
@@ -80,6 +82,10 @@ export default class NavBar extends React.Component {
         this.signInModal.close();
         this.registerModal.open()
     }
+
+    openSearchModal() {
+      this.searchModal.open();
+  }
 
     setLoggedIn(val) {
       this.setState({
@@ -129,7 +135,11 @@ export default class NavBar extends React.Component {
                         <Button variant="secondary" onClick={ this.openRegisterModal }>Register</Button>
                       </div>
                     )}
-                    
+                    { window.location.pathname === '/' ? (
+                      <></> // This is the home page, so do not render search modal button.
+                    ) : (
+                      <Search onClick={ this.openSearchModal } className="d-inline ml-1" style={{ cursor: 'pointer', color: 'white' }} size='28'></Search>
+                    )}
                 </Navbar.Collapse>
 
                 { /* Modals for registering and signing in. */ }
@@ -138,6 +148,11 @@ export default class NavBar extends React.Component {
                 <ProfileModal ref={ (modal) => { this.profileModal = modal } }/>
                 <EditProfileModal ref={ (modal) => { this.editProfileModal = modal } }/>
                 <NewPostModal ref={ (modal) => {this.newPostModal = modal }} userId={ this.state.userId }/>
+                { window.location.pathname === '/' ? (
+                      <></> // This is the home page, so do not render search modal.
+                    ) : (
+                      <SearchModal ref={ (modal) => { this.searchModal = modal }}></SearchModal>
+                    )}
             </Navbar>
         )
     }

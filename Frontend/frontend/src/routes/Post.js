@@ -34,6 +34,11 @@ export default class Post extends React.Component {
                             <Image style={{width: 100, height: 'auto', display: "inline-block"}} src="https://support.hubstaff.com/wp-content/uploads/2019/08/good-pic.png" roundedCircle />
                             <Card.Subtitle className="mb-2 text-muted">Posted by <a href={ '/user/' + this.state.post.owner.id }>{ this.state.post.owner.username }</a></Card.Subtitle>
                             <Card.Text>{ this.state.post.textContent }</Card.Text>
+                            { this.state.post.contentPath ? (
+                                <Card.Img src={'http://coms-309-cy-01.cs.iastate.edu:8080/files/' + this.state.post.contentPath}></Card.Img>
+                            ) : (
+                                <></>
+                            )}
                             </Card.Body>
                             { Object.keys(this.state.post.tags).length !== 0 ? (
                                     <Card.Footer>
