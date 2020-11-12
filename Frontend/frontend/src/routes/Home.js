@@ -84,7 +84,7 @@ export default class Home extends React.Component {
                         <Card style={{  marginLeft: '5px', marginRight: '5px', marginBottom: '10px', marginTop: '10px' }}>
                             <Card.Body>
                             <Card.Title>{ post.title }</Card.Title>
-                            <Card.Subtitle className="mb-2 text-muted">Posted by <a href={ '/user/' + post.owner.id }>{ post.owner.username }</a></Card.Subtitle>
+                            <Card.Subtitle className="mb-2 text-muted">Posted by <a href={ '/user/' + post.owner.id }>{ toTitleCase(post.owner.username) }</a></Card.Subtitle>
                             <Card.Text>
                                 { post.textContent }
                             </Card.Text>
@@ -103,4 +103,16 @@ export default class Home extends React.Component {
 
         )
     }
+}
+
+function toTitleCase(str) {
+    if (str == null) {
+        return "Select a location..."
+    }
+    return str.replace(
+      /\w\S*/g,
+      function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }
+    );
 }
