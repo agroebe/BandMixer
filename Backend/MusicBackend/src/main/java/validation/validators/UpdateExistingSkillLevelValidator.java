@@ -13,6 +13,13 @@ import com.application.util.BeanUtil;
 
 import validation.annotations.UpdateExistentSkillLevel;
 
+/**
+ * Class to validate a data wrapper for updating a SkillLevel. 
+ * Ensures that SkillLeve being updated exists and is allowed to be updated, 
+ * the new values are valid, and something is actually being changed.
+ * @author Tim Schommer
+ *
+ */
 public class UpdateExistingSkillLevelValidator implements ConstraintValidator<UpdateExistentSkillLevel, Object>
 {
 	@Autowired

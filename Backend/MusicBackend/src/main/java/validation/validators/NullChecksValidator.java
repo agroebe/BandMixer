@@ -12,6 +12,12 @@ import com.application.util.BeanUtil;
 
 import validation.annotations.NullChecks;
 
+/**
+ * Validation class that ensures that the object of the Class to which it is applied,
+ * as well as any indicated fields, are not null.
+ * @author Tim Schommer
+ *
+ */
 public class NullChecksValidator implements ConstraintValidator<NullChecks, Object>
 {
 	private String[] fields;

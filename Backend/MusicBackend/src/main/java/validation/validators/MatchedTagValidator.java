@@ -20,6 +20,14 @@ import com.application.util.BeanUtil;
 
 import validation.annotations.MatchedTag;
 
+/**
+ * Class to validate a data wrapper for updating a Tag. 
+ * Ensures that Tag indicated has already been applied to the Post indicated.
+ * Since the execution depends upon the object at the tag field valid and groups cannot be used
+ * to change the timing of validation cascading, ProgrammaticValidator is used to validate the content of the tag field.
+ * @author Tim Schommer
+ *
+ */
 public class MatchedTagValidator implements ConstraintValidator<MatchedTag, Object>
 {
 	@Autowired

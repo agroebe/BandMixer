@@ -9,6 +9,11 @@ import javax.validation.*;
 
 import validation.validators.ExistentPostValidator;
 
+/**
+ * Annotation indicating that a field is the id of a Post that already exists and should be validated as such.
+ * @author Tim Schommer
+ *
+ */
 @Constraint(validatedBy = ExistentPostValidator.class)
 @Retention(RUNTIME)
 @Target(FIELD)

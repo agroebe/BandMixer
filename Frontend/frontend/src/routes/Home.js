@@ -1,6 +1,7 @@
 import React from 'react';
 import Showcase from '../components/Showcase'
 import axios from 'axios'
+import '../Global.css'
 import { CardDeck, Card, Button } from 'react-bootstrap';
 
 export default class Home extends React.Component {
@@ -51,7 +52,8 @@ export default class Home extends React.Component {
                         </Card.Text>
                     </Card.Body>
                     <Card.Footer className="text-center">
-                        <Button href="#">Start searching</Button>
+                        <Button className="mr-2" href="/explore/">Explore posts</Button>
+                        <Button href="/users/">Explore users</Button>
                     </Card.Footer>
                 </Card>
                 <Card>
@@ -72,26 +74,45 @@ export default class Home extends React.Component {
                 </Card>
                 </CardDeck>
 
-                <br></br><br></br>
+                <br></br><hr className="w-75" style={{ color: "black"}}></hr><br></br>
+
                 <h1 className="text-center">Featured posts:</h1>
                 <p className="text-center">Click <a href="/explore">here</a> to see more.</p>
-                <CardDeck className="mx-auto w-75">
-                { this.state.posts.slice(0, 5).map(post => (
-                    <Card style={{  marginLeft: '5px', marginRight: '5px', marginBottom: '10px', marginTop: '10px' }}>
-                        <Card.Body>
-                        <Card.Title>{ post.title }</Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">Posted by { post.owner.username }</Card.Subtitle>
-                        <Card.Text>
-                            { post.textContent }
-                        </Card.Text>
-                        <Card.Link href="#">View Post</Card.Link>
-                        </Card.Body>
-                    </Card>
-                ))}
-                </CardDeck>
+                { this.state.posts.length > 0 ? (
+                    <CardDeck className="mx-auto w-75">
+                    { this.state.posts.slice(0, 5).map(post => (
+                        <Card style={{  marginLeft: '5px', marginRight: '5px', marginBottom: '10px', marginTop: '10px' }}>
+                            <Card.Body>
+                            <Card.Title>{ post.title }</Card.Title>
+                            <Card.Subtitle className="mb-2 text-muted">Posted by <a href={ '/user/' + post.owner.id }>{ toTitleCase(post.owner.username) }</a></Card.Subtitle>
+                            <Card.Text>
+                                { post.textContent }
+                            </Card.Text>
+                            <Card.Link href={'/post/' + post.id }>View Post</Card.Link>
+                            </Card.Body>
+                        </Card>
+                    ))}
+                    </CardDeck>
+                ) : (
+                    <p className="text-center">Loading posts...</p>
+                )}
+
+                <br></br><hr className="w-75"></hr><br></br>
                 <br></br><br></br>
             </>
 
         )
     }
+}
+
+function toTitleCase(str) {
+    if (str == null) {
+        return "Select a location..."
+    }
+    return str.replace(
+      /\w\S*/g,
+      function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }
+    );
 }

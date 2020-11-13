@@ -20,6 +20,13 @@ import com.application.util.BeanUtil;
 
 import validation.annotations.UpdatedTag;
 
+/**
+ * Class to validate a data wrapper for updating a Tag as it is applied to a Post. 
+ * Ensures that the application of Tag to Post is actually being updated. 
+ * Assumes that the TagApplication object has already been validated by another validator (MatchedTagValidator).
+ * @author Tim Schommer
+ *
+ */
 public class UpdatedTagValidator implements ConstraintValidator<UpdatedTag, Object>
 {
 	@Autowired

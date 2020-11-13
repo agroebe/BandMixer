@@ -1,0 +1,15 @@
+com.application
+com.application.helloworld
+com.application.locations
+com.application.people
+com.application.posts
+com.application.posts.files
+com.application.posts.message
+com.application.searching
+com.application.skill_level
+com.application.tagging
+com.application.util
+validation
+validation.annotations
+validation.ordergroups
+validation.validators

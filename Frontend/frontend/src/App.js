@@ -4,10 +4,12 @@ import Home from './routes/Home'
 import Results from './routes/Results'
 import Explore from './routes/Explore'
 import Post from './routes/Post'
+import User from './routes/User'
 import AdminPanel from './admin/AdminPanel'
 import NotFoundPage from './routes/NotFoundPage'
 import Footer from './components/Footer'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import Users from './routes/Users';
 
 export default function App() {
   return (
@@ -18,21 +20,23 @@ export default function App() {
           <Route path='/' exact component={ Home }/>
           <Route path='/results' exact component={ Results }/>
           <Route path='/explore' exact component={ Explore }/>
+          <Route path='/users' exact component={ Users }/>
           <Route path='/admin' exact component={ AdminPanel }/>
           <Route path='/post/:postId' exact component={ Post }/>
+          <Route path='/user/:userId' exact component={ User }/>
 
-          <Route path='/california' exact component={withProps(Home, { loc: 'california' })}/>
-          <Route path='/florida' exact component={withProps(Home, { loc: 'florida' })}/>
-          <Route path='/georgia' exact component={withProps(Home, { loc: 'georgia' })}/>
-          <Route path='/illinois' exact component={withProps(Home, { loc: 'illinois' })}/>
-          <Route path='/iowa' exact component={withProps(Home, { loc: 'iowa' })}/>
-          <Route path='/michigan' exact component={withProps(Home, { loc: 'michigan' })}/>
-          <Route path='/minnesota' exact component={withProps(Home, { loc: 'minnesota' })}/>
-          <Route path='/new-jersey' exact component={withProps(Home, { loc: 'new jersey' })}/>
-          <Route path='/new-york' exact component={withProps(Home, { loc: 'new york' })}/>
-          <Route path='/pennsylvania' exact component={withProps(Home, { loc: 'pennsylvania' })}/>
-          <Route path='/texas' exact component={withProps(Home, { loc: 'texas' })}/>
-          <Route path='/washington' exact component={withProps(Home, { loc: 'washington' })}/>
+          <Route path='/california' exact component={ withProps(Home, { loc: 'california' }) }/>
+          <Route path='/florida' exact component={ withProps(Home, { loc: 'florida' }) }/>
+          <Route path='/georgia' exact component={ withProps(Home, { loc: 'georgia' }) }/>
+          <Route path='/illinois' exact component={ withProps(Home, { loc: 'illinois' }) }/>
+          <Route path='/iowa' exact component={ withProps(Home, { loc: 'iowa' }) }/>
+          <Route path='/michigan' exact component={ withProps(Home, { loc: 'michigan' }) }/>
+          <Route path='/minnesota' exact component={ withProps(Home, { loc: 'minnesota' }) }/>
+          <Route path='/new-jersey' exact component={ withProps(Home, { loc: 'new jersey' }) }/>
+          <Route path='/new-york' exact component={ withProps(Home, { loc: 'new york' }) }/>
+          <Route path='/pennsylvania' exact component={ withProps(Home, { loc: 'pennsylvania' }) }/>
+          <Route path='/texas' exact component={ withProps(Home, { loc: 'texas' }) }/>
+          <Route path='/washington' exact component={ withProps(Home, { loc: 'washington' }) }/>
 
           <Route path="" component={ NotFoundPage } />
         </Switch>

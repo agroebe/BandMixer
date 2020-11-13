@@ -11,6 +11,11 @@ import javax.validation.Payload;
 
 import validation.validators.NullChecksValidator;
 
+/**
+ * Annotation on a class used to perform all necessary null object/field checks before any other checks occur.
+ * @author Tim Schommer
+ *
+ */
 @Constraint(validatedBy = NullChecksValidator.class)
 @Retention(RUNTIME)
 @Target(TYPE)

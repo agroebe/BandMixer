@@ -11,6 +11,11 @@ import javax.validation.Payload;
 
 import validation.validators.ExistentSkillLevelValidator;
 
+/**
+ * Annotation indicating that a class contains information to identify at SkillLevel that already exists and should be validated as such.
+ * @author Tim Schommer
+ *
+ */
 @Constraint(validatedBy = ExistentSkillLevelValidator.class)
 @Retention(RUNTIME)
 @Target(TYPE)

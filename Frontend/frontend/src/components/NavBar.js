@@ -1,11 +1,13 @@
 import React from 'react';
 import { Navbar, Button, Dropdown, DropdownButton, Container, Row, Col } from 'react-bootstrap';
-import { Map, Plus } from 'react-bootstrap-icons';
+import { Map, Plus, Search } from 'react-bootstrap-icons';
 import SignInModal from './modals/SignInModal'
 import RegisterModal from './modals/RegisterModal'
 import ProfileModal from './modals/ProfileModal'
 import EditProfileModal from './modals/EditProfileModal'
 import NewPostModal from './modals/NewPostModal'
+import SearchModal from './modals/SearchModal'
+import cookie from 'react-cookies'
 
 const CustomMenu = React.forwardRef(
   ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
@@ -18,28 +20,28 @@ const CustomMenu = React.forwardRef(
       >
         <Container>
           <Row>
-          <Col onClick={ () => console.log('hi') }><a href="/california">California</a></Col>
-            <Col onClick={ () => console.log('hi') }><a href="/florida">Florida</a></Col>
+          <Col><a href="/california">California</a></Col>
+            <Col><a href="/florida">Florida</a></Col>
           </Row>
           <Row>
-            <Col onClick={ () => console.log('hi') }><a href="/georgia">Georgia</a></Col>
-            <Col onClick={ () => console.log('hi') }><a href="/illinois">Illinois</a></Col>
+            <Col><a href="/georgia">Georgia</a></Col>
+            <Col><a href="/illinois">Illinois</a></Col>
           </Row>
           <Row>
-            <Col onClick={ () => console.log('hi') }><a href="/iowa">Iowa</a></Col>
-            <Col onClick={ () => console.log('hi') }><a href="/michigan">Michigan</a></Col>
+            <Col><a href="/iowa">Iowa</a></Col>
+            <Col><a href="/michigan">Michigan</a></Col>
           </Row>
           <Row>
-            <Col onClick={ () => console.log('hi') }><a href="/minnesota">Minnesota</a></Col>
-            <Col onClick={ () => console.log('hi') }><a href="/new-jersey">New Jersey</a></Col>
+            <Col><a href="/minnesota">Minnesota</a></Col>
+            <Col><a href="/new-jersey">New Jersey</a></Col>
           </Row>
           <Row>
-            <Col onClick={ () => console.log('hi') }><a href="/new-york">New York</a></Col>
-            <Col onClick={ () => console.log('hi') }><a href="/pennsylvania">Pennsylvania</a></Col>
+            <Col><a href="/new-york">New York</a></Col>
+            <Col><a href="/pennsylvania">Pennsylvania</a></Col>
           </Row>
           <Row>
-            <Col onClick={ () => console.log('hi') }><a href="/texas">Texas</a></Col>
-            <Col onClick={ () => console.log('hi') }><a href="/washington">Washington</a></Col>
+            <Col><a href="/texas">Texas</a></Col>
+            <Col><a href="/washington">Washington</a></Col>
           </Row>
         </Container>
       </div>
@@ -58,8 +60,15 @@ export default class NavBar extends React.Component {
 
         this.openSignInModal = this.openSignInModal.bind(this);
         this.openRegisterModal = this.openRegisterModal.bind(this);
+        this.openSearchModal = this.openSearchModal.bind(this);
         this.setLoggedIn = this.setLoggedIn.bind(this);
         this.setUserId = this.setUserId.bind(this);
+    }
+
+    componentWillMount() {
+      if (cookie.load('stayLoggedIn')) {
+        this.setState({ loggedIn: true, userId: cookie.load('userId')})
+      }
     }
 
     /* This function will be passed in as a prop so it can be opened from the RegisterModal. */
@@ -73,6 +82,10 @@ export default class NavBar extends React.Component {
         this.signInModal.close();
         this.registerModal.open()
     }
+
+    openSearchModal() {
+      this.searchModal.open();
+  }
 
     setLoggedIn(val) {
       this.setState({
@@ -89,7 +102,7 @@ export default class NavBar extends React.Component {
     render() {
         return(
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand>BandMixer</Navbar.Brand>
+                <Navbar.Brand href="/">BandMixer</Navbar.Brand>
                 <Dropdown>
                   <Dropdown.Toggle variant="link">
                     <Map></Map>
@@ -104,8 +117,14 @@ export default class NavBar extends React.Component {
                           <Dropdown.Item onClick={ () => this.profileModal.open() }>View Profile</Dropdown.Item>
                           <Dropdown.Item onClick={ () => this.editProfileModal.open() }>Edit Profile</Dropdown.Item>
                           <Dropdown.Item onClick={ () => {
+                            cookie.remove('stayLoggedIn')
+                            cookie.remove('userId')
+                          } }>Clear Cookies</Dropdown.Item>
+                          <Dropdown.Item onClick={ () => {
                             this.setLoggedIn(false)
                             this.setUserId('')
+                            cookie.remove('stayLoggedIn')
+                            cookie.remove('userId')
                           } }>Logout</Dropdown.Item>
                         </DropdownButton>
                         <Button variant="secondary" className="ml-2" onClick={ () => this.newPostModal.open() }><Plus></Plus></Button>
@@ -115,8 +134,12 @@ export default class NavBar extends React.Component {
                         <Button variant="primary" className="mr-2" onClick={ this.openSignInModal }>Sign In</Button>
                         <Button variant="secondary" onClick={ this.openRegisterModal }>Register</Button>
                       </div>
-                    ) }
-                    
+                    )}
+                    { window.location.pathname === '/' ? (
+                      <></> // This is the home page, so do not render search modal button.
+                    ) : (
+                      <Search onClick={ this.openSearchModal } className="d-inline ml-1" style={{ cursor: 'pointer', color: 'white' }} size='28'></Search>
+                    )}
                 </Navbar.Collapse>
 
                 { /* Modals for registering and signing in. */ }
@@ -125,6 +148,11 @@ export default class NavBar extends React.Component {
                 <ProfileModal ref={ (modal) => { this.profileModal = modal } }/>
                 <EditProfileModal ref={ (modal) => { this.editProfileModal = modal } }/>
                 <NewPostModal ref={ (modal) => {this.newPostModal = modal }} userId={ this.state.userId }/>
+                { window.location.pathname === '/' ? (
+                      <></> // This is the home page, so do not render search modal.
+                    ) : (
+                      <SearchModal ref={ (modal) => { this.searchModal = modal }}></SearchModal>
+                    )}
             </Navbar>
         )
     }

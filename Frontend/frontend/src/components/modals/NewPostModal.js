@@ -10,7 +10,8 @@ export default class NewPostModal extends React.Component {
             title: '',
             text: '',
             show: false,
-            tags: []
+            tags: [],
+            attachment: null
         };
 
         this.close = this.close.bind(this);
@@ -26,20 +27,28 @@ export default class NewPostModal extends React.Component {
     }
 
     submit() {
-
         axios.get('http://coms-309-cy-01.cs.iastate.edu:8080/users/username/' + this.props.userId).then(r => {
             const userId = r.data.id
+
+            const tagApplications = []
+            this.state.tags.forEach(tagName => {
+                tagApplications.push({ tag: tagName })
+            })
+
             const newPost = {
                 ownerId: userId,
                 title: this.state.title,
                 contentType: 'hi',
                 textContent: this.state.text,
                 isSearch: false,
-                applications:  [ { tag: "guitar" } ]
+                applications:  tagApplications
             }
 
             const formData = new FormData()
             formData.append('post', JSON.stringify(newPost))
+            if (this.state.attachment) { // If attachment exists, include it in API request.
+                formData.append('file', this.state.attachment)
+            }
 
             axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users/addPost', formData).then(r => {
                 if (r.data.message.includes('saved')) {
@@ -77,6 +86,8 @@ export default class NewPostModal extends React.Component {
             this.setState({ tags: newArr })
             return
         }
+
+        console.log('in add method, tag = ' + tag)
         
         var joined = this.state.tags.concat(tag)
         this.setState({ tags: joined })
@@ -120,12 +131,14 @@ export default class NewPostModal extends React.Component {
                         <Badge pill variant="info" onClick={ () => this.addTag('jazz') }  style={{ cursor: 'pointer' }}>Jazz</Badge>{' '}
                         <Badge pill variant="info" onClick={ () => this.addTag('blues') }  style={{ cursor: 'pointer' }}>Blues</Badge>{' '}
                         <Badge pill variant="info" onClick={ () => this.addTag('rock') }  style={{ cursor: 'pointer' }}>Rock</Badge>{' '}
-                        <Badge pill variant="info" onClick={ () => this.addTag('hard rock') }  style={{ cursor: 'pointer' }}>Hard Rock</Badge>{' '}
+                        <Badge pill variant="info" onClick={ () => this.addTag('hardrock') }  style={{ cursor: 'pointer' }}>Hard Rock</Badge>{' '}
                         <Badge pill variant="info" onClick={ () => this.addTag('metal') }  style={{ cursor: 'pointer' }}>Metal</Badge>{' '}
-                        <Badge pill variant="info" onClick={ () => this.addTag('heavy metal') }  style={{ cursor: 'pointer' }}>Heavy Metal</Badge>{' '}
+                        <Badge pill variant="info" onClick={ () => this.addTag('heavymetal') }  style={{ cursor: 'pointer' }}>Heavy Metal</Badge>{' '}
                     </Form.Group>
 
-                    <h5>Applied tags: {this.state.tags.toString() }</h5>
+                    <p>Applied tags: { this.state.tags.length <= 0 ? "N/A" : this.state.tags.toString() }</p>
+
+                    <Form.File label="Attachment" onChange={ e => this.setState({ attachment: e.target.files[0] })}></Form.File>
                 </Modal.Body>
 
                 <Modal.Footer>

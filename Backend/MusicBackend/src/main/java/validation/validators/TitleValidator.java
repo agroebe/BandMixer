@@ -5,6 +5,11 @@ import javax.validation.ConstraintValidatorContext;
 
 import validation.annotations.ValidTitle;
 
+/**
+ * Class to validate a String that will serve as a Post title.
+ * @author Tim Schommer
+ *
+ */
 public class TitleValidator implements ConstraintValidator<ValidTitle, String>
 {	
 	public void initialize(ValidTitle constraint)

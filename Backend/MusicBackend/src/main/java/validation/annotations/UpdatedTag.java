@@ -9,6 +9,11 @@ import javax.validation.*;
 
 import validation.validators.UpdatedTagValidator;
 
+/**
+ * Annotation indicating that a class contains information pertaining to the update of an application of a Tag to a Post.
+ * @author Tim Schommer
+ *
+ */
 @Constraint(validatedBy = UpdatedTagValidator.class)
 @Retention(RUNTIME)
 @Target(TYPE)

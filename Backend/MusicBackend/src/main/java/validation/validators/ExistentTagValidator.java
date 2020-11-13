@@ -14,6 +14,11 @@ import com.application.util.BeanUtil;
 
 import validation.annotations.ExistentTag;
 
+/**
+ * Validates a data wrapper for identifying a tag that already exists. Ensures that a Tag with that name exists.
+ * @author Tim Schommer
+ *
+ */
 public class ExistentTagValidator implements ConstraintValidator<ExistentTag, Object>
 {
 	@Autowired

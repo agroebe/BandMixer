@@ -42,7 +42,6 @@ export default class ProfileModal extends Component {
 
     fill(){
       axios.get('http://coms-309-cy-01.cs.iastate.edu:8080/profiles/' + this.state.userID).then(r => {
-          //console.log(r.data)
           this.setState({ username: r.data.username, location: r.data.location, phone: r.data.phoneNumber })
       }
       )   

@@ -6,7 +6,6 @@ import java.util.Set;
 import java.util.Stack;
 
 import javax.validation.Valid;
-import javax.xml.ws.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +18,7 @@ import com.application.View;
 import com.fasterxml.jackson.annotation.JsonView;
 
 /**
- * 
+ * Controller for operations related to SkillLevels.
  * @author Tim Schommer
  *
  */
@@ -34,6 +33,15 @@ public class SkillLevelController
 	@Autowired
 	private AppliedSkillLevelRepository applicationRepo;
 
+	/**
+	 * Adds a new SkillLevel to the database. If another skill level already has the 
+	 * same value as the new one, the values in the database 
+	 * are shifted up until a gap in the values is found.
+	 * @param newLevel
+	 * 		An object containing the data to be used for creating a new skill level.
+	 * @return
+	 * 		Returns a confirmation message indicating the successful addition of the skill level.
+	 */
 	@PostMapping(path="/add", consumes = MediaType.APPLICATION_JSON_VALUE)
 	@CrossOrigin
 	public @ResponseBody String add(@RequestBody @Valid RequestNewSkillLevel newLevel)
@@ -73,6 +81,24 @@ public class SkillLevelController
 		return message;
 	}
 
+	/**
+	 * Removes the SkillLevel indicated by the given RequestSkillLevel from the 
+	 * Database and performs any necessary refactoring of Tag-Skill applications.
+	 * For any given Tag-Skill  application that the skill level to be removed is part of, 
+	 * if a SkillLevel with a value higher than the one being removed exists and
+	 * either a) no skill level with a value lower than that of the one being removed
+	 * exists or b) the application is a bounded application and it is lower bounded,
+	 * then that application is assigned the skill level with the closest value above that of the one being removed.
+	 * Otherwise, if a skill level with a value below that of the skill level being removed exists, 
+	 * then the application is assigned the skill level with the closest value below that of the one being removed.
+	 * If no skill levels exist with values either above or below that of the one being removed, then the application is removed altogether.
+	 * 
+	 * @param level
+	 * 		An object containing the information on which skill level to remove.
+	 * @return
+	 * 		Returns a message confirming the successful removal of the skill level
+	 * 		and indicating what type of refactoring was performed.
+	 */
 	@PostMapping(path="/remove")
 	@CrossOrigin
 	public @ResponseBody String remove(@RequestBody @Valid RequestSkillLevel level)
@@ -117,6 +143,12 @@ public class SkillLevelController
 		}
 	}
 
+	/**
+	 * Shifts the values of all the skill levels down so that they start from 0
+	 * and count up by increments of 1. Maintains original ordering.
+	 * @return
+	 * 		Returns a confirmation message.
+	 */
 	@PostMapping(path="/reorder")
 	@CrossOrigin
 	public @ResponseBody String reorder()
@@ -132,6 +164,16 @@ public class SkillLevelController
 		return "Successfully reordered.";
 	}
 
+	/**
+	 * Updates the skill level indicated by the input object in the way 
+	 * indicated by the input object. Shifts other values up or down if necessary.
+	 * 
+	 * @param level
+	 * 		An object containing the information needed to indicate which SkillLevel
+	 * 		to update and how to update it.
+	 * @return
+	 * 		Returns a confirmation message.
+	 */
 	@PostMapping(path="/update")
 	@CrossOrigin
 	public @ResponseBody String update(@RequestBody @Valid RequestSkillLevelUpdate level)
@@ -191,6 +233,13 @@ public class SkillLevelController
 		return "Skill level " + level.getName() + " successfully updated.";
 	}
 
+	/**
+	 * Returns the SkillLevel with the name indicated by the given input object.
+	 * @param level
+	 * 		An object containing the name of the SkillLevel to return.
+	 * @return
+	 * 		The SkillLevel with the name indicated by the given input.
+	 */
 	@JsonView(View.SkillLevelView.class)
 	@GetMapping(path="/get")
 	@CrossOrigin
@@ -199,6 +248,11 @@ public class SkillLevelController
 		return repo.findByName(level.getName()).get();
 	}
 
+	/**
+	 * Returns the list of all SkillLevels.
+	 * @return
+	 * 		The list of all SkillLevels.
+	 */
 	@JsonView(View.SkillLevelView.class)
 	@GetMapping(path="/all")
 	@CrossOrigin

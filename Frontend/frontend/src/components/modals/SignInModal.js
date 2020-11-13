@@ -4,6 +4,7 @@ import axios from 'axios';
 import { ToastContainer, toast, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './Modal.css'
+import cookie from 'react-cookies'
 
 export default class SignInModal extends Component {
     constructor(props) {
@@ -44,6 +45,9 @@ export default class SignInModal extends Component {
     
                 this.props.setLoggedIn(true)
                 this.props.setUserId(this.state.loginId)
+
+                cookie.save('stayLoggedIn', true, { path: '/'})
+                cookie.save('userId', this.state.loginId, { path: '/'})
     
                 this.close();
             } else {

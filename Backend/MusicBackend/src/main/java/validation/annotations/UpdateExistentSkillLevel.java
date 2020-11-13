@@ -11,6 +11,12 @@ import javax.validation.Payload;
 
 import validation.validators.UpdateExistingSkillLevelValidator;
 
+/**
+ * Annotation indicating that a class should be considered to contain information for updating a SkillLevel
+ * and should be validated accordingly.
+ * @author Tim Schommer
+ *
+ */
 @Constraint(validatedBy = UpdateExistingSkillLevelValidator.class)
 @Retention(RUNTIME)
 @Target(TYPE)

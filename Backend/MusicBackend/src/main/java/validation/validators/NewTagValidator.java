@@ -14,6 +14,12 @@ import com.application.util.BeanUtil;
 
 import validation.annotations.NewTag;
 
+/**
+ * Validates a data wrapper for creating a new Tag. Ensures that the name is valid and that a Tag with that name 
+ * does not already exist.
+ * @author Tim Schommer
+ *
+ */
 public class NewTagValidator implements ConstraintValidator<NewTag, Object>
 {
 	@Autowired

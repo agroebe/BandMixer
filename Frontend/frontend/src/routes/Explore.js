@@ -18,7 +18,7 @@ export default class Explore extends React.Component {
 
     render() {
         if (this.state.posts.length === 0) {
-            return <div>No posts found...</div>
+            return <div className="text-center">No posts found...</div>
         }
 
         var posts = this.state.posts
@@ -28,15 +28,14 @@ export default class Explore extends React.Component {
             <h1 className="text-center">{ posts.length } total posts found...</h1>
             { posts.map(post => (
                 <>
-                { console.log(post) }
                 <Card style={{ width: '60rem', marginLeft: 'auto', marginRight: 'auto', marginBottom: '10px', marginTop: '10px' }}>
                     <Card.Body>
                     <Card.Title>{ post.title }</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">Posted by { post.owner.username }</Card.Subtitle>
+                    <Card.Subtitle className="mb-2 text-muted">Posted by <a href={ '/user/' + post.owner.id }>{ toTitleCase(post.owner.username) }</a></Card.Subtitle>
                     <Card.Text>
                         { post.textContent }
                     </Card.Text>
-                    <Card.Link href="#">View Post</Card.Link>
+                    <Card.Link href={'/post/' + post.id }>View Post</Card.Link>
                     </Card.Body>
               </Card>
               </>
@@ -45,4 +44,16 @@ export default class Explore extends React.Component {
             
         )
     }
+}
+
+function toTitleCase(str) {
+    if (str == null) {
+        return "Select a location..."
+    }
+    return str.replace(
+      /\w\S*/g,
+      function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }
+    );
 }

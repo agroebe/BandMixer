@@ -13,6 +13,11 @@ import com.application.util.BeanUtil;
 
 import validation.annotations.ExistentSkillLevel;
 
+/**
+ * Validates a data wrapper for identifying a skill level that already exists. Ensures that a SkillLevel with that name exists.
+ * @author Tim Schommer
+ *
+ */
 public class ExistentSkillLevelValidator implements ConstraintValidator<ExistentSkillLevel, Object>
 {
 	@Autowired

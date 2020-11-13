@@ -20,6 +20,11 @@ import com.application.util.BeanUtil;
 
 import validation.annotations.UnmatchedTag;
 
+/**
+ * Class to validate a data wrapper and ensure that the given Tag has not yet been applied to the given Post.
+ * @author Tim Schommer
+ *
+ */
 public class UnmatchedTagValidator implements ConstraintValidator<UnmatchedTag, Object>
 {
 	@Autowired

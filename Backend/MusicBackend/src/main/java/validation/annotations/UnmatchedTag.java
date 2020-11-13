@@ -9,6 +9,11 @@ import javax.validation.*;
 
 import validation.validators.UnmatchedTagValidator;
 
+/**
+ * Annotation indicating that a class contains information about a Tag that should not be already applied to a particular Tag.
+ * @author Tim Schommer
+ *
+ */
 @Constraint(validatedBy = UnmatchedTagValidator.class)
 @Retention(RUNTIME)
 @Target(TYPE)
