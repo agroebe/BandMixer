@@ -1,4 +1,4 @@
-package com.application.searching;
+package com.application.searching.criteriaLayer;
 
 
 import javax.persistence.criteria.CriteriaBuilder;

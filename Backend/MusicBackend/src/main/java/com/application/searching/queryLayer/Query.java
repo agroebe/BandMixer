@@ -1,7 +1,9 @@
-package com.application.searching;
+package com.application.searching.queryLayer;
 
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Subquery;
+
+import com.application.searching.criteriaLayer.RootHandler;
 
 public abstract class Query<T>
 {

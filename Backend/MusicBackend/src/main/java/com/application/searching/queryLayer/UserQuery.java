@@ -1,7 +1,8 @@
-package com.application.searching;
+package com.application.searching.queryLayer;
 
 
 import com.application.people.User;
+import com.application.searching.criteriaLayer.RootHandler;
 
 public class UserQuery extends Query<User> 
 {

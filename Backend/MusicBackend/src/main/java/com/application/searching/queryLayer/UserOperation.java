@@ -1,6 +1,9 @@
-package com.application.searching;
+package com.application.searching.queryLayer;
 
 import com.application.people.User;
+import com.application.searching.criteriaLayer.QueryClass;
+import com.application.searching.criteriaLayer.RootHandler;
+import com.application.searching.criteriaLayer.SearchOperation;
 
 public class UserOperation extends QueryOperationPart<User>
 {

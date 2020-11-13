@@ -9,6 +9,9 @@ import com.application.people.User;
 import com.application.people.UserRepository;
 import com.application.posts.Post;
 import com.application.posts.PostRepository;
+import com.application.searching.criteriaLayer.RootHandler;
+import com.application.searching.inputLayer.MappedQuery;
+import com.application.searching.queryLayer.Query;
 import com.application.skill_level.AppliedSkillLevelRepository;
 import com.application.skill_level.SkillLevelRepository;
 import com.application.tagging.TagRepository;
@@ -37,7 +40,7 @@ public class QueryService
 	
 	public <T> List<T> executeQuery(MappedQuery<T> query)
 	{
-		Query<T> q = query.map();
+		Query<T> q = query.firstmap(this);
 		List<T> results = q.getHandler().getManager().createQuery(q.generate()).getResultList();
 		return results;
 	}

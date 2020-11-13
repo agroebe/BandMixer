@@ -1,4 +1,7 @@
-package com.application.searching;
+package com.application.searching.queryLayer;
+
+import com.application.searching.criteriaLayer.RootHandler;
+import com.application.searching.criteriaLayer.SearchOperator;
 
 public class NotPart<T> extends QueryOperatorPart<T> {
 

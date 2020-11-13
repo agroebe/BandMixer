@@ -1,6 +1,11 @@
-package com.application.searching;
+package com.application.searching.queryLayer;
 
 import java.util.ArrayList;
+
+import com.application.searching.criteriaLayer.CompositeSearchCriteria;
+import com.application.searching.criteriaLayer.RootHandler;
+import com.application.searching.criteriaLayer.SearchCriteria;
+import com.application.searching.criteriaLayer.SearchOperator;
 
 public class QueryOperatorPart<T> extends BasicQueryPart<T> 
 {

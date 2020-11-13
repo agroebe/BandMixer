@@ -1,6 +1,11 @@
-package com.application.searching;
+package com.application.searching.queryLayer;
 
 import com.application.posts.Post;
+import com.application.searching.criteriaLayer.BasicSearchCriteria;
+import com.application.searching.criteriaLayer.QueryClass;
+import com.application.searching.criteriaLayer.RootHandler;
+import com.application.searching.criteriaLayer.SearchCriteria;
+import com.application.searching.criteriaLayer.SearchOperation;
 
 public class Subquery extends QueryPart<Post>
 {

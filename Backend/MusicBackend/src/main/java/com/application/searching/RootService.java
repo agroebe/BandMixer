@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 
 import com.application.people.User;
 import com.application.posts.Post;
+import com.application.searching.criteriaLayer.PostRootHandler;
+import com.application.searching.criteriaLayer.RootHandler;
+import com.application.searching.criteriaLayer.UserRootHandler;
 
 @Service
 public class RootService 
