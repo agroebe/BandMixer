@@ -3,15 +3,15 @@ package com.application.searching.queryLayer;
 import com.application.searching.criteriaLayer.RootHandler;
 import com.application.searching.criteriaLayer.SearchCriteria;
 
-public abstract class QueryPart<T> 
+public abstract class QueryPart<R> 
 {
-	protected RootHandler<T> handler;
+	protected RootHandler<R> handler;
 	
-	protected QueryPart(RootHandler<T> handler)
+	protected QueryPart(RootHandler<R> handler)
 	{
 		this.handler = handler;
 	}
-	public abstract SearchCriteria<T> generate();
+	public abstract SearchCriteria<R> generate();
 	
-	public RootHandler<T> getHandler(){return handler;}
+	public RootHandler<R> getHandler(){return handler;}
 }

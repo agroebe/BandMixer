@@ -6,7 +6,7 @@ import com.application.searching.criteriaLayer.RootHandler;
 import com.application.searching.criteriaLayer.SearchCriteria;
 import com.application.searching.criteriaLayer.SearchOperation;
 
-public class QueryOperationPart<T> extends BasicQueryPart<T> 
+public class QueryOperationPart<T> extends QueryPart<T> 
 {
 	private QueryClass cls;
 	private SearchOperation operation;

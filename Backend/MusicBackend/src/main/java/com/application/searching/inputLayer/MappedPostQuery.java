@@ -2,21 +2,17 @@ package com.application.searching.inputLayer;
 
 import com.application.posts.Post;
 import com.application.searching.QueryService;
-import com.application.searching.criteriaLayer.RootHandler;
-import com.application.searching.queryLayer.Query;
+import com.application.searching.queryLayer.PostQuery;
 
-public class MappedPostQuery implements MappedQuery<Post> {
-
+public class MappedPostQuery extends MappedQuery<Post> 
+{
+	private MappedPostPart base;
+	
 	@Override
-	public Query<Post> map(RootHandler<Post> handler, QueryService service) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Query<Post> firstmap(QueryService service) 
+	public PostQuery firstmap(QueryService service) 
 	{
-		return map(service.getPostHandler(),service);
+		//TODO
+		return null;
 	}
 
 }

@@ -3,21 +3,34 @@ package com.application.searching.queryLayer;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Subquery;
 
+import com.application.people.User;
 import com.application.searching.criteriaLayer.RootHandler;
 
-public abstract class Query<T>
+public abstract class MySubquery<R> 
 {
-	protected QueryPart<T> child;
-	protected RootHandler<T> handler;
+	protected QueryPart<R> child;
+	protected RootHandler<R> handler;
 	
-	protected Query(RootHandler<T> handler)
+	protected MySubquery(RootHandler<R> handler)
 	{
 		this.handler = handler;
 	}
 	
-	public CriteriaQuery<T> generate()
+	
+	
+	public void setChild(QueryPart<R> c)
 	{
-		CriteriaQuery<T> cq = (CriteriaQuery<T>) handler.getQuery();
+		child = c;
+	}
+	
+	public RootHandler<R> getHandler()
+	{
+		return handler;
+	}
+	
+	public Subquery<R> formulate()
+	{
+		Subquery<R> cq =  (Subquery<R>) handler.getQuery();
 		if(child != null)
 		{
 			cq.select(handler.getRoot()).distinct(true).where(child.generate().getPredicate());
@@ -27,17 +40,5 @@ public abstract class Query<T>
 			cq.select(handler.getRoot()).distinct(true);
 		}
 		return cq;
-	}
-	
-	
-	
-	public void setChild(QueryPart<T> c)
-	{
-		child = c;
-	}
-	
-	public RootHandler<T> getHandler()
-	{
-		return handler;
 	}
 }

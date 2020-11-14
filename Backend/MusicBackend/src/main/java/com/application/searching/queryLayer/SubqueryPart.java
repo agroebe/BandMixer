@@ -7,23 +7,26 @@ import com.application.searching.criteriaLayer.RootHandler;
 import com.application.searching.criteriaLayer.SearchCriteria;
 import com.application.searching.criteriaLayer.SearchOperation;
 
-public class Subquery extends QueryPart<Post>
-{
+public abstract class SubqueryPart<R,F> extends QueryPart<R> {
+
+	private MySubquery<F> child;
+	private String field;
+	private QueryClass cls;
 	
-	private UserQuery child;
-	
-	public Subquery(RootHandler<Post> handler) {
+	protected SubqueryPart(RootHandler<R> handler, String field, QueryClass cls) 
+	{
 		super(handler);
+		this.field = field;
+		this.cls = cls;
 	}
-	
-	public void setChild(UserQuery c)
+
+	public void setChild(MySubquery<F> c)
 	{
 		child = c;
 	}
 
 	@Override
-	public SearchCriteria<Post> generate() {
-		return new BasicSearchCriteria<Post>("owner",child.formulate(),SearchOperation.IN,QueryClass.ePost, handler);
+	public SearchCriteria<R> generate() {
+		return new BasicSearchCriteria<R>(field,child.formulate(),SearchOperation.IN,cls, handler);
 	}
-
 }

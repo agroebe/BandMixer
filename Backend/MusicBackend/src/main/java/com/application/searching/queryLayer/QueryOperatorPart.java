@@ -7,28 +7,28 @@ import com.application.searching.criteriaLayer.RootHandler;
 import com.application.searching.criteriaLayer.SearchCriteria;
 import com.application.searching.criteriaLayer.SearchOperator;
 
-public class QueryOperatorPart<T> extends BasicQueryPart<T> 
+public class QueryOperatorPart<R> extends QueryPart<R> 
 {
 	private SearchOperator operator;
-	protected ArrayList<QueryPart<T>> children;
+	protected ArrayList<QueryPart<R>> children;
 	
-	public QueryOperatorPart(RootHandler<T> handler, SearchOperator op) 
+	public QueryOperatorPart(RootHandler<R> handler, SearchOperator op) 
 	{
 		super(handler);
 		operator = op;
 		children = new ArrayList<>();
 	}
 	
-	public void addChild(QueryPart<T> child)
+	public void addChild(QueryPart<R> child)
 	{
 		children.add(child);
 	}
 
 	@Override
-	public SearchCriteria<T> generate() 
+	public SearchCriteria<R> generate() 
 	{
-		CompositeSearchCriteria<T> ret = new CompositeSearchCriteria<T>(operator, handler);
-		for(QueryPart<T> part : children)
+		CompositeSearchCriteria<R> ret = new CompositeSearchCriteria<R>(operator, handler);
+		for(QueryPart<R> part : children)
 		{
 			ret.addChild(part.generate());
 		}

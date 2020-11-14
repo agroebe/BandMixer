@@ -1,16 +1,14 @@
 package com.application.searching.queryLayer;
 
-
-import javax.persistence.criteria.Subquery;
-
 import com.application.people.User;
 import com.application.posts.Post;
 import com.application.searching.criteriaLayer.RootHandler;
+import com.application.searching.criteriaLayer.UserRootHandler;
 
-public class UserQuery extends Query<User>
+public class UserSubquery extends MySubquery<User>
 {
-	public UserQuery(RootHandler<User> handler) {
+	public UserSubquery(UserRootHandler handler) {
 		super(handler);
 	}
-	
+
 }
