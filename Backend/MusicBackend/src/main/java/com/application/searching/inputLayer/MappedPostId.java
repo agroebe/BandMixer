@@ -5,7 +5,6 @@ import javax.validation.constraints.NotNull;
 import com.application.posts.Post;
 import com.application.searching.QueryService;
 import com.application.searching.criteriaLayer.PostRootHandler;
-import com.application.searching.criteriaLayer.SubPostRootHandler;
 import com.application.searching.queryLayer.QueryPart;
 
 public class MappedPostId extends MappedPostPart {

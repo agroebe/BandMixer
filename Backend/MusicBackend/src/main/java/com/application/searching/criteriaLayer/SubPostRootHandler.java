@@ -14,9 +14,6 @@ import javax.persistence.metamodel.EntityType;
 import com.application.people.Profile;
 import com.application.people.User;
 import com.application.posts.Post;
-import com.application.skill_level.AppliedSkillLevel;
-import com.application.skill_level.SkillLevel;
-import com.application.tagging.Tag;
 
 public class SubPostRootHandler implements RootHandler<Long>
 {

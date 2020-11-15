@@ -1,9 +1,7 @@
 package com.application.searching.queryLayer;
 
-import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Subquery;
 
-import com.application.people.User;
 import com.application.searching.criteriaLayer.RootHandler;
 
 public abstract class MySubquery<R> 

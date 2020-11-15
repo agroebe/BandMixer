@@ -1,6 +1,5 @@
 package com.application.searching.queryLayer;
 
-import com.application.posts.Post;
 import com.application.searching.criteriaLayer.BasicSearchCriteria;
 import com.application.searching.criteriaLayer.QueryClass;
 import com.application.searching.criteriaLayer.RootHandler;

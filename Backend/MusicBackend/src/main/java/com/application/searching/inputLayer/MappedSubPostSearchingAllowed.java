@@ -2,9 +2,7 @@ package com.application.searching.inputLayer;
 
 import javax.validation.constraints.NotNull;
 
-import com.application.posts.Post;
 import com.application.searching.QueryService;
-import com.application.searching.criteriaLayer.PostRootHandler;
 import com.application.searching.criteriaLayer.QueryClass;
 import com.application.searching.criteriaLayer.SearchOperation;
 import com.application.searching.criteriaLayer.SearchOperator;

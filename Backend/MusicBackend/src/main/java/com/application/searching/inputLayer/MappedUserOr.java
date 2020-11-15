@@ -5,37 +5,39 @@ import java.util.List;
 
 import javax.validation.constraints.NotEmpty;
 
-import com.application.posts.Post;
+import com.application.people.User;
 import com.application.searching.QueryService;
-import com.application.searching.criteriaLayer.PostRootHandler;
 import com.application.searching.criteriaLayer.SearchOperator;
+import com.application.searching.criteriaLayer.UserRootHandler;
 import com.application.searching.queryLayer.QueryOperatorPart;
 import com.application.searching.queryLayer.QueryPart;
 
-public class MappedPostAnd extends MappedPostPart 
+public class MappedUserOr extends MappedUserPart
 {
+
 	@NotEmpty
-	private List<MappedPostPart> children;
+	private List<MappedUserPart> children;
 	
-	public MappedPostAnd()
+	public MappedUserOr()
 	{
 		children = new ArrayList<>();
 	}
 	
-	public List<MappedPostPart> getChildren(){return children;}
+	public List<MappedUserPart> getChildren(){return children;}
 	
-	public void setChildren(List<MappedPostPart> children) 
+	public void setChildren(List<MappedUserPart> children) 
 	{
 		this.children = (children == null ? new ArrayList<>() : children);
 	}
 	
 	@Override
-	public QueryPart<Post> map(PostRootHandler handler, QueryService service) {
-		QueryOperatorPart<Post> ret= new QueryOperatorPart<>(handler,SearchOperator.AND);
-		for(MappedPostPart p : children)
+	public QueryPart<User> map(UserRootHandler handler, QueryService service) {
+		QueryOperatorPart<User> ret= new QueryOperatorPart<>(handler,SearchOperator.OR);
+		for(MappedUserPart p : children)
 		{
 			ret.addChild(p.map(handler, service));
 		}
 		return ret;
 	}
+
 }

@@ -8,7 +8,6 @@ import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 
 import com.application.people.User;
-import com.application.posts.Post;
 
 public class UserRootHandler implements RootHandler<User>
 {

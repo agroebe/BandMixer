@@ -9,7 +9,7 @@ public class UserSubqueryPart extends SubqueryPart<Post, User>
 {
 
 
-	protected UserSubqueryPart(RootHandler<Post> handler) {
+	public UserSubqueryPart(RootHandler<Post> handler) {
 		super(handler, "owner", QueryClass.ePost);
 	}
 

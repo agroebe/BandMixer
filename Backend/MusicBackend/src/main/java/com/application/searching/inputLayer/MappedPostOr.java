@@ -12,12 +12,12 @@ import com.application.searching.criteriaLayer.SearchOperator;
 import com.application.searching.queryLayer.QueryOperatorPart;
 import com.application.searching.queryLayer.QueryPart;
 
-public class MappedPostAnd extends MappedPostPart 
+public class MappedPostOr extends MappedPostPart 
 {
 	@NotEmpty
 	private List<MappedPostPart> children;
 	
-	public MappedPostAnd()
+	public MappedPostOr()
 	{
 		children = new ArrayList<>();
 	}
@@ -31,7 +31,7 @@ public class MappedPostAnd extends MappedPostPart
 	
 	@Override
 	public QueryPart<Post> map(PostRootHandler handler, QueryService service) {
-		QueryOperatorPart<Post> ret= new QueryOperatorPart<>(handler,SearchOperator.AND);
+		QueryOperatorPart<Post> ret= new QueryOperatorPart<>(handler,SearchOperator.OR);
 		for(MappedPostPart p : children)
 		{
 			ret.addChild(p.map(handler, service));

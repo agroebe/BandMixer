@@ -5,7 +5,6 @@ import javax.persistence.criteria.AbstractQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.From;
 import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Root;
 
 public interface RootHandler<T> 
 {

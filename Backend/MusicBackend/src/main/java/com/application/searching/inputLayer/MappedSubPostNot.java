@@ -8,16 +8,16 @@ import com.application.searching.criteriaLayer.SubPostRootHandler;
 import com.application.searching.queryLayer.QueryOperatorPart;
 import com.application.searching.queryLayer.QueryPart;
 
-public class ProfileNot extends MappedProfilePart
-{
+public class MappedSubPostNot extends MappedSubPostPart {
+
 	@NotNull
-	MappedProfilePart child;
+	MappedSubPostPart child;
 	
-	public ProfileNot(){}
+	public MappedSubPostNot(){}
 	
-	public MappedProfilePart getChild(){return child;}
+	public MappedSubPostPart getChild(){return child;}
 	
-	public void setChild(MappedProfilePart child) 
+	public void setChild(MappedSubPostPart child) 
 	{
 		this.child = child;
 	}
@@ -29,5 +29,5 @@ public class ProfileNot extends MappedProfilePart
 		ret.addChild(child.map(handler, service));
 		return null;
 	}
-	
+
 }
