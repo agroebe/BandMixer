@@ -10,7 +10,9 @@ import com.application.searching.criteriaLayer.SearchOperator;
 import com.application.searching.criteriaLayer.SubPostRootHandler;
 import com.application.searching.queryLayer.QueryOperatorPart;
 import com.application.searching.queryLayer.QueryPart;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+@JsonTypeName("and")
 public class ProfileAnd extends MappedProfilePart 
 {
 	@NotEmpty

@@ -6,7 +6,9 @@ import com.application.posts.Post;
 import com.application.searching.QueryService;
 import com.application.searching.criteriaLayer.PostRootHandler;
 import com.application.searching.queryLayer.QueryPart;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+@JsonTypeName("id")
 public class MappedPostId extends MappedPostPart {
 
 	@NotNull

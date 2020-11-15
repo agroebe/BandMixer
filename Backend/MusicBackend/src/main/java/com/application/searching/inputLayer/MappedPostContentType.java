@@ -4,7 +4,9 @@ import com.application.posts.Post;
 import com.application.searching.QueryService;
 import com.application.searching.criteriaLayer.PostRootHandler;
 import com.application.searching.queryLayer.QueryPart;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+@JsonTypeName("contentType")
 public class MappedPostContentType extends MappedPostPart {
 
 	String type;

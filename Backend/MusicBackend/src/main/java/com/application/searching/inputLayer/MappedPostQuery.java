@@ -6,7 +6,9 @@ import com.application.posts.Post;
 import com.application.searching.QueryService;
 import com.application.searching.criteriaLayer.PostRootHandler;
 import com.application.searching.queryLayer.PostQuery;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+@JsonTypeName("post")
 public class MappedPostQuery extends MappedQuery<Post> 
 {
 	@NotNull

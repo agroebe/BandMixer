@@ -6,7 +6,9 @@ import com.application.people.User;
 import com.application.searching.QueryService;
 import com.application.searching.criteriaLayer.UserRootHandler;
 import com.application.searching.queryLayer.UserQuery;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+@JsonTypeName("user")
 public class MappedUserQuery extends MappedQuery<User>
 {
 	@NotNull

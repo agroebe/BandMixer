@@ -5,7 +5,9 @@ import javax.validation.constraints.NotNull;
 import com.application.searching.QueryService;
 import com.application.searching.criteriaLayer.SubPostRootHandler;
 import com.application.searching.queryLayer.QueryPart;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+@JsonTypeName("id")
 public class MappedSubPostId extends MappedSubPostPart 
 {
 	@NotNull

@@ -15,10 +15,11 @@ import com.application.searching.queryLayer.QueryOperatorPart;
 import com.application.searching.queryLayer.QueryPart;
 import com.application.skill_level.SkillLevel;
 import com.application.tagging.Tag;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+@JsonTypeName("application")
 public class MappedApplication2 extends MappedSubPostPart 
 {
-
 	private String tag;
 	private String operation;
 	private String skill;

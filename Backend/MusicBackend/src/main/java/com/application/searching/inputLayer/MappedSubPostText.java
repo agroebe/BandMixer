@@ -3,7 +3,9 @@ package com.application.searching.inputLayer;
 import com.application.searching.QueryService;
 import com.application.searching.criteriaLayer.SubPostRootHandler;
 import com.application.searching.queryLayer.QueryPart;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+@JsonTypeName("textContent")
 public class MappedSubPostText extends MappedSubPostPart {
 
 	private String text;

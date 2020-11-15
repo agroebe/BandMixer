@@ -8,7 +8,9 @@ import com.application.searching.criteriaLayer.PostRootHandler;
 import com.application.searching.criteriaLayer.SearchOperator;
 import com.application.searching.queryLayer.QueryOperatorPart;
 import com.application.searching.queryLayer.QueryPart;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+@JsonTypeName("not")
 public class MappedPostNot extends MappedPostPart
 {
 	@NotNull

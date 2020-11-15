@@ -14,7 +14,9 @@ import com.application.searching.queryLayer.PostSubqueryPart;
 import com.application.searching.queryLayer.QueryOperationPart;
 import com.application.searching.queryLayer.QueryOperatorPart;
 import com.application.searching.queryLayer.QueryPart;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+@JsonTypeName("has")
 public class MappedProfileQuery extends MappedUserPart 
 {
 	@NotNull

@@ -9,7 +9,9 @@ import com.application.searching.criteriaLayer.UserRootHandler;
 import com.application.searching.queryLayer.PostSubquery;
 import com.application.searching.queryLayer.PostSubqueryPart;
 import com.application.searching.queryLayer.QueryPart;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+@JsonTypeName("post")
 public class MappedSubPost extends MappedUserPart 
 {
 	@NotNull
