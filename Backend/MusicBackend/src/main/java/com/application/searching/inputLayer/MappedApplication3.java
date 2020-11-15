@@ -16,14 +16,14 @@ import com.application.searching.queryLayer.QueryPart;
 import com.application.skill_level.SkillLevel;
 import com.application.tagging.Tag;
 
-public class MappedApplication2 extends MappedSubPostPart 
+public class MappedApplication3 extends MappedProfilePart 
 {
 
 	private String tag;
 	private String operation;
 	private String skill;
 	
-	public MappedApplication2()
+	public MappedApplication3()
 	{
 		tag = "";
 		operation = "equal";
@@ -119,36 +119,11 @@ public class MappedApplication2 extends MappedSubPostPart
 						throw new IllegalArgumentException("Illegal argument for skill level comparison.");
 					}
 				}
-				child = new QueryOperatorPart<>(h, SearchOperator.OR);
-				QueryOperatorPart<Long> basic= new QueryOperatorPart<>(h, SearchOperator.AND);
+				child = new QueryOperatorPart<>(h, SearchOperator.AND);
 				QueryOperationPart<Long> p = new QueryOperationPart<>(h,QueryClass.eTag,SearchOperation.EQUAL,"name",tag);
-				basic.addChild(p);
+				((QueryOperatorPart<Long>)child).addChild(p);
 				p = new QueryOperationPart<>(h,QueryClass.eSkill,op,"value",sk.getValue());
-				basic.addChild(p);
-				((QueryOperatorPart<Long>)child).addChild(basic);
-				
-				QueryOperationPart<Long> bounded1 = new QueryOperationPart<>(h,QueryClass.eAppliedSkill,SearchOperation.NOT_EQUAL,
-						"isBounded",(Integer)0);
-				QueryOperationPart<Long> bounded2 = new QueryOperationPart<>(h,QueryClass.eAppliedSkill,SearchOperation.NOT_EQUAL,
-						"isBounded",(Integer)0);
-				QueryOperationPart<Long> lower = new QueryOperationPart<>(h,QueryClass.eAppliedSkill,SearchOperation.NOT_EQUAL,
-						"isLowerBound",(Integer)0);
-				QueryOperationPart<Long> upper = new QueryOperationPart<>(h,QueryClass.eAppliedSkill,SearchOperation.EQUAL,
-						"isLowerBound",(Integer)0);
-				QueryOperatorPart<Long> lowerBounded = new QueryOperatorPart<>(h,SearchOperator.AND);
-				lowerBounded.addChild(bounded1);
-				lowerBounded.addChild(lower);
-				QueryOperatorPart<Long> upperBounded = new QueryOperatorPart<>(h,SearchOperator.AND);
-				upperBounded.addChild(bounded2);
-				upperBounded.addChild(upper);
-				QueryOperationPart<Long> seenByLower = new QueryOperationPart<>(h,QueryClass.eSkill,
-						SearchOperation.LESS_THAN_EQUAL,"value",sk.getValue());
-				QueryOperationPart<Long> seenByUpper = new QueryOperationPart<>(h,QueryClass.eSkill,
-						SearchOperation.GREATER_THAN_EQUAL,"value",sk.getValue());
-				lowerBounded.addChild(seenByLower);
-				upperBounded.addChild(seenByUpper);
-				((QueryOperatorPart<Long>)child).addChild(lowerBounded);
-				((QueryOperatorPart<Long>)child).addChild(upperBounded);
+				((QueryOperatorPart<Long>)child).addChild(p);
 			}
 		}
 		q.setChild(child);

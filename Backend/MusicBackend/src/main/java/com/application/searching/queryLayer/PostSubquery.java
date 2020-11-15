@@ -8,7 +8,7 @@ import com.application.searching.criteriaLayer.SubPostRootHandler;
 public class PostSubquery extends MySubquery<Long>
 {
 
-	protected PostSubquery(SubPostRootHandler handler) {
+	public PostSubquery(SubPostRootHandler handler) {
 		super(handler);
 	}
 

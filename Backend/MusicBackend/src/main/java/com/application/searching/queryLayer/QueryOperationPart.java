@@ -12,6 +12,7 @@ public class QueryOperationPart<T> extends QueryPart<T>
 	private SearchOperation operation;
 	private String field;
 	private Object value;
+	
 	public QueryOperationPart(RootHandler<T> handler, QueryClass c, SearchOperation op, String field, Object val) 
 	{
 		super(handler);

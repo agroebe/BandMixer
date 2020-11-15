@@ -11,6 +11,7 @@ import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 import javax.persistence.metamodel.EntityType;
 
+import com.application.people.Profile;
 import com.application.people.User;
 import com.application.posts.Post;
 import com.application.skill_level.AppliedSkillLevel;
@@ -24,6 +25,7 @@ public class SubPostRootHandler implements RootHandler<Long>
 	private CriteriaBuilder cb;
 	private EntityType<Post> Post_;
 	private Root<Post> postRoot;
+	private Root<Profile> profileRoot;
 	private Join<Post, User> joinUser;
 	private Path<Long> frm;
 	
@@ -33,6 +35,7 @@ public class SubPostRootHandler implements RootHandler<Long>
 		Post_ = em.getMetamodel().entity(Post.class);
 		query = q;
 		postRoot = query.from(Post.class);
+		profileRoot = cb.treat(postRoot, Profile.class);
 		joinUser = postRoot.join(Post_.getDeclaredSingularAttribute("owner",User.class),JoinType.LEFT);
 		frm = joinUser.get("id");
 	}
@@ -59,6 +62,10 @@ public class SubPostRootHandler implements RootHandler<Long>
 		case ePost:
 		{
 			return postRoot;
+		}
+		case eProfile:
+		{
+			return profileRoot;
 		}
 		default:
 		{

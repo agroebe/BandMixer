@@ -6,5 +6,6 @@ public enum QueryClass
 	ePost,
 	eAppliedSkill,
 	eTag,
-	eSkill
+	eSkill,
+	eProfile
 }
