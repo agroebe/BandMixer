@@ -22,7 +22,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = MusicBackendApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class userRegistrationTest {
 
     @Autowired

@@ -29,8 +29,9 @@ import com.application.skill_level.SkillLevelRepository;
 import com.application.util.BeanUtil;
 
 
-@SpringBootTest
+
 @ExtendWith(SpringExtension.class)
+@SpringBootTest(classes = MusicBackendApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class NewSkillLevelValidatorTests {
 
 	public NewSkillLevelValidatorTests() {}
