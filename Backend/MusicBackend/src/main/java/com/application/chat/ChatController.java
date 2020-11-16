@@ -6,7 +6,10 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.stereotype.Controller;
 
+import javax.websocket.server.ServerEndpoint;
+
 @Controller
+@ServerEndpoint("/chat")
 public class ChatController
 {
     @MessageMapping("/chat.send")
