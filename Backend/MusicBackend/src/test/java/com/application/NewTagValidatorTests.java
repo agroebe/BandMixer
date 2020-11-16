@@ -30,7 +30,7 @@ import com.application.tagging.TagRepository;
 import com.application.util.BeanUtil;
 
 
-@SpringBootTest
+@SpringBootTest(classes = MusicBackendApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ExtendWith(SpringExtension.class)
 class NewTagValidatorTests {
 
