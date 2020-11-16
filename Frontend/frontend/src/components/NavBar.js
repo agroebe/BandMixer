@@ -1,6 +1,6 @@
-import React from 'react';
-import { Navbar, Button, Dropdown, DropdownButton, Container, Row, Col } from 'react-bootstrap';
-import { Map, Plus, Search } from 'react-bootstrap-icons';
+import React, { useState } from 'react';
+import { Navbar, Button, Dropdown, DropdownButton, FormControl } from 'react-bootstrap';
+import { Plus, Search } from 'react-bootstrap-icons';
 import SignInModal from './modals/SignInModal'
 import RegisterModal from './modals/RegisterModal'
 import ProfileModal from './modals/ProfileModal'
@@ -8,46 +8,7 @@ import EditProfileModal from './modals/EditProfileModal'
 import NewPostModal from './modals/NewPostModal'
 import SearchModal from './modals/SearchModal'
 import cookie from 'react-cookies'
-
-const CustomMenu = React.forwardRef(
-  ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
-    return (
-      <div
-        ref={ref}
-        style={style}
-        className={className}
-        aria-labelledby={labeledBy}
-      >
-        <Container>
-          <Row>
-          <Col><a href="/california">California</a></Col>
-            <Col><a href="/florida">Florida</a></Col>
-          </Row>
-          <Row>
-            <Col><a href="/georgia">Georgia</a></Col>
-            <Col><a href="/illinois">Illinois</a></Col>
-          </Row>
-          <Row>
-            <Col><a href="/iowa">Iowa</a></Col>
-            <Col><a href="/michigan">Michigan</a></Col>
-          </Row>
-          <Row>
-            <Col><a href="/minnesota">Minnesota</a></Col>
-            <Col><a href="/new-jersey">New Jersey</a></Col>
-          </Row>
-          <Row>
-            <Col><a href="/new-york">New York</a></Col>
-            <Col><a href="/pennsylvania">Pennsylvania</a></Col>
-          </Row>
-          <Row>
-            <Col><a href="/texas">Texas</a></Col>
-            <Col><a href="/washington">Washington</a></Col>
-          </Row>
-        </Container>
-      </div>
-    );
-  },
-);
+import Chat from './Chat'
 
 export default class NavBar extends React.Component {
     constructor(props) {
@@ -102,14 +63,8 @@ export default class NavBar extends React.Component {
     render() {
         return(
             <Navbar bg="dark" variant="dark">
+                <Chat></Chat>
                 <Navbar.Brand href="/">BandMixer</Navbar.Brand>
-                <Dropdown>
-                  <Dropdown.Toggle variant="link">
-                    <Map></Map>
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu as={CustomMenu}></Dropdown.Menu>
-                </Dropdown>
                 <Navbar.Collapse className="justify-content-end">
                     { this.state.loggedIn ? (
                       <>

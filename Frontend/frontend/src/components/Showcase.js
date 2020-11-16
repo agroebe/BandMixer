@@ -1,13 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom';
-import { Jumbotron, Form, Button, Modal } from 'react-bootstrap';
+import { Jumbotron, Form, Button, Modal, FormControl, Dropdown } from 'react-bootstrap';
 import './Showcase.css'
+import { MusicNote} from 'react-bootstrap-icons'
+
+const CustomMenu = React.forwardRef(
+    ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
+      const [value, setValue] = useState('');
+  
+      return (
+        <div
+          ref={ref}
+          style={style}
+          className={className}
+          aria-labelledby={labeledBy}
+        >
+          <FormControl
+            autoFocus
+            className="mx-3 my-2 w-auto"
+            placeholder="Type to filter..."
+            onChange={(e) => setValue(e.target.value)}
+            value={value}
+          />
+          <ul className="list-unstyled">
+            {React.Children.toArray(children).filter(
+              (child) =>
+                !value || child.props.children.toLowerCase().startsWith(value),
+            )}
+          </ul>
+        </div>
+      );
+    },
+  );
 
 export default class Showcase extends React.Component {
     state = {
         instrumentOptions: [
             'Guitar', 'Bass', 'Drums', 'Piano', 'Keyboard'
+        ],
+        locationOptions: [
+            'California', 'Florida', 'Georgia', 'Illinois', 'Iowa', 'Michigan', 'Minnesota', 'New-Jersey', 'New-York', 'Pennsylvania', 'Texas', 'Washington'
         ],
         instrument: '',
         location: '',
@@ -59,20 +92,25 @@ export default class Showcase extends React.Component {
                 </Modal>
                 <Jumbotron className="text-center jumbo">
                     <h1 className="display-2">BandMixer</h1>
-                    <p className="lead">Let's help you find your jam - start your search below!</p>
+                    <p className="lead"><MusicNote/>Let's help you find your jam - start your search below!</p>
                     <Form inline className="justify-content-center mb-3" onSubmit={ this.search }>
                         <Form.Control as="select" className="mr-2" onChange={ e => this.setState({ instrument: e.target.value }) } >
-                            <option value={0}>Select what you're looking for</option>
+                            <option value={0}>Select what you're looking for...</option>
                             { this.state.instrumentOptions.map((value, index) => {
-                                return <option value={ index + 1} key={index }>{value}</option>
+                                return <option value={ index + 1} key={ index }>{ value }</option>
                             }) }
                         </Form.Control>
-                        <Form.Control type="text" placeholder={ toTitleCase(this.props.loc) } readOnly className="mr-2" onChange={ e => this.setState({ location: e.target.value }) }></Form.Control>
-                        { this.props.loc && this.state.instrument ? (
+                        <Form.Control as="select" className="mr-2" onChange={ e => this.setState({ location: e.target.value }) } >
+                            <option value={0}>Select a location...</option>
+                            { this.state.locationOptions.map((value, index) => {
+                                return <option value={ index + 1} key={ index }>{ value }</option>
+                            }) }
+                        </Form.Control>
+                        { this.state.location && this.state.instrument ? (
                             <Link to={{
                                 pathname: '/results',
                                 state: {
-                                    location: this.props.loc,
+                                    location: this.state.location,
                                     instrument: this.state.instrument
                                 }
                             }}><Button>Search</Button></Link>
@@ -88,15 +126,3 @@ export default class Showcase extends React.Component {
 }
 
 withRouter(Showcase)
-
-function toTitleCase(str) {
-    if (str == null) {
-        return "Select a location..."
-    }
-    return str.replace(
-      /\w\S*/g,
-      function(txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-      }
-    );
-}

@@ -79,13 +79,14 @@ export default class SignInModal extends Component {
                         { this.state.responseExists &&
                             <p className="text-danger">{ this.state.response }</p>
                         }
-                    </Modal.Body>
 
-                    <Modal.Footer>
-                        <p className="redirect mr-auto" onClick={ this.props.openRegisterModal }>Don't have an account? Register here</p>
-                        <Button variant="success" onClick={ this.signIn }>Sign In</Button>
+                    <hr/>
+                    <p className="redirect mr-auto d-inline" onClick={ this.props.openRegisterModal }>Don't have an account? Register here</p>
+                    <div className="float-right">
+                        <Button variant="success" className="mr-2" onClick={ this.signIn }>Sign In</Button>
                         <Button variant="danger" onClick={ this.close }>Cancel</Button>
-                    </Modal.Footer>
+                    </div>
+                    </Modal.Body>
                 </Modal>
             </>
         )

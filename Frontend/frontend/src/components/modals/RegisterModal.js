@@ -100,7 +100,7 @@ export default class RegisterModal extends React.Component {
                         { this.state.responseExists &&
                             <p className="text-danger">{ this.state.response }</p>
                         }
-                        <hr></hr>
+                        <hr/>
                         <p className="redirect mr-auto d-inline" onClick={ this.props.openSignInModal }>Already registered? Sign in here</p>
                         <div className="float-right">
                             <Button variant="success" type="submit" className="mr-2">Register</Button>
