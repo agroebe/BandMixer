@@ -83,7 +83,7 @@ public class ChatSocket {
 
         }
         else { // broadcast
-            broadcast(username + ": " + message);
+            broadcast(message);
         }
 
         // Saving chat history to repository
