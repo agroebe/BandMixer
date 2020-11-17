@@ -2,10 +2,7 @@ package com.application.searching;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.application.View;
 import com.application.people.User;
@@ -24,7 +21,7 @@ public class SearchController
 	@JsonView(View.UserView.class)
 	@CrossOrigin
 	@GetMapping(path="/user")
-	public @ResponseBody Iterable<User> searchUsers(MappedUserQuery query)
+	public @ResponseBody Iterable<User> searchUsers(@RequestBody MappedUserQuery query)
 	{
 		return service.executeQuery(query);
 	}
@@ -32,7 +29,7 @@ public class SearchController
 	@JsonView(View.PostView.class)
 	@CrossOrigin
 	@GetMapping(path="/post")
-	public @ResponseBody Iterable<Post> searchPosts(MappedPostQuery query)
+	public @ResponseBody Iterable<Post> searchPosts(@RequestBody  MappedPostQuery query)
 	{
 		return service.executeQuery(query);
 	}
