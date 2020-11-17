@@ -45,6 +45,9 @@ public class User
     @Column(name = "is_signed_in", nullable=false)
     private Integer staySignedIn;
 
+    @JsonView(View.UserView.class)
+    private String userGroup;
+
     /**
      * Default constructor
      */
@@ -62,6 +65,15 @@ public class User
         this.username = username;
         this.password = password;
         this.staySignedIn = staySignedIn;
+        this.userGroup = "user";
+    }
+
+    public void setUserGroup(String userGroup){
+        this.userGroup = userGroup;
+    }
+
+    public String getUserGroup(){
+        return this.userGroup;
     }
 
     /**

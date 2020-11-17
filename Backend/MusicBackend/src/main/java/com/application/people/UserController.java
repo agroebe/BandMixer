@@ -101,6 +101,7 @@ public class UserController {
         //Encrypt Password
         password = passwordEncryptor.encryptPassword(password);
         n.setPassword(password);
+        n.setUserGroup("user");
         if(stayLoggedIn != null){
             n.setStaySignedIn(stayLoggedIn);
         }else{
@@ -249,6 +250,15 @@ public class UserController {
         }else{
             return null;
         }
+    }
+
+    //Changes userGroup, could be a user, moderator, or administrator
+    @PostMapping(path="/userGroup/{userId}")
+    public @ResponseBody String updateUserGroup(@PathVariable Long userId, @RequestParam String newGroup){
+        User toUpdate = userRepository.findByid(userId);
+        toUpdate.setUserGroup(newGroup);
+        userRepository.save(toUpdate);
+        return "user has been added to group: " + newGroup;
     }
 
     /**
