@@ -115,7 +115,7 @@ public class UserController {
         userRepository.save(n);
 
         response.put("status", "success");
-        response.put("userId", n.getId());
+        response.put("userId", String.valueOf(n.getId()));
         return response;
     }
 
