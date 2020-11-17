@@ -84,15 +84,20 @@ public class UserController {
      */
     @PostMapping(path="") //Map only POST requests
     @CrossOrigin
-    public @ResponseBody String addNewUser(@RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam(required = false) Boolean stayLoggedIn){
+    public @ResponseBody HashMap<String, String> addNewUser(@RequestParam String name, @RequestParam String email, @RequestParam String password, @RequestParam(required = false) Boolean stayLoggedIn){
         BasicPasswordEncryptor passwordEncryptor = new BasicPasswordEncryptor();
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
 
+        HashMap<String, String> response = new HashMap<>();
         if(userRepository.findByUsername(name) != null){
-            return "username is taken";
+            response.put("status", "failure");
+            response.put("reason", "username already in use");
+            return response;
         }else if(userRepository.findByEmail(email) != null){
-            return "email is already registered";
+            response.put("status", "failure");
+            response.put("reason", "email is already registered");
+            return response;
         }
 
         User n = new User();
@@ -107,7 +112,10 @@ public class UserController {
             n.setStaySignedIn(false);
         }
         userRepository.save(n);
-        return "Saved";
+
+        response.put("status", "success");
+        response.put("userId", n.getId());
+        return response;
     }
 
     /**
