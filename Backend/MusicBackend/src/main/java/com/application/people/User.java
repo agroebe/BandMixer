@@ -1,17 +1,13 @@
 package com.application.people;
 
-import org.springframework.data.jpa.repository.Modifying;
 
 import com.application.View;
-import com.application.skill_level.AppliedSkillLevel;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import com.application.posts.Post;
 
 /**

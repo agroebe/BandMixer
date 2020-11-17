@@ -176,7 +176,7 @@ public class SkillLevel
 		myRep.save(refactor);
 		if(rep != null)
 		{
-			myRep.delete(this);
+			myRep.delete(this); 
 		}
 	}
 	
