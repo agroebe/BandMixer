@@ -2,6 +2,7 @@ package com.application.searching.criteriaLayer;
 
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.From;
 import javax.persistence.criteria.Predicate;
 
@@ -68,11 +69,11 @@ public class BasicSearchCriteria<T> extends SearchCriteria<T> {
 			}
 			case IN:
 			{
-				return cb.in(actualRoot.get(key)).value(value);
+				return cb.in(actualRoot.get(key)).value((Expression<?>)value);
 			}
 			case NOT_IN:
 			{
-				return cb.not(actualRoot.get(key)).in(value);
+				return cb.not(actualRoot.get(key)).in((Expression<?>)value);
 			}
 			default:
 			{
