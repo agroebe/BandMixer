@@ -61,7 +61,7 @@ public class FileController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getFile(@PathVariable String id) {
+    public ResponseEntity<byte[]> getFile(@PathVariable String id) {
         FileDB fileDB = storageService.getFile(id);
         String fileDownloadUri = ServletUriComponentsBuilder
                 .fromCurrentContextPath()
@@ -70,7 +70,7 @@ public class FileController {
                 .toUriString();
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")
-                .body(fileDownloadUri);
+                .body(fileDB.getData());
 
     }
 }
