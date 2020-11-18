@@ -289,7 +289,7 @@ public class UserController {
                 userRepository.save(toUpdate);
 
                 map.put("status", "success");
-                map.put("userId", user.getId())
+                map.put("userId", user.getId());
                 return map;
             }else{
                 map.put("status", "failure");
@@ -303,7 +303,7 @@ public class UserController {
                 userRepository.save(toUpdate);
 
                 map.put("status", "success");
-                map.put("userId", user.getId())
+                map.put("userId", user.getId());
                 return map;
             }else{
                 map.put("status", "failure");
