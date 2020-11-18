@@ -61,7 +61,7 @@ public class ChatSocket {
         //sendMessageToPArticularUser(username, getChatHistory());
 
         // broadcast that new user joined
-        String message = "{\"message:\" : \"User: \" " + username + " has joined the chat}";
+        String message = "{\"message:\" : \"User: " + username + " has joined the chat\"}";
         broadcast(message);
     }
 
