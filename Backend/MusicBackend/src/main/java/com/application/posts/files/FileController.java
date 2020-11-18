@@ -28,16 +28,16 @@ public class FileController {
     private FileStorageService storageService;
 
     @PostMapping("")
-    public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
+    public String uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
 
         try {
             FileDB stored = storageService.store(file);
             message = "{\"message\": \"Uploaded the file successfully\", \"id\": " + "\"" + stored.getId() + "\"}";
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
+            return message;
         } catch (Exception e) {
             message = "Could not upload the file: " + file.getOriginalFilename() + "!";
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage(message));
+            return message;
         }
     }
 
