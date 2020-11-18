@@ -61,7 +61,7 @@ public class ChatSocket {
         //sendMessageToPArticularUser(username, getChatHistory());
 
         // broadcast that new user joined
-        String message = "User:" + username + " has Joined the Chat";
+        String message = "{\"message:\" : \"User: \" " + username + " has joined the chat}";
         broadcast(message);
     }
 
@@ -101,7 +101,7 @@ public class ChatSocket {
         usernameSessionMap.remove(username);
 
         // broadcase that the user disconnected
-        String message = username + " disconnected";
+        String message = "{\"message:\" : \"User: \" " + username + " has left the chat}";
         broadcast(message);
     }
 
