@@ -33,7 +33,7 @@ public class FileController {
 
         try {
             FileDB stored = storageService.store(file);
-            message = "Uploaded the file successfully: " + stored.getId();
+            message = "{\"message\": \"Uploaded the file successfully\", \"id\": " + "\"" + stored.getId() + "\"}";
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
         } catch (Exception e) {
             message = "Could not upload the file: " + file.getOriginalFilename() + "!";
