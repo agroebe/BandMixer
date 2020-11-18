@@ -28,7 +28,7 @@ public class FileController {
     private FileStorageService storageService;
 
     @PostMapping("")
-    public String uploadFile(@RequestParam("file") MultipartFile file) {
+    public @ResponseBody String uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
 
         try {
