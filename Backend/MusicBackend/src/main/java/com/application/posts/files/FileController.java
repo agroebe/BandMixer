@@ -33,7 +33,7 @@ public class FileController {
 
         try {
             FileDB stored = storageService.store(file);
-            message = "Uploaded the file successfully: " + file.getOriginalFilename();
+            message = "Uploaded the file successfully: " + stored.getId();
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));
         } catch (Exception e) {
             message = "Could not upload the file: " + file.getOriginalFilename() + "!";
@@ -63,9 +63,14 @@ public class FileController {
     @GetMapping("/{id}")
     public ResponseEntity<String> getFile(@PathVariable String id) {
         FileDB fileDB = storageService.getFile(id);
+        String fileDownloadUri = ServletUriComponentsBuilder
+                .fromCurrentContextPath()
+                .path("/files/")
+                .path(fileDB.getId())
+                .toUriString();
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileDB.getName() + "\"")
-                .body(id);
+                .body(fileDownloadUri);
 
     }
 }
