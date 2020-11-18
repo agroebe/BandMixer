@@ -279,28 +279,41 @@ public class UserController {
      */
     @PostMapping(path="/login")
     @CrossOrigin
-    public @ResponseBody String userLogin(@RequestParam String loginID, @RequestParam String password, @RequestParam Boolean stayLoggedIn){
+    public @ResponseBody HashMap<String, String> userLogin(@RequestParam String loginID, @RequestParam String password, @RequestParam Boolean stayLoggedIn){
         BasicPasswordEncryptor encryptor = new BasicPasswordEncryptor();
+        HashMap<String, String> map = new HashMap<>();
         if(userRepository.findByUsername(loginID) != null){
             if(encryptor.checkPassword(password, userRepository.findByUsername(loginID).getPassword()) == true){
                 User toUpdate = userRepository.findByUsername(loginID);
                 toUpdate.setStaySignedIn(stayLoggedIn);
                 userRepository.save(toUpdate);
-                return "login successful";
+
+                map.put("status", "success");
+                map.put("userId", user.getId())
+                return map;
             }else{
-                return "incorrect password";
+                map.put("status", "failure");
+                map.put("reason", "incorrect password");
+                return map;
             }
         }else if(userRepository.findByEmail(loginID) != null){
             if(encryptor.checkPassword(password, userRepository.findByEmail(loginID).getPassword()) == true){
                 User toUpdate = userRepository.findByEmail(loginID);
                 toUpdate.setStaySignedIn(stayLoggedIn);
                 userRepository.save(toUpdate);
-                return "login successful";
+
+                map.put("status", "success");
+                map.put("userId", user.getId())
+                return map;
             }else{
-                return "incorrect password";
+                map.put("status", "failure");
+                map.put("reason", "incorrect password");
+                return map;
             }
         }else{
-            return "no user registered under this loginID";
+                map.put("status", "failure");
+                map.put("reason", "no user for this userID");
+                return map;
         }
     }
 
