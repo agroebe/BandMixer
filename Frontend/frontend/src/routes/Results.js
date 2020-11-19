@@ -34,16 +34,6 @@ export default class About extends React.Component {
     }
 
     componentWillMount() {
-        // const query = {
-        //     "@type": "post",
-        //     "child": {
-        //         "@type": "application",
-        //         "tag": "expert",
-        //         "operation": "equal",
-        //         "skill": "unset"
-        //     }
-        // }
-
         fetch("http://coms-309-cy-01.cs.iastate.edu:8080/search/post/", {
             body: JSON.stringify({
                 "@type": "post",
@@ -99,37 +89,10 @@ export default class About extends React.Component {
         this.setState({ selectedGenres : selectedGenres})
     }
 
-    filter() {
-        /**
-         * {
-                "@type": "post",
-                "child": {
-                    "@type": "and",
-                    "children": [
-                        {
-                            "@type": "application",
-                            "tag": "expert",
-                            "operation": "equal",
-                        },
-                        {
-                            "@type": "application",
-                            "tag": "guitar",
-                            "operation": "equal",
-                        }
-                    ]
-                }
-            }
-         */
+  filter() {
         if (this.state.selectedInstruments.length === 0 && this.state.selectedSkillLevels.length === 0 && this.state.selectedGenres.length === 0) {
             alert('Please select at least one filter!')
             return
-        }
-
-        const query = {
-            "@type": "post",
-            "child": {
-
-            }
         }
 
         if (this.state.selectedInstruments.length + this.state.selectedSkillLevels.length + this.state.selectedGenres.length === 1) {

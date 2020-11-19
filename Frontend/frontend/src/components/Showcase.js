@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom';
-import { Jumbotron, Form, Button, Modal, FormControl } from 'react-bootstrap';
+import { Jumbotron, Form, Button, Modal } from 'react-bootstrap';
 import './Showcase.css'
 import { MusicNote } from 'react-bootstrap-icons'
 
