@@ -13,6 +13,8 @@ export default class About extends React.Component {
             selectedSkillLevels: [],
             selectedGenres: []
         }
+
+        this.filter = this.filter.bind(this);
     }
 
     toInstrumentName(id) {
@@ -47,10 +49,19 @@ export default class About extends React.Component {
             body: JSON.stringify({
                 "@type": "post",
                 "child": {
-                    "@type": "application",
-                    "tag": "expert",
-                    "operation": "equal",
-                    "skill": "unset"
+                    "@type": "and",
+                    "children": [
+                        {
+                            "@type": "application",
+                            "tag": "expert",
+                            "operation": "equal",
+                        },
+                        {
+                            "@type": "application",
+                            "tag": "guitar",
+                            "operation": "equal",
+                        }
+                    ]
                 }
             }),
             method: "POST",
@@ -87,6 +98,150 @@ export default class About extends React.Component {
             selectedGenres.push(selectedOptions[genre].label)
         ))
         this.setState({ selectedGenres : selectedGenres})
+    }
+
+    filter() {
+        /**
+         * {
+                "@type": "post",
+                "child": {
+                    "@type": "and",
+                    "children": [
+                        {
+                            "@type": "application",
+                            "tag": "expert",
+                            "operation": "equal",
+                        },
+                        {
+                            "@type": "application",
+                            "tag": "guitar",
+                            "operation": "equal",
+                        }
+                    ]
+                }
+            }
+         */
+        if (this.state.selectedInstruments.length === 0 && this.state.selectedSkillLevels.length === 0 && this.state.selectedGenres.length === 0) {
+            alert('Please select at least one filter!')
+            return
+        }
+
+        const query = {
+            "@type": "post",
+            "child": {
+
+            }
+        }
+
+        if (this.state.selectedInstruments.length + this.state.selectedSkillLevels.length + this.state.selectedGenres.length === 1) {
+            if (this.state.selectedInstruments.length === 1) {
+                fetch("http://coms-309-cy-01.cs.iastate.edu:8080/search/post/", {
+                    body: JSON.stringify({
+                        "@type": "post",
+                        "child": {
+                            "@type": "application",
+                            "tag": this.state.selectedInstruments[0].toLowerCase(),
+                            "operation": "equal"
+                        }
+                    }),
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }).then(response => {
+                    return response.json()
+                }).then(posts => {
+                    console.log(posts)
+                    this.setState({ results: posts })
+                })
+
+            } else if (this.state.selectedSkillLevels.length === 1) {
+                fetch("http://coms-309-cy-01.cs.iastate.edu:8080/search/post/", {
+                    body: JSON.stringify({
+                        "@type": "post",
+                        "child": {
+                            "@type": "application",
+                            "tag": this.state.selectedSkillLevels[0].toLowerCase(),
+                            "operation": "equal"
+                        }
+                    }),
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }).then(response => {
+                    return response.json()
+                }).then(posts => {
+                    console.log(posts)
+                    this.setState({ results: posts })
+                })
+            } else {
+                fetch("http://coms-309-cy-01.cs.iastate.edu:8080/search/post/", {
+                    body: JSON.stringify({
+                        "@type": "post",
+                        "child": {
+                            "@type": "application",
+                            "tag": this.state.selectedGenres[0].toLowerCase(),
+                            "operation": "equal"
+                        }
+                    }),
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                }).then(response => {
+                    return response.json()
+                }).then(posts => {
+                    console.log(posts)
+                    this.setState({ results: posts })
+                })
+            }
+            return;
+        }
+
+        const children = []
+        this.state.selectedInstruments.forEach(instrument => {
+            children.push({ 
+                "@type": "application",
+                "tag": instrument.toLowerCase(),
+                "operation": "eqaual"
+             })
+        })
+
+        this.state.selectedSkillLevels.forEach(skillLevel => {
+            children.push({ 
+                "@type": "application",
+                "tag": skillLevel.toLowerCase(),
+                "operation": "eqaual"
+             })
+        })
+
+        this.state.selectedGenres.forEach(genre => {
+            children.push({ 
+                "@type": "application",
+                "tag": genre.toLowerCase(),
+                "operation": "eqaual"
+             })
+        })
+
+        fetch("http://coms-309-cy-01.cs.iastate.edu:8080/search/post/", {
+            body: JSON.stringify({
+                "@type": "post",
+                "child": {
+                    "@type": "and",
+                    "children": children
+                }
+            }),
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        }).then(response => {
+            return response.json()
+        }).then(posts => {
+            console.log(posts)
+            this.setState({ results: posts })
+        })
     }
 
     render() {
@@ -129,12 +284,11 @@ export default class About extends React.Component {
                                 <option>Hip-hop</option>
                             </Form.Control>
                         </Form.Group>
-                        <Button className="text-center m-auto">Apply Filter(s)</Button>
+                        <Button className="text-center m-auto" onClick={ this.filter }>Apply Filter(s)</Button>
                     </Col>
                     <Col xs={9}>
-                        <h3>Results - { this.toInstrumentName(this.props.location.state.instrument) } in { this.props.location.state.location }</h3>
+                        <h3>Results</h3>/** - { this.toInstrumentName(this.props.location.state.instrument) } in { this.props.location.state.location } */
                         <hr></hr>
-                        { this.state.results.length }
                         { this.state.results.length <= 0 ? (
                             <p>No results found.</p>
                         ) : (
