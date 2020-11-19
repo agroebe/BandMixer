@@ -77,6 +77,7 @@ export default class RegisterModal extends React.Component {
 
                 this.props.setLoggedIn(true)
                 this.props.setUserId(this.state.username)
+                this.props.setActualUserId(r.data.userId)
 
                 cookie.save('stayLoggedIn', true, { path: '/'})
                 cookie.save('userId', this.state.loginId, { path: '/'})

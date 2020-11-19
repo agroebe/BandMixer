@@ -89,7 +89,7 @@ export default class Showcase extends React.Component {
                             <Button onClick={ () => alert('Please double check your search terms, ensuring both and instrument and location are selected.')}>Search</Button>
                         )}
                     </Form>
-                    <h5 className="d-inline">Confused? Try out <p onClick={ () => this.setState({ showBeginnerTutorial: true }) } className="link">our beginner tutorial</p>!</h5>
+                    <h5 className="d-inline">Confused? Try out <p onClick={ () => this.setState({ showBeginnerTutorial: true }) } className="link d-inline">our beginner tutorial</p>!</h5>
                 </Jumbotron>
             </>
         )

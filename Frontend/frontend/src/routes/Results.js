@@ -10,7 +10,11 @@ export default class About extends React.Component {
             results: [],
             selectedInstruments: [],
             selectedSkillLevels: [],
-            selectedGenres: []
+            selectedGenres: [],
+            locationOptions: [
+                'California', 'Florida', 'Georgia', 'Illinois', 'Iowa', 'Michigan', 'Minnesota', 'New-Jersey', 'New-York', 'Pennsylvania', 'Texas', 'Washington'
+            ],
+            location: ''
         }
 
         this.filter = this.filter.bind(this);
@@ -97,66 +101,185 @@ export default class About extends React.Component {
 
         if (this.state.selectedInstruments.length + this.state.selectedSkillLevels.length + this.state.selectedGenres.length === 1) {
             if (this.state.selectedInstruments.length === 1) {
-                fetch("http://coms-309-cy-01.cs.iastate.edu:8080/search/post/", {
-                    body: JSON.stringify({
-                        "@type": "post",
-                        "child": {
-                            "@type": "application",
-                            "tag": this.state.selectedInstruments[0].toLowerCase(),
-                            "operation": "equal"
-                        }
-                    }),
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }).then(response => {
-                    return response.json()
-                }).then(posts => {
-                    console.log(posts)
-                    this.setState({ results: posts })
-                })
-
+                if (this.state.location !== 0) {
+                    fetch("http://coms-309-cy-01.cs.iastate.edu:8080/search/post/", {
+                        body: JSON.stringify({
+                            "@type" : "post",
+                            "child" : {
+                                "@type": "and",
+                                "children": [
+                                    {
+                                        "@type":"owner",
+                                        "child":
+                                            {
+                                                "@type":"has",
+                                                "child":
+                                                {
+                                                        "@type":"location",
+                                                        "location": this.state.location,
+                                                        "comparison": "equal"
+                                                }
+                                            }
+                                    },
+                                    {
+                                        "@type":"application",
+                                        "tag": this.state.selectedInstruments[0].toLowerCase(),
+                                        "operation":"equal"
+                                    }
+                                ]
+                            }
+                        }),
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }).then(response => {
+                        return response.json()
+                    }).then(posts => {
+                        console.log(posts)
+                        this.setState({ results: posts })
+                    })
+                } else {
+                    fetch("http://coms-309-cy-01.cs.iastate.edu:8080/search/post/", {
+                        body: JSON.stringify({
+                            "@type": "post",
+                            "child": {
+                                "@type": "application",
+                                "tag": this.state.selectedInstruments[0].toLowerCase(),
+                                "operation": "equal"
+                            }
+                        }),
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }).then(response => {
+                        return response.json()
+                    }).then(posts => {
+                        console.log(posts)
+                        this.setState({ results: posts })
+                    })
+                }
             } else if (this.state.selectedSkillLevels.length === 1) {
-                fetch("http://coms-309-cy-01.cs.iastate.edu:8080/search/post/", {
-                    body: JSON.stringify({
-                        "@type": "post",
-                        "child": {
-                            "@type": "application",
-                            "tag": this.state.selectedSkillLevels[0].toLowerCase(),
-                            "operation": "equal"
-                        }
-                    }),
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }).then(response => {
-                    return response.json()
-                }).then(posts => {
-                    console.log(posts)
-                    this.setState({ results: posts })
-                })
+                if (this.state.location !== 0) {
+                    fetch("http://coms-309-cy-01.cs.iastate.edu:8080/search/post/", {
+                        body: JSON.stringify({
+                            "@type" : "post",
+                            "child" : {
+                                "@type": "and",
+                                "children": [
+                                    {
+                                        "@type":"owner",
+                                        "child":
+                                            {
+                                                "@type":"has",
+                                                "child":
+                                                {
+                                                        "@type":"location",
+                                                        "location": this.state.location,
+                                                        "comparison": "equal"
+                                                }
+                                            }
+                                    },
+                                    {
+                                        "@type":"application",
+                                        "tag": this.state.selectedSkillLevels[0].toLowerCase(),
+                                        "operation":"equal"
+                                    }
+                                ]
+                            }
+                        }),
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }).then(response => {
+                        return response.json()
+                    }).then(posts => {
+                        console.log(posts)
+                        this.setState({ results: posts })
+                    })
+                } else {
+                    fetch("http://coms-309-cy-01.cs.iastate.edu:8080/search/post/", {
+                        body: JSON.stringify({
+                            "@type": "post",
+                            "child": {
+                                "@type": "application",
+                                "tag": this.state.selectedSkillLevels[0].toLowerCase(),
+                                "operation": "equal"
+                            }
+                        }),
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }).then(response => {
+                        return response.json()
+                    }).then(posts => {
+                        console.log(posts)
+                        this.setState({ results: posts })
+                    })
+                }
             } else {
-                fetch("http://coms-309-cy-01.cs.iastate.edu:8080/search/post/", {
-                    body: JSON.stringify({
-                        "@type": "post",
-                        "child": {
-                            "@type": "application",
-                            "tag": this.state.selectedGenres[0].toLowerCase(),
-                            "operation": "equal"
-                        }
-                    }),
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }).then(response => {
-                    return response.json()
-                }).then(posts => {
-                    console.log(posts)
-                    this.setState({ results: posts })
-                })
+                if (this.state.location !== 0) {
+                    fetch("http://coms-309-cy-01.cs.iastate.edu:8080/search/post/", {
+                        body: JSON.stringify({
+                            "@type" : "post",
+                            "child" : {
+                                "@type": "and",
+                                "children": [
+                                    {
+                                        "@type":"owner",
+                                        "child":
+                                            {
+                                                "@type":"has",
+                                                "child":
+                                                {
+                                                        "@type":"location",
+                                                        "location": this.state.location,
+                                                        "comparison": "equal"
+                                                }
+                                            }
+                                    },
+                                    {
+                                        "@type":"application",
+                                        "tag": this.state.selectedGenres[0].toLowerCase(),
+                                        "operation":"equal"
+                                    }
+                                ]
+                            }
+                        }),
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }).then(response => {
+                        return response.json()
+                    }).then(posts => {
+                        console.log(posts)
+                        this.setState({ results: posts })
+                    })
+                } else {
+                    fetch("http://coms-309-cy-01.cs.iastate.edu:8080/search/post/", {
+                        body: JSON.stringify({
+                            "@type": "post",
+                            "child": {
+                                "@type": "application",
+                                "tag": this.state.selectedGenres[0].toLowerCase(),
+                                "operation": "equal"
+                            }
+                        }),
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }).then(response => {
+                        return response.json()
+                    }).then(posts => {
+                        console.log(posts)
+                        this.setState({ results: posts })
+                    })
+                }
             }
             return;
         }
@@ -184,6 +307,22 @@ export default class About extends React.Component {
                 "tag": genre.toLowerCase(),
                 "operation": "eqaual"
              })
+        })
+
+        console.log('adding it.')
+
+        children.push({
+            "@type":"owner",
+            "child":
+                {
+                    "@type":"has",
+                    "child":
+                    {
+                        "@type":"location",
+                        "location": "" + this.state.location,
+                        "comparison": "equal"
+                    }
+                }
         })
 
         fetch("http://coms-309-cy-01.cs.iastate.edu:8080/search/post/", {
@@ -246,6 +385,15 @@ export default class About extends React.Component {
                                 <option>Hip-hop</option>
                             </Form.Control>
                         </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Location</Form.Label>
+                            <Form.Control as="select" className="mr-2" onChange={ e => this.setState({ location: e.target.value }) } >
+                                <option value={0}>Select a location...</option>
+                                { this.state.locationOptions.map((value, index) => {
+                                    return <option value={ index + 1} key={ index }>{ value }</option>
+                                }) }
+                            </Form.Control>
+                        </Form.Group>
                         <Button className="text-center m-auto" onClick={ this.filter }>Apply Filter(s)</Button>
                     </Col>
                     <Col xs={9}>
@@ -258,6 +406,7 @@ export default class About extends React.Component {
                                 <p>{ this.state.results.length } results found for search.</p>
                                 { this.state.results.map(post => (
                                     <>
+                                    { console.log(post) }
                                     <Card style={{ width: '50rem', marginLeft: 'auto', marginRight: 'auto', marginBottom: '10px', marginTop: '10px' }}>
                                         <Card.Body>
                                         <Card.Title>{ post.title }</Card.Title>

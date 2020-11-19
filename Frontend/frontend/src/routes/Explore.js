@@ -25,21 +25,25 @@ export default class Explore extends React.Component {
 
         return(
             <>
-            <h1 className="text-center">{ posts.length } total posts found...</h1>
-            { posts.map(post => (
-                <>
-                <Card style={{ width: '60rem', marginLeft: 'auto', marginRight: 'auto', marginBottom: '10px', marginTop: '10px' }}>
-                    <Card.Body>
-                    <Card.Title>{ post.title }</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">Posted by <a href={ '/user/' + post.owner.id }>{ toTitleCase(post.owner.username) }</a></Card.Subtitle>
-                    <Card.Text>
-                        { post.textContent }
-                    </Card.Text>
-                    <Card.Link href={'/post/' + post.id }>View Post</Card.Link>
-                    </Card.Body>
-                </Card>
-              </>
-            ))}
+                <h1 className="text-center">{ posts.length } total posts found...</h1>
+                { posts.map(post => (
+                    post.title.includes('unset') ? (
+                        <></>
+                    ) : (
+                        <>
+                        <Card style={{ width: '60rem', marginLeft: 'auto', marginRight: 'auto', marginBottom: '10px', marginTop: '10px' }}>
+                            <Card.Body>
+                            <Card.Title>{ post.title }</Card.Title>
+                            <Card.Subtitle className="mb-2 text-muted">Posted by <a href={ '/user/' + post.owner.id }>{ toTitleCase(post.owner.username) }</a></Card.Subtitle>
+                            <Card.Text>
+                                { post.textContent }
+                            </Card.Text>
+                            <Card.Link href={'/post/' + post.id }>View Post</Card.Link>
+                            </Card.Body>
+                        </Card>
+                    </>
+                    )
+                )) }
             </>
             
         )
