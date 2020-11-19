@@ -13,7 +13,7 @@ export default class Chat extends React.Component {
   }
   
   componentDidMount() {
-    startWebsocketConnection('andrew')
+    startWebsocketConnection(this.props.match.params.userId)
     registerOnMessageCallback(this.onMessageReceived.bind(this))
   }
 
@@ -27,7 +27,7 @@ export default class Chat extends React.Component {
 
   sendMessage (text) {
     const message = {
-      userName: 'Andrew',
+      userName: '' + this.props.match.params.userId,
       content: text
     }
     send(JSON.stringify(message))

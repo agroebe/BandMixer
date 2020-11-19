@@ -91,7 +91,7 @@ export default class NavBar extends React.Component {
                             cookie.remove('actualUserId')
                           } }>Logout</Dropdown.Item>
                         </DropdownButton>
-                        <Button variant="secondary" className="ml-2" href="/chat"><ChatIcon></ChatIcon></Button>
+                        <Button variant="secondary" className="ml-2" href={'/chat/' + this.state.userId}><ChatIcon></ChatIcon></Button>
                         <Button variant="secondary" className="ml-2" onClick={ () => this.newPostModal.open() }><Plus></Plus></Button>
                       </>
                     ) : (
