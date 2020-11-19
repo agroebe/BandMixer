@@ -79,10 +79,10 @@ export default class User extends React.Component {
                                                         </tbody>
                                                     </Table>
                                                 </Tab>
-                                                <Tab eventKey="posts" title={ "Posts (" + (Object.keys(this.state.user.posts).length) + ")" }>
+                                                <Tab eventKey="posts" title={ "Posts (" + (Object.keys(this.state.user.posts).length - 1) + ")" }>
                                                     <br></br>
                                                     { Object.entries(this.state.user.posts).map(([key, value]) => (
-                                                       
+                                                       value.title != 'unset'?
                                                         <Card style={{  marginLeft: '5px', marginRight: '5px', marginBottom: '20px', marginTop: '10px' }}>
                                                             <Card.Body> 
                                                             <Card.Title>{ value.title }</Card.Title>
@@ -101,14 +101,16 @@ export default class User extends React.Component {
                                                             <Card.Footer>
                                                                 <Card.Link href={'/post/' + value.id }>View Post</Card.Link>
                                                             </Card.Footer>
-                                                           {
-                                                               value.contentType === "Profile"?
-                                                                    this.state.done === 'f'?
-                                                                        this.setState({ profile: value , done: 't' })
-                                                                    :''
-                                                               :''
-                                                           }
+                                                           
                                                         </Card>
+                                                        
+                                                        
+                                                        :value.contentType === "Profile"?
+                                                                 this.state.done === 'f'?
+                                                                     this.setState({ profile: value , done: 't' })
+                                                                 :''
+                                                            :''
+                                                        
                                                     ))}
                                                 </Tab>
                                             </Tabs>
