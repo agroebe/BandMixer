@@ -23,7 +23,7 @@ export default function App() {
           <Route path='/explore' exact component={ Explore }/>
           <Route path='/users' exact component={ Users }/>
           <Route path='/admin' exact component={ AdminPanel }/>
-          <Route path='/chat' exact component={ Chat }/>
+          <Route path='/chat/:userId' exact component={ Chat }/>
           <Route path='/post/:postId' exact component={ Post }/>
           <Route path='/user/:userId' exact component={ User }/>
 
