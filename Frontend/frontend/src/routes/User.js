@@ -125,6 +125,13 @@ export default class User extends React.Component {
         )
     }
 }
+/*
+function getProf(info){
+    if(info.contentType === "Profile"){
+        return true;
+    }
+    return false;
+}*/
 
 function toTitleCase(str) {
     if (str == null) {
