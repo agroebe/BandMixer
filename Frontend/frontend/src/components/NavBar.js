@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link, withRouter, BrowserRouter } from 'react-router-dom'
 import { Navbar, Button, Dropdown, DropdownButton, FormControl } from 'react-bootstrap';
-import { Plus, Search } from 'react-bootstrap-icons';
+import { Plus, Search, Chat as ChatIcon } from 'react-bootstrap-icons';
 import SignInModal from './modals/SignInModal'
 import RegisterModal from './modals/RegisterModal'
 import ProfileModal from './modals/ProfileModal'
@@ -8,7 +9,6 @@ import EditProfileModal from './modals/EditProfileModal'
 import NewPostModal from './modals/NewPostModal'
 import SearchModal from './modals/SearchModal'
 import cookie from 'react-cookies'
-import Chat from './Chat'
 
 export default class NavBar extends React.Component {
     constructor(props) {
@@ -16,7 +16,8 @@ export default class NavBar extends React.Component {
 
         this.state = {
           loggedIn: false,
-          userId: ''
+          userId: '',
+          actualUserId: ''
         }
 
         this.openSignInModal = this.openSignInModal.bind(this);
@@ -24,6 +25,7 @@ export default class NavBar extends React.Component {
         this.openSearchModal = this.openSearchModal.bind(this);
         this.setLoggedIn = this.setLoggedIn.bind(this);
         this.setUserId = this.setUserId.bind(this);
+        this.setActualUserId = this.setActualUserId.bind(this);
     }
 
     componentWillMount() {
@@ -60,28 +62,36 @@ export default class NavBar extends React.Component {
       })
     }
 
+    setActualUserId(val) {
+      this.setState({
+        actualUserId: val
+      })
+    }
+
     render() {
         return(
             <Navbar bg="dark" variant="dark">
-                <Chat></Chat>
                 <Navbar.Brand href="/">BandMixer</Navbar.Brand>
                 <Navbar.Collapse className="justify-content-end">
                     { this.state.loggedIn ? (
                       <>
                         <DropdownButton alignRight id="dropdown-basic-button" title={ this.state.userId }>
-                          <Dropdown.Item onClick={ () => this.profileModal.open() }>View Profile</Dropdown.Item>
+                          <Dropdown.Item href={ '/user/' + (this.state.actualUserId ? this.state.actualUserId : cookie.load('actualUserId')) }>View Profile</Dropdown.Item>
                           <Dropdown.Item onClick={ () => this.editProfileModal.open() }>Edit Profile</Dropdown.Item>
                           <Dropdown.Item onClick={ () => {
                             cookie.remove('stayLoggedIn')
                             cookie.remove('userId')
+                            cookie.remove('actualUserId')
                           } }>Clear Cookies</Dropdown.Item>
                           <Dropdown.Item onClick={ () => {
                             this.setLoggedIn(false)
                             this.setUserId('')
                             cookie.remove('stayLoggedIn')
                             cookie.remove('userId')
+                            cookie.remove('actualUserId')
                           } }>Logout</Dropdown.Item>
                         </DropdownButton>
+                        <Button variant="secondary" className="ml-2" href="/chat"><ChatIcon></ChatIcon></Button>
                         <Button variant="secondary" className="ml-2" onClick={ () => this.newPostModal.open() }><Plus></Plus></Button>
                       </>
                     ) : (
@@ -98,10 +108,10 @@ export default class NavBar extends React.Component {
                 </Navbar.Collapse>
 
                 { /* Modals for registering and signing in. */ }
-                <RegisterModal ref={ (modal) => { this.registerModal = modal } } openSignInModal={ this.openSignInModal } setLoggedIn={ this.setLoggedIn } setUserId={ this.setUserId }/>
-                <SignInModal ref={ (modal) => { this.signInModal = modal } } openRegisterModal={ this.openRegisterModal } setLoggedIn={ this.setLoggedIn } setUserId={ this.setUserId }/>
+                <RegisterModal ref={ (modal) => { this.registerModal = modal } } openSignInModal={ this.openSignInModal } setLoggedIn={ this.setLoggedIn } setUserId={ this.setUserId } setActualUserId= { this.setActualUserId }/>
+                <SignInModal ref={ (modal) => { this.signInModal = modal } } openRegisterModal={ this.openRegisterModal } setLoggedIn={ this.setLoggedIn } setUserId={ this.setUserId } setActualUserId= { this.setActualUserId }/>
                 <ProfileModal ref={ (modal) => { this.profileModal = modal } }/>
-                <EditProfileModal ref={ (modal) => { this.editProfileModal = modal } }/>
+                <EditProfileModal ref={ (modal) => { this.editProfileModal = modal } } userId={ (this.state.actualUserId ? this.state.actualUserId : cookie.load('actualUserId')) } />
                 <NewPostModal ref={ (modal) => {this.newPostModal = modal }} userId={ this.state.userId }/>
                 { window.location.pathname === '/' ? (
                       <></> // This is the home page, so do not render search modal.
@@ -112,3 +122,5 @@ export default class NavBar extends React.Component {
         )
     }
 }
+
+withRouter(NavBar)
