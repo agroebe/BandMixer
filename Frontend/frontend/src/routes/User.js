@@ -82,7 +82,7 @@ export default class User extends React.Component {
                                                 <Tab eventKey="posts" title={ "Posts (" + (Object.keys(this.state.user.posts).length - 1) + ")" }>
                                                     <br></br>
                                                     { Object.entries(this.state.user.posts).map(([key, value]) => (
-                                                       value.title != 'unset'?
+                                                       value.title !== 'unset'?
                                                         <Card style={{  marginLeft: '5px', marginRight: '5px', marginBottom: '20px', marginTop: '10px' }}>
                                                             <Card.Body> 
                                                             <Card.Title>{ value.title }</Card.Title>
