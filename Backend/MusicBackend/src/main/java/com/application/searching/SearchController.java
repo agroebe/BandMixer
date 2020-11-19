@@ -20,7 +20,7 @@ public class SearchController
 	
 	@JsonView(View.UserView.class)
 	@CrossOrigin
-	@GetMapping(path="/user")
+	@PostMapping(path="/user")
 	public @ResponseBody Iterable<User> searchUsers(@RequestBody MappedUserQuery query)
 	{
 		return service.executeQuery(query);
@@ -28,7 +28,7 @@ public class SearchController
 	
 	@JsonView(View.PostView.class)
 	@CrossOrigin
-	@GetMapping(path="/post")
+	@PostMapping(path="/post")
 	public @ResponseBody Iterable<Post> searchPosts(@RequestBody  MappedPostQuery query)
 	{
 		return service.executeQuery(query);
