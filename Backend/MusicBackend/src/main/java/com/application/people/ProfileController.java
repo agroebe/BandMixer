@@ -83,7 +83,7 @@ public class ProfileController {
      */
     @PostMapping(path="/{userId}/update")
     @CrossOrigin
-    public @ResponseBody String updateProfileForUser(@PathVariable Long userId, @RequestBody Profile profile){
+    public @ResponseBody String updateProfileForUser(@PathVariable Long userId, @RequestBody RequestProfile profile){
         User user = userRepository.findByid(userId);
         Profile toUpdate = profileRepository.findByOwner(user);
         if(toUpdate != null){
