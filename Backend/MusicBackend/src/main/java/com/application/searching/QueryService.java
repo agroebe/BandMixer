@@ -2,6 +2,9 @@ package com.application.searching;
 
 import java.util.List;
 
+import javax.persistence.EntityGraph;
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +18,6 @@ import com.application.searching.queryLayer.Query;
 import com.application.skill_level.AppliedSkillLevelRepository;
 import com.application.skill_level.SkillLevelRepository;
 import com.application.tagging.TagRepository;
-
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaQuery;
 
 @Service
 public class QueryService 
@@ -45,12 +44,10 @@ public class QueryService
 	public <T> List<T> executeQuery(MappedQuery<T> query)
 	{
 		Query<T> q = query.firstmap(this);
-		RootHandler<T> handler= q.getHandler();
-		EntityManager manager = handler.getManager();
-		CriteriaQuery<T> criteriaQuery = q.generate();
-		TypedQuery<T> query1 = manager.createQuery(criteriaQuery);
-		List<T> results = query1.getResultList();
-//		List<T> results = q.getHandler().getManager().createQuery(q.generate()).getResultList();
+		EntityGraph<T> graph = q.getGraph();
+		EntityManager em = q.getHandler().getManager();
+		List<T> results = em.createQuery(q.generate()).setHint("javax.persistence.loadgraph", graph).getResultList();
+		em.close();
 		return results;
 	}
 	

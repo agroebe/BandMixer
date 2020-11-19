@@ -18,40 +18,41 @@ import com.fasterxml.jackson.annotation.JsonView;
 /**
  * Post class
  */
+
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Entity
 @Table(name="POSTS")
 public class Post 
 {
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class,View.QueryView.class})
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
 	private Long id;
 	
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class,View.QueryView.class})
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User owner;
 	
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class,View.QueryView.class})
 	@Column(name="title", nullable=false)
 	private String title;
 	
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class,View.QueryView.class})
 	@Column(name="content_type", nullable=false)
 	private String contentType;
 	
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class,View.QueryView.class})
 	@Column(name="text_content")
 	private String textContent;
 	
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class,View.QueryView.class})
 	@Column(name="content_path")
 	private String contentPath;
 	
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class,View.QueryView.class})
 	@Column(name="is_search", nullable=false)
 	private Integer isSearch;
 	

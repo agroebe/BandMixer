@@ -17,16 +17,16 @@ import com.application.posts.Post;
 @Table(name="USERS")
 public class User 
 {
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class,View.QueryView.class})
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
 
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class,View.QueryView.class})
     private String email;
 
-	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
+	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class,View.QueryView.class})
     private String username;
 
 	@JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
@@ -41,7 +41,7 @@ public class User
     @Column(name = "is_signed_in", nullable=false)
     private Integer staySignedIn;
 
-    @JsonView(View.UserView.class)
+    @JsonView({View.UserView.class,View.QueryView.class})
     private String userGroup;
 
     /**

@@ -3,6 +3,7 @@ package com.application.searching.queryLayer;
 import javax.persistence.criteria.CriteriaQuery;
 
 import com.application.searching.criteriaLayer.RootHandler;
+import javax.persistence.EntityGraph;
 
 public abstract class Query<T>
 {
@@ -39,4 +40,6 @@ public abstract class Query<T>
 	{
 		return handler;
 	}
+	
+	public abstract EntityGraph<T> getGraph();
 }

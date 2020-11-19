@@ -18,7 +18,7 @@ public class SearchController
 	@Autowired
 	QueryService service;
 	
-	@JsonView(View.UserView.class)
+	@JsonView(View.QueryView.class)
 	@CrossOrigin
 	@PostMapping(path="/user")
 	public @ResponseBody Iterable<User> searchUsers(@RequestBody MappedUserQuery query)
@@ -26,7 +26,7 @@ public class SearchController
 		return service.executeQuery(query);
 	}
 	
-	@JsonView(View.PostView.class)
+	@JsonView(View.QueryView.class)
 	@CrossOrigin
 	@PostMapping(path="/post")
 	public @ResponseBody Iterable<Post> searchPosts(@RequestBody  MappedPostQuery query)
