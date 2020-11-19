@@ -1,6 +1,5 @@
-import axios from 'axios';
 import React from 'react';
-import { Container, Row, Col, Form, CardDeck, Card, Badge, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Card, Button } from 'react-bootstrap';
 
 export default class About extends React.Component {
 
@@ -287,7 +286,7 @@ export default class About extends React.Component {
                         <Button className="text-center m-auto" onClick={ this.filter }>Apply Filter(s)</Button>
                     </Col>
                     <Col xs={9}>
-                        <h3>Results</h3>/** - { this.toInstrumentName(this.props.location.state.instrument) } in { this.props.location.state.location } */
+                        <h3>Results</h3>
                         <hr></hr>
                         { this.state.results.length <= 0 ? (
                             <p>No results found.</p>

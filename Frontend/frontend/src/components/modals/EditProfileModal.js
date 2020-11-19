@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Modal, Button, Form, Image } from 'react-bootstrap';
+import { Modal, Button, Form } from 'react-bootstrap';
 import { toast, Zoom } from 'react-toastify';
 import './Modal.css'
 

@@ -14,7 +14,7 @@ export default class Post extends React.Component {
             this.setState({ post: r.data })
             axios.get('http://coms-309-cy-01.cs.iastate.edu:8080/posts/all').then(r => {
                 r.data.forEach(post => {
-                    if (post.owner.username == this.state.post.owner.username && this.state.post.id != post.id) {
+                    if (post.owner.username === this.state.post.owner.username && this.state.post.id !== post.id) {
                         var joined = this.state.otherPosts.concat(post)
                         this.setState( { otherPosts: joined })
                     }
@@ -79,7 +79,7 @@ export default class Post extends React.Component {
 }
 
 function toTitleCase(str) {
-    if (str == null) {
+    if (str === null) {
         return "Select a location..."
     }
     return str.replace(

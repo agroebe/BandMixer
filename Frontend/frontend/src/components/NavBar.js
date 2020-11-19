@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link, withRouter, BrowserRouter } from 'react-router-dom'
-import { Navbar, Button, Dropdown, DropdownButton, FormControl } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom'
+import { Navbar, Button, Dropdown, DropdownButton } from 'react-bootstrap';
 import { Plus, Search, Chat as ChatIcon } from 'react-bootstrap-icons';
 import SignInModal from './modals/SignInModal'
 import RegisterModal from './modals/RegisterModal'
