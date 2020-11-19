@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card, Form, CardDeck } from 'react-bootstrap'
+import { Button, Card, Form } from 'react-bootstrap'
 import { send, startWebsocketConnection, registerOnMessageCallback } from '../websockets'
 
 export default class Chat extends React.Component {
