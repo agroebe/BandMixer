@@ -47,4 +47,12 @@ public class View {
 	 *
 	 */
 	public interface StateView{}
+	
+	/**
+	 * An interface for use with JsonView. Fields allowed to be visible when returning query results.
+	 * are given this view. Controller methods that return query results are marked with this view.
+	 * @author Tim Schommer
+	 *
+	 */
+	public interface QueryView{}
 }
