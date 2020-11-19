@@ -23,7 +23,6 @@ public class FileDB {
 
     private String type;
 
-
     /**
      * This is a Lob(lump of bytes) that contains all the data of the file.
      */
