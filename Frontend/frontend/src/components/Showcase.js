@@ -81,7 +81,7 @@ export default class Showcase extends React.Component {
                             <Link to={{
                                 pathname: '/results',
                                 state: {
-                                    location: this.state.location,
+                                    locationSelection: this.state.location,
                                     instrument: this.state.instrument
                                 }
                             }}><Button>Search</Button></Link>

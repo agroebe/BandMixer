@@ -20,3 +20,12 @@ it('properly renders subcomponents', () => {
     const homeInstance = home.root
     expect(homeInstance.findAllByType(Container)).not.toEqual(null) // Card is a sub-component of explore
 })
+
+it('properly renders sub-sub-components', () => {
+    const home = renderer.create(
+        <Results/>
+    )
+
+    const homeInstance = home.root
+    expect(homeInstance.findAllByType(Container)).not.toEqual(null) // Card is a sub-component of explore
+})

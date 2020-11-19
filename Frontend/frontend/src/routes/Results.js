@@ -14,6 +14,7 @@ export default class About extends React.Component {
             locationOptions: [
                 'California', 'Florida', 'Georgia', 'Illinois', 'Iowa', 'Michigan', 'Minnesota', 'New-Jersey', 'New-York', 'Pennsylvania', 'Texas', 'Washington'
             ],
+            instrumentOptions: [ 'None', 'Guitar', 'Bass', 'Drums', 'Piano', 'Keyboard'],
             location: ''
         }
 
@@ -40,19 +41,27 @@ export default class About extends React.Component {
     componentWillMount() {
         fetch("http://coms-309-cy-01.cs.iastate.edu:8080/search/post/", {
             body: JSON.stringify({
-                "@type": "post",
-                "child": {
+                "@type" : "post",
+                "child" : {
                     "@type": "and",
                     "children": [
                         {
-                            "@type": "application",
-                            "tag": "expert",
-                            "operation": "equal",
+                            "@type":"owner",
+                            "child":
+                                {
+                                    "@type":"has",
+                                    "child":
+                                    {
+                                            "@type":"location",
+                                            "location": this.props.location.state.locationSelection,
+                                            "comparison": "equal"
+                                    }
+                                }
                         },
                         {
-                            "@type": "application",
-                            "tag": "guitar",
-                            "operation": "equal",
+                            "@type":"application",
+                            "tag": this.state.instrumentOptions[this.props.location.state.instrument].toLowerCase(),
+                            "operation":"equal"
                         }
                     ]
                 }
@@ -101,7 +110,7 @@ export default class About extends React.Component {
 
         if (this.state.selectedInstruments.length + this.state.selectedSkillLevels.length + this.state.selectedGenres.length === 1) {
             if (this.state.selectedInstruments.length === 1) {
-                if (this.state.location !== 0) {
+                if (this.state.location && this.state.location !== '0') {
                     fetch("http://coms-309-cy-01.cs.iastate.edu:8080/search/post/", {
                         body: JSON.stringify({
                             "@type" : "post",
@@ -140,6 +149,7 @@ export default class About extends React.Component {
                         this.setState({ results: posts })
                     })
                 } else {
+                    console.log('THIS 1')
                     fetch("http://coms-309-cy-01.cs.iastate.edu:8080/search/post/", {
                         body: JSON.stringify({
                             "@type": "post",
@@ -161,7 +171,7 @@ export default class About extends React.Component {
                     })
                 }
             } else if (this.state.selectedSkillLevels.length === 1) {
-                if (this.state.location !== 0) {
+                if (this.state.location && this.state.location !== '0') {
                     fetch("http://coms-309-cy-01.cs.iastate.edu:8080/search/post/", {
                         body: JSON.stringify({
                             "@type" : "post",
@@ -221,7 +231,7 @@ export default class About extends React.Component {
                     })
                 }
             } else {
-                if (this.state.location !== 0) {
+                if (this.state.location !== 0 && this.state.location !== '0') {
                     fetch("http://coms-309-cy-01.cs.iastate.edu:8080/search/post/", {
                         body: JSON.stringify({
                             "@type" : "post",
