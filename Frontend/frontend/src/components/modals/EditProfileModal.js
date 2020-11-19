@@ -95,7 +95,7 @@ export default class EditProfileModal extends Component {
                     transition: Zoom
                 });
                 this.savePic(r.data.contentPath)
-                this.close()
+                //this.close()
             }
         }).catch (function(response) {
             toast.error('Error submitting profile picture due to one or more violations; please try again.', {
@@ -112,6 +112,9 @@ export default class EditProfileModal extends Component {
     }
 
     save() {
+        if (this.state.profilePicture) {
+            this.submit()
+        }
         
         const profile = {
             userId: this.props.userId,
@@ -137,12 +140,9 @@ export default class EditProfileModal extends Component {
                 console.log(response)
             }
         )
-        if (this.state.profilePicture) {
-            this.submit()
-        }
-        else {
-            this.close()
-        }
+        
+        this.close()
+        
     }
 
     render() {
