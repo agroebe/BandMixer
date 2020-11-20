@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Modal, Button, Form, Image } from 'react-bootstrap';
 import { toast, Zoom } from 'react-toastify';
 import './Modal.css'
 
@@ -9,14 +9,11 @@ export default class EditProfileModal extends Component {
         super(props);
         this.state = {
             location : '',
-            profilePicture: null,
+            profilePicture: '',
             title: '',
             username: '',
-            pfSaved: '',
-            tags: [],
             phoneNumber: '',
             show: false,
-            text: '',
             locationOptions: [
                 'California', 'Florida', 'Georgia', 'Illinois', 'Iowa', 'Michigan', 'Minnesota', 'New-Jersey', 'New-York', 'Pennsylvania', 'Texas', 'Washington'
             ]
@@ -24,19 +21,18 @@ export default class EditProfileModal extends Component {
 
         this.close = this.close.bind(this);
         this.save = this.save.bind(this);
-        //this.uploadFile = this.uploadFile.bind(this);
-        this.submit = this.submit.bind(this);
-        this.savePic = this.savePic.bind(this);
+        this.uploadFile = this.uploadFile.bind(this);
     }
 
     open() {
         axios.get('http://coms-309-cy-01.cs.iastate.edu:8080/profiles/' + this.props.userId).then(r => {
             console.log(r.data)
-            this.setState({ location: r.data.location, username: r.data.username, phoneNumber: r.data.phoneNumber, show: true })
+            this.setState({ location: r.data.location, username: r.data.username, profilePicture: r.data.profilePicture, phoneNumber: r.data.phoneNumber, show: true })
         })
+
     }
 
-   /* uploadFile(file) {
+    uploadFile(file) {
         console.log(file)
         const formData = new FormData()
         formData.append('file', file)
@@ -46,76 +42,13 @@ export default class EditProfileModal extends Component {
             this.forceUpdate()
             console.log(r.data.id)
         })
-    }*/
+    }
 
     close() {
         this.setState({ show: false })
     }
 
-    savePic(path) {
-        this.setState({ profilePicture: path })
-    }
-
-    submit() {
-        
-        const tagApplications = []
-        this.state.tags.forEach(tagName => {
-            tagApplications.push({ tag: tagName })
-        })
-
-        
-        const newPost = {
-            ownerId: this.props.userId,
-            title: 'New profile picture',
-            contentType: 'profilePicture',
-            textContent: this.state.text,
-            isSearch: false,
-            applications:  tagApplications
-        }
-        console.log(this.props.userId.value)
-        console.log(this.state.text.value)
-        console.log(this.state.profilePicture.value)
-        console.log("testing")
-        const formData = new FormData()
-        formData.append('post', JSON.stringify(newPost))
-        if (this.state.profilePicture) { // If new profile picture exists, include it in API request.
-            formData.append('file', this.state.profilePicture)
-        }
-
-        axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users/addPost', formData).then(r => {
-            if (r.data.message.includes('saved')) {
-                toast.success('Successfuly posted profile picture!', {
-                    position: "top-center",
-                    autoClose: 2500,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    transition: Zoom
-                });
-                this.savePic(r.data.contentPath)
-                //this.close()
-            }
-        }).catch (function(response) {
-            toast.error('Error submitting profile picture due to one or more violations; please try again.', {
-                position: "top-center",
-                autoClose: 2500,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                transition: Zoom
-            });
-        })
-    }
-
     save() {
-        if (this.state.profilePicture) {
-            this.submit()
-        }
-        
         const profile = {
             userId: this.props.userId,
             username: this.state.username,
@@ -140,9 +73,6 @@ export default class EditProfileModal extends Component {
                 console.log(response)
             }
         )
-        
-        this.close()
-        
     }
 
     render() {
@@ -161,11 +91,9 @@ export default class EditProfileModal extends Component {
                             </Form.Group>
 
                             <Form.Group>
-                                <Form.Label>Profile Picture (.png format files only)</Form.Label>
-                                
-                                <Form.File  onChange={ e => this.setState({ profilePicture: e.target.files[0], pfSaved: 't' }) }>
-                                
-                                </Form.File>
+                                <Form.Label>Profile Picture</Form.Label>
+                                <Image src={'http://coms-309-cy-01.cs.iastate.edu:8080/files/' + this.state.profilePicture}></Image>
+                                <Form.File onChange={ e => { this.uploadFile(e.target.files[0])} }></Form.File>
                             </Form.Group>
 
                             <Form.Group>

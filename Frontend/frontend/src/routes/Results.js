@@ -299,7 +299,7 @@ export default class About extends React.Component {
             children.push({ 
                 "@type": "application",
                 "tag": instrument.toLowerCase(),
-                "operation": "eqaual"
+                "operation": "equal"
              })
         })
 
@@ -307,7 +307,7 @@ export default class About extends React.Component {
             children.push({ 
                 "@type": "application",
                 "tag": skillLevel.toLowerCase(),
-                "operation": "eqaual"
+                "operation": "equal"
              })
         })
 
@@ -315,7 +315,7 @@ export default class About extends React.Component {
             children.push({ 
                 "@type": "application",
                 "tag": genre.toLowerCase(),
-                "operation": "eqaual"
+                "operation": "equal"
              })
         })
 
