@@ -1,6 +1,7 @@
 package com.application.people;
 
 import com.application.View;
+import com.application.posts.Post;
 import com.application.tagging.TagController;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +96,15 @@ public class ProfileController {
         }else{
             return "invalid userId";
         }
+    }
+
+    @PostMapping(path="/remove/{profileId}")
+    @CrossOrigin
+    public @ResponseBody String removeProfileForUser(@PathVariable Long profileId){
+        Optional<Profile> toDelete = profileRepository.findById(profileId);
+        Profile p = toDelete.get();
+        profileRepository.delete(p);
+        return "hi";
     }
 
 
