@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Modal, Button, ButtonGroup, Container, Row, Col, Form, InputGroup, FormControl } from 'react-bootstrap';
+import { Modal, Button, Form, Image } from 'react-bootstrap';
 import { toast, Zoom } from 'react-toastify';
 import './Modal.css'
 
@@ -8,102 +8,71 @@ export default class EditProfileModal extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            location : '',
+            profilePicture: '',
+            title: '',
             username: '',
-            userID: '',
-            password: '',
-            contactEmail: '',
-            number: '',
-            location: '',
-            bio: '',
-            guitar: true,
-            bass: false,
-            piano: false,
-            singer: false,
-            skillG: '4',
-            
-
-            show: false
+            phoneNumber: '',
+            show: false,
+            locationOptions: [
+                'California', 'Florida', 'Georgia', 'Illinois', 'Iowa', 'Michigan', 'Minnesota', 'New-Jersey', 'New-York', 'Pennsylvania', 'Texas', 'Washington'
+            ]
         };
 
         this.close = this.close.bind(this);
-        this.signIn = this.signIn.bind(this);
+        this.save = this.save.bind(this);
+        this.uploadFile = this.uploadFile.bind(this);
     }
 
     open() {
-      /*  axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users/userID?userID=' + this.state.userID + '&password=' + this.state.password).then(r => {
-            if (r.data.includes('successful')) {
+        axios.get('http://coms-309-cy-01.cs.iastate.edu:8080/profiles/' + this.props.userId).then(r => {
+            console.log(r.data)
+            this.setState({ location: r.data.location, username: r.data.username, profilePicture: r.data.profilePicture, phoneNumber: r.data.phoneNumber, show: true })
+        })
 
-
-               //set var function call                        
-                this.fill();
-
-                this.setState({ show: true })
-            } else {
-                this.close();
-            }
-        })*/
-        this.fill();
-
-        this.setState({ show: true })
     }
 
-   fill(){
-        axios.get('http://coms-309-cy-01.cs.iastate.edu:8080/profiles/14').then(r => {
+    uploadFile(file) {
+        console.log(file)
+        const formData = new FormData()
+        formData.append('file', file)
 
-            this.setState({ username: r.data.username, userID: r.data.userID, location: r.data.location, phone: r.data.phoneNumber })
-           
+        axios.post("http://coms-309-cy-01.cs.iastate.edu:8080/files", formData).then(r => {
+            this.setState({ profilePicture: r.data.id })
+            this.forceUpdate()
+            console.log(r.data.id)
         })
-        
     }
 
     close() {
         this.setState({ show: false })
     }
 
-    signIn() {
-        this.close();
-    }
+    save() {
+        const profile = {
+            userId: this.props.userId,
+            username: this.state.username,
+            location: this.state.location,
+            phoneNumber: this.state.phoneNumber,
+            profilePicture: this.state.profilePicture,
+            title: 'unset',
+            textContent: 'unset',
+            contentPath: 'unset',
+            contentType: 'Profile',
+            isSearch: 1
+        }
 
-    save(){
-        axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/profiles/' + this.state.userID + '&=username' + this.state.username + '&location=' + this.state.location, '&phone=' + this.state.phone).then(r => {
-            if (r.data.includes('Saved')) {
-
-                toast.success(this.state.username + ' your profile was updated!', {
-                    position: "top-center",
-                    autoClose: 2500,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    transition: Zoom
-                });
+        fetch("http://coms-309-cy-01.cs.iastate.edu:8080/profiles/" + this.props.userId + "/update/", {
+                body: JSON.stringify(profile),
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "accept": "*/*"
+                },
+            }).then(response => {
+                console.log(response)
             }
-        })
-    }
-
-    guitarVisible() {
-        this.setState({
-            guitar: !this.state.guitar
-        })
-    }
-
-    bassVisible() {
-        this.setState({
-            bass: !this.state.bass
-        })
-    }
-
-    singerVisible() {
-        this.setState({
-            singer: !this.state.singer
-        })
-    }
-
-    pianoVisible() {
-        this.setState({
-            piano: !this.state.piano
-        })
+        )
     }
 
     render() {
@@ -115,157 +84,37 @@ export default class EditProfileModal extends Component {
                     </Modal.Header>
 
                     <Modal.Body>
-                    <Container>
-                      <Row>
-                        <Col> 
-                            <Form>
-                                <Form.Group controlId="formBasicEmail">
-                                    <Form.Label>{this.state.username}</Form.Label>
-                                    <Form.Control type="username" placeholder={this.state.username} />
-                                    
-                                </Form.Group>
+                        <Form>
+                            <Form.Group>
+                                <Form.Label>Username</Form.Label>
+                                <Form.Control disabled placeholder={this.state.username}/>
+                            </Form.Group>
 
-                                <Form.Group controlId="formBasicBio">
-                                    <Form.Label>{this.state.bio}</Form.Label>
-                                    <Form.Control type="bio" placeholder={this.state.bio} />
-                                </Form.Group>
-                            
+                            <Form.Group>
+                                <Form.Label>Profile Picture</Form.Label>
+                                <Image src={'http://coms-309-cy-01.cs.iastate.edu:8080/files/' + this.state.profilePicture}></Image>
+                                <Form.File onChange={ e => { this.uploadFile(e.target.files[0])} }></Form.File>
+                            </Form.Group>
 
-                               
-                                </Form>
-                              </Col>
-                        <Col xs={6} md={4}>
-                          <Button variant="primary">Change Picture</Button>
-                        </Col>
-                      
-                      </Row>
-                      <Row>
-                        <Col>
-                        <ButtonGroup className="mr-2" aria-label="Instruments">
-                          <Button variant="secondary" onClick={()=>this.guitarVisible()}>Guitar</Button>{' '}
-                          <Button variant="secondary" onClick={()=>this.pianoVisible()}>Piano</Button>{' '}
-                          <Button variant="secondary" onClick={()=>this.bassVisible()}>Bass</Button>{' '}
-                          <Button variant="secondary" onClick={()=>this.singerVisible()}>Singer</Button>
-                        </ButtonGroup>
-                        </Col>
-                        <Col>
-                            
-                        </Col>
-                        <Col>
-                            <h3>Edit Contact Info</h3>
-                            <InputGroup className="mb-3">
-                                <InputGroup.Prepend>
-                                <InputGroup.Text id="basic-addon1">Email</InputGroup.Text>
-                                </InputGroup.Prepend>
-                                <FormControl
-                                placeholder={this.state.email}
-                                aria-label={this.state.email}
-                                aria-describedby="basic-addon1"
-                                />
-                            </InputGroup>
-                            <InputGroup className="mb-4">
-                                <InputGroup.Prepend>
-                                <InputGroup.Text id="basic-addon1">Phone #</InputGroup.Text>
-                                </InputGroup.Prepend>
-                                <FormControl
-                                placeholder={this.state.phone}
-                                aria-label={this.state.phone}
-                                aria-describedby="basic-addon1"
-                                />
-                            </InputGroup>
-                            <InputGroup className="mb-5">
-                                <InputGroup.Prepend>
-                                <InputGroup.Text id="basic-addon1">Location</InputGroup.Text>
-                                </InputGroup.Prepend>
-                                <FormControl
-                                placeholder={this.state.location}
-                                aria-label={this.state.location}
-                                aria-describedby="basic-addon1"
-                                />
-                            </InputGroup>
-                        </Col>
-                      </Row>
-                      <Row>
+                            <Form.Group>
+                                <Form.Label>Phone Number</Form.Label>
+                                <Form.Control placeholder={ this.state.phoneNumber } onChange={ e => this.setState({ phoneNumber: e.target.value }) }/>
+                            </Form.Group>
 
-                            
-                                {
-                                    this.state.guitar?
-                                    <div>
-                                        Guitar:
-                                        <InputGroup className="mb-5">
-                                            <InputGroup.Prepend>
-                                            <InputGroup.Text id="basic-addon1"> Skill Level</InputGroup.Text>
-                                            </InputGroup.Prepend>
-                                            <FormControl
-                                            placeholder={this.state.skillG}
-                                            aria-label={this.state.skillG}
-                                            aria-describedby="basic-addon1"
-                                            />
-                                        </InputGroup>
-                                    </div>
-                                    :null
-                                }
-                                {
-                                    this.state.bass?
-                                    <div>
-                                        Bass:
-                                        <InputGroup className="mb-5">
-                                            <InputGroup.Prepend>
-                                            <InputGroup.Text id="basic-addon1"> Skill Level</InputGroup.Text>
-                                            </InputGroup.Prepend>
-                                            <FormControl
-                                            placeholder={this.state.skillB}
-                                            aria-label={this.state.skillB}
-                                            aria-describedby="basic-addon1"
-                                            />
-                                        </InputGroup>
-                                    </div>
-                                    :null
-                                }
-                                {
-                                    this.state.singer?
-                                    <div>
-                                        Singer:
-                                        <InputGroup className="mb-5">
-                                            <InputGroup.Prepend>
-                                            <InputGroup.Text id="basic-addon1"> Skill Level</InputGroup.Text>
-                                            </InputGroup.Prepend>
-                                            <FormControl
-                                            placeholder={this.state.skillS}
-                                            aria-label={this.state.skillS}
-                                            aria-describedby="basic-addon1"
-                                            />
-                                        </InputGroup>
-                                    </div>
-                                    :null
-                                }
-                                {
-                                    this.state.piano?
-                                    <div>
-                                        Piano:
-                                        <InputGroup className="mb-5">
-                                            <InputGroup.Prepend>
-                                            <InputGroup.Text id="basic-addon1"> Skill Level</InputGroup.Text>
-                                            </InputGroup.Prepend>
-                                            <FormControl
-                                            placeholder={this.state.skillP}
-                                            aria-label={this.state.skillP}
-                                            aria-describedby="basic-addon1"
-                                            />
-                                        </InputGroup>
-                                    </div>
-                                    :null
-                                }
-                            
-
-                      </Row>
-                      
-            
-                      </Container>
+                            <Form.Group>
+                                <Form.Label>Location</Form.Label>
+                                <Form.Control as="select" className="mr-2" onChange={ e => this.setState({ location: e.target.value }) } >
+                                    <option value={0}>Select a location...</option>
+                                    { this.state.locationOptions.map((value, index) => {
+                                        return <option value={ index + 1} key={ index }>{ value }</option>
+                                    }) }
+                                </Form.Control>
+                            </Form.Group>
+                        </Form>
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <Button variant="success" onClick={this.save}>Save Changes</Button>
+                        <Button variant="success" onClick={ this.save }>Save Changes</Button>
                         <Button variant="danger" onClick={ this.close }>Cancel</Button>
                     </Modal.Footer>
                 </Modal>

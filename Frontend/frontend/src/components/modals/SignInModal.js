@@ -31,7 +31,7 @@ export default class SignInModal extends Component {
 
     signIn() {
         axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users/login?loginID=' + this.state.loginId + '&password=' + this.state.password + '&stayLoggedIn=false').then(r => {
-            if (r.data.includes('successful')) {
+            if (r.data.status.includes('success')) {
                 toast.success('Welcome back to BandMixer, ' + this.state.loginId + '!', {
                     position: "top-center",
                     autoClose: 2500,
@@ -45,13 +45,15 @@ export default class SignInModal extends Component {
     
                 this.props.setLoggedIn(true)
                 this.props.setUserId(this.state.loginId)
+                this.props.setActualUserId(r.data.userId)
 
                 cookie.save('stayLoggedIn', true, { path: '/'})
                 cookie.save('userId', this.state.loginId, { path: '/'})
+                cookie.save('actualUserId', r.data.userId, { path: '/'})
     
                 this.close();
             } else {
-                this.setState({ response: r.data, responseExists: true })
+                this.setState({ response: r.data.reason, responseExists: true })
             }
         })
     }

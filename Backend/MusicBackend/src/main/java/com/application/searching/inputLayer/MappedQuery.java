@@ -15,4 +15,5 @@ public abstract class MappedQuery<T>
 {
 	protected MappedQueryPart<T> child;
 	public abstract Query<T> firstmap(QueryService service);
+	
 }

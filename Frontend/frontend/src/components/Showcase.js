@@ -1,38 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom';
-import { Jumbotron, Form, Button, Modal, FormControl, Dropdown } from 'react-bootstrap';
+import { Jumbotron, Form, Button, Modal } from 'react-bootstrap';
 import './Showcase.css'
-import { MusicNote} from 'react-bootstrap-icons'
-
-const CustomMenu = React.forwardRef(
-    ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
-      const [value, setValue] = useState('');
-  
-      return (
-        <div
-          ref={ref}
-          style={style}
-          className={className}
-          aria-labelledby={labeledBy}
-        >
-          <FormControl
-            autoFocus
-            className="mx-3 my-2 w-auto"
-            placeholder="Type to filter..."
-            onChange={(e) => setValue(e.target.value)}
-            value={value}
-          />
-          <ul className="list-unstyled">
-            {React.Children.toArray(children).filter(
-              (child) =>
-                !value || child.props.children.toLowerCase().startsWith(value),
-            )}
-          </ul>
-        </div>
-      );
-    },
-  );
+import { MusicNote } from 'react-bootstrap-icons'
 
 export default class Showcase extends React.Component {
     state = {
@@ -110,7 +81,7 @@ export default class Showcase extends React.Component {
                             <Link to={{
                                 pathname: '/results',
                                 state: {
-                                    location: this.state.location,
+                                    locationSelection: this.state.location,
                                     instrument: this.state.instrument
                                 }
                             }}><Button>Search</Button></Link>
@@ -118,7 +89,7 @@ export default class Showcase extends React.Component {
                             <Button onClick={ () => alert('Please double check your search terms, ensuring both and instrument and location are selected.')}>Search</Button>
                         )}
                     </Form>
-                    <h5 className="d-inline">Confused? Try out <a onClick={ () => this.setState({ showBeginnerTutorial: true }) } href="#">our beginner tutorial</a>!</h5>
+                    <h5 className="d-inline">Confused? Try out <p onClick={ () => this.setState({ showBeginnerTutorial: true }) } className="link d-inline">our beginner tutorial</p>!</h5>
                 </Jumbotron>
             </>
         )

@@ -14,16 +14,16 @@ import javax.persistence.*;
 @Table(name="PROFILES")
 public class Profile extends Post {
 
-    @JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
+    @JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class,View.QueryView.class})
     @Column(name="username")
     private String username;
-    @JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
+    @JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class,View.QueryView.class})
     @Column(name="location")
     private String location;
-    @JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
+    @JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class,View.QueryView.class})
     @Column(name="phoneNumber")
     private String phoneNumber;
-    @JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class})
+    @JsonView({View.TagView.class, View.SkillLevelView.class, View.PostView.class, View.UserView.class,View.QueryView.class})
     @Column(name="profilePicture")
     private String profilePicture;
 

@@ -41,7 +41,7 @@ export default class RegisterModal extends React.Component {
         this.setState({ responseExists: false })
 
         axios.post('http://coms-309-cy-01.cs.iastate.edu:8080/users?name=' + this.state.username + '&email=' + this.state.email + '&password=' + this.state.password).then(r => {
-            if (r.data.includes('Saved')) {
+            if (r.data.status.includes('success')) {
                 toast.success('Welcome to BandMixer, ' + this.state.username + '!', {
                     position: "top-center",
                     autoClose: 2500,
@@ -53,15 +53,39 @@ export default class RegisterModal extends React.Component {
                     transition: Zoom
                 });
 
+                const profile = {
+                    username: this.state.username,
+                    location: 'unset',
+                    phoneNumber: 'unset',
+                    profilePicture: 'unset',
+                    title: 'unset',
+                    textContent: 'unset',
+                    contentPath: 'unset',
+                    contentType: 'Profile'
+                }
+
+                fetch('http://coms-309-cy-01.cs.iastate.edu:8080/profiles/'.concat(r.data.userId), {
+                        body: JSON.stringify(profile),
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }).then(response => {
+                        console.log(response)
+                    }
+                )
+
                 this.props.setLoggedIn(true)
                 this.props.setUserId(this.state.username)
+                this.props.setActualUserId(r.data.userId)
 
                 cookie.save('stayLoggedIn', true, { path: '/'})
-                cookie.save('userId', this.state.loginId, { path: '/'})
+                cookie.save('userId', this.state.username, { path: '/'})
+                cookie.save('actualUserId', r.data.userId, { path: '/'})
 
                 this.close();
             } else {
-                this.setState({ response: r.data, responseExists: true })
+                this.setState({ response: r.data.reason, responseExists: true })
             }
         })
     }

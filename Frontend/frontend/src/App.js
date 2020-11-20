@@ -1,5 +1,6 @@
 import React from 'react';
 import NavBar from './components/NavBar'
+import Chat from './routes/Chat'
 import Home from './routes/Home'
 import Results from './routes/Results'
 import Explore from './routes/Explore'
@@ -22,6 +23,7 @@ export default function App() {
           <Route path='/explore' exact component={ Explore }/>
           <Route path='/users' exact component={ Users }/>
           <Route path='/admin' exact component={ AdminPanel }/>
+          <Route path='/chat/:userId' exact component={ Chat }/>
           <Route path='/post/:postId' exact component={ Post }/>
           <Route path='/user/:userId' exact component={ User }/>
 
@@ -32,10 +34,4 @@ export default function App() {
       <Footer/>
     </div>
   );
-}
-
-function withProps(Component, props) {
-  return function(matchProps) {
-    return <Component {...props} {...matchProps} />
-  }
 }

@@ -5,12 +5,24 @@ import '../Global.css'
 
 export default class User extends React.Component {
     state = {
-        user: null
+        user: null,
+        profile: null,
+        locations: [
+            'N/A', 'California', 'Florida', 'Georgia', 'Illinois', 'Iowa', 'Michigan', 'Minnesota', 'New-Jersey', 'New-York', 'Pennsylvania', 'Texas', 'Washington'
+        ]
     }
 
     componentDidMount() {// this.props.match.params.postId
-        axios.get('http://coms-309-cy-01.cs.iastate.edu:8080/users/' + this.props.match.params.userId).then(r => {
-            this.setState({ user: r.data })
+        const userRequest = axios.get('http://coms-309-cy-01.cs.iastate.edu:8080/users/' + this.props.match.params.userId)
+
+        const profileRequest = axios.get('http://coms-309-cy-01.cs.iastate.edu:8080/profiles/' + this.props.match.params.userId)
+
+        axios.all([ userRequest, profileRequest ]).then(axios.spread((...responses) => {
+            this.setState({ user: responses[0].data, profile: responses[1].data })
+            console.log(responses[0].data)
+            console.log(responses[1].data)
+        })).catch(errors => {
+
         })
     }
 
@@ -23,10 +35,14 @@ export default class User extends React.Component {
                                 <Row>
                                     <Col xs={3}>
                                         <Card className="text-center">
-                                            <Card.Img style={{ width: "100%", height: 'auto', display: "inline-block" }} variant="top" src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"></Card.Img>                                        
+                                            { this.state.profile.profilePicture !== "unset" ? ( 
+                                                <Card.Img style={{ width: "100%", height: 'auto', display: "inline-block" }} variant="top" src={ 'http://coms-309-cy-01.cs.iastate.edu:8080/files/' + this.state.profile.profilePicture }></Card.Img>                                        
+                                            ) : (
+                                                <></>
+                                            )}
                                             <Card.Body>
-                                                <Card.Title>{ toTitleCase(this.state.user.username) }</Card.Title>
-                                                <Card.Text>User-ID: { this.state.user.id }</Card.Text>
+                                                <Card.Title>{ toTitleCase(this.state.profile.username) }</Card.Title>
+                                                <Card.Text>User-ID: { this.props.match.params.userId }</Card.Text>
                                             </Card.Body>
                                         </Card>
                                     </Col>
@@ -39,7 +55,7 @@ export default class User extends React.Component {
                                                         <tbody>
                                                             <tr>
                                                                 <td>Username</td>
-                                                                <td>{ toTitleCase(this.state.user.username) }</td>
+                                                                <td>{ toTitleCase(this.state.profile.username) }</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>User-ID</td>
@@ -48,6 +64,10 @@ export default class User extends React.Component {
                                                             <tr>
                                                                 <td>Email</td>
                                                                 <td>{ this.state.user.email }</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Location</td>
+                                                                <td>{ this.state.locations[this.state.profile.location] }</td>
                                                             </tr>
                                                         </tbody>
                                                     </Table>
