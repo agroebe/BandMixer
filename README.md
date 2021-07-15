@@ -4,7 +4,7 @@ BandMixer is a platform used to connect musicians, offering a solution they can 
 
 The contributors of this group project include:
 * Myself
-* Aidan Webster (github.com/aweb0505)
+* Aidan Webster (https://www.github.com/aweb0505)
 * Timothy Schommer
 * Andrew Sandor
 
