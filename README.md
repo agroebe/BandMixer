@@ -5,7 +5,7 @@ BandMixer is a platform used to connect musicians, offering a solution they can 
 The contributors of this group project include:
 * Myself
 * Aidan Webster (https://www.github.com/aweb0505)
-* Timothy Schommer
+* Timothy Schommer (https://www.github.com/schommer475)
 * Andrew Sandor
 
 To build out this app, we used React, Bootstrap, Spring Boot, and MySQL.
